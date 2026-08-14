@@ -1,0 +1,101 @@
+.trading-point-list {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+.trading-point-list__wrapper {
+  padding: 30px;
+  box-shadow: 0 4px 44px -9px rgba(0, 0, 0, 0.03);
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__wrapper {
+    padding: 20px;
+  }
+}
+.trading-point-list__section-title {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  color: #051320;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__section-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}
+.trading-point-list__list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__list {
+    gap: 16px;
+  }
+}
+.trading-point-list__item {
+  position: relative;
+  padding-left: 22px;
+}
+.trading-point-list__item::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+  background-color: #25bb4d;
+}
+.trading-point-list__title h3 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: #051320;
+  margin-bottom: 8px;
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__title h3 {
+    font-size: 16px;
+  }
+}
+.trading-point-list__text {
+  font-size: 14px;
+  line-height: 140%;
+  color: #051320;
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__text {
+    font-size: 14px;
+    color: rgba(5, 19, 32, 0.8);
+  }
+}
+.trading-point-list__text li {
+  padding-left: 24px;
+  position: relative;
+}
+.trading-point-list__text li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: rgba(5, 19, 32, 0.8);
+}
+@media screen and (max-width: 768px) {
+  .trading-point-list__text li {
+    padding-left: 22px;
+  }
+}/*# sourceMappingURL=style.min.css.map */

@@ -1,0 +1,31 @@
+.cky-title {
+  display: none;
+}
+
+.cky-notice-des p {
+  color: rgba(5, 19, 32, 0.8) !important;
+}
+.cky-notice-des span {
+  font-weight: 500 !important;
+}
+.cky-notice-des a {
+  color: #25bb4d !important;
+  text-decoration-color: #25bb4d !important;
+}
+.cky-notice-des a:hover {
+  text-decoration: underline;
+}
+
+.cky-btn {
+  padding: 8px 24px !important;
+  border: 2px solid #25bb4d !important;
+  border-radius: 10px !important;
+  line-height: 100% !important;
+  color: #25bb4d !important;
+  transition: all 0.15s !important;
+}
+
+.cky-btn-accept {
+  background-color: #25bb4d !important;
+  color: #fff !important;
+}/*# sourceMappingURL=cookie.css.map */

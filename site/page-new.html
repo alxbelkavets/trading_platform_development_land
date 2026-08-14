@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trading Platform Development | Itexus (rebuild)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Trading platform development for fintechs and investment managers: order management, execution, FIX gateways, and risk controls. 300+ projects, shipping since 2013.">
+
+<!-- Design tokens (fonts + custom properties), extracted from the live page -->
+<link rel="stylesheet" href="tokens.css">
+
+<!-- Real theme CSS. Order matches the live page's own <link> order (verified in
+     page-source.html): trading-style.css must precede trading-main-block.css, since
+     both declare .itx-main-block-new__button and the live site's mobile layout
+     depends on that order (checked directly against production, see hero-new.html).
+     The remaining block stylesheets use disjoint class prefixes (itx-big-grid,
+     three-col, trading-cta-block, trading-point-list, itx-faq-new,
+     itx-testimonials-new, itx-contact-form-new) so their relative order doesn't
+     collide with anything; appended in the live page's own order regardless. -->
+<link rel="stylesheet" href="css/itexus_theme_css-new_header.css">
+<link rel="stylesheet" href="css/itexus_theme_css-new_trading-style.css">
+<link rel="stylesheet" href="css/blocks_trading-main-block_style.min.css">
+<link rel="stylesheet" href="css/blocks_big-grid_style.min.css">
+<link rel="stylesheet" href="css/blocks_text-point-picture-alternate-border_style.min.css">
+<link rel="stylesheet" href="css/blocks_trading-cta-block_style.min.css">
+<link rel="stylesheet" href="css/blocks_three-columns-of-cards_style.min.css">
+<link rel="stylesheet" href="css/blocks_faq-new_style.min.css">
+<link rel="stylesheet" href="css/blocks_testimonials-new_style.min.css">
+<link rel="stylesheet" href="css/blocks_contact-form-new_style.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does trading platform development cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Cost depends on the engagement model. Efficient Hours (Agile with Budget Control) bills only efficient hours against an agreed estimate. Fixed Price sets the full cost upfront once requirements are documented. Outstaffing bills a pre-agreed monthly rate per engineer. See the Engagement Models section for details." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to build a trading platform?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Trading platform development usually takes about 3 months or more, depending on the features you want to implement. Get in touch to find out the estimated development time for a project like yours." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you create a trading platform and integrate it with a third-party service?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We integrate third-party APIs and services according to your business goals: brokers, payment gateways, KYC providers, news providers, market data providers, crypto exchanges, and other systems." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer support services?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, we offer post-production support on a regular basis or on demand." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you sign an NDA agreement?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. We're comfortable signing legal agreements when developing a trading platform. We can sign your NDA or send you ours." }
+    },
+    {
+      "@type": "Question",
+      "name": "Have you built a trading platform before?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, we have experience in trading software development, with a focus on stock market applications. See our trading platform case studies and fintech portfolio." }
+    },
+    {
+      "@type": "Question",
+      "name": "I have an idea for a trading platform. Where should I start?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on whether you already have a clear product vision and detailed requirements. If not, we recommend starting with a discovery phase. Contact us to discuss your idea." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I hire trading platform developers?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Define your project scope and tech stack, then look for a team with experience in financial software, security protocols, and relevant technologies. Assess candidates through technical interviews, and prioritize a proven track record in secure, scalable trading platforms." }
+    }
+  ]
+}
+</script>
+
+<style>
+  /* ---------- page scaffold ---------- */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--paper, #f1f3f2);
+  }
+  a { color: inherit; }
+  /* Form controls don't inherit font-family from body by default in most browsers.
+     .checkbox-nda-policy__submit button never sets one explicitly in the theme CSS,
+     so it falls back to Arial — confirmed this is a pre-existing bug on the live
+     production site too, not something introduced here, but a one-line fix. */
+  button, input, textarea, select { font-family: inherit; }
+
+  /* ---------- header (carried from hero-new.html) ---------- */
+  .navbar-menu-inner ul { list-style: none; margin: 0; padding: 0; }
+  .navbar-menu-inner a, .navbar-menu-inner span { text-decoration: none; }
+  .burger-button { display: none; }
+
+  /* ---------- hero components (carried from hero-new.html) ---------- */
+  .itx-hero__eyebrow {
+    font-size: var(--text-body-size);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-white-80);
+    margin: 0 0 12px;
+  }
+  .itx-hero__assurance {
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    color: var(--color-white-80);
+    margin: 20px 0 0;
+  }
+  .itx-hero__proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    list-style: none;
+    margin: 28px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border-on-dark);
+    font-size: var(--text-body-size);
+    color: var(--color-white-80);
+  }
+  .itx-hero__proof li { white-space: nowrap; }
+  .itx-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0) 68%);
+  }
+  .itx-main-block-new > .general-container {
+    position: relative;
+    z-index: 1;
+  }
+  .itx-main-block-new__button:focus-visible,
+  .itx-main-block-new__arrow-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media screen and (max-width: 500px) {
+    .itx-hero__proof { flex-direction: column; gap: 8px; }
+  }
+
+  /* ---------- generic focus visibility for the rest of the page ---------- */
+  /* The theme defines :hover states throughout but very few :focus-visible rings.
+     One rule here instead of repeating it per component. */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid #25bb4d;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  /* .itx-faq-new__item has overflow:hidden (needed for the accordion's collapse
+     animation), which clips a positive-offset outline on its child trigger —
+     verified by screenshot: the ring was computing correctly but rendering
+     invisible, clipped at the card edge. A negative offset draws the ring inside
+     the box instead of outside, so it survives the clip. */
+  .itx-faq-new__question:focus-visible {
+    outline-offset: -3px;
+  }
+  .itx-main-block-new__button:focus-visible,
+  .itx-main-block-new__arrow-button:focus-visible,
+  .trading-cta-block__button:focus-visible {
+    outline-color: #fff;
+  }
+
+  /* ---------- section eyebrow, reused across the page for section headers ---------- */
+  .itx-section-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-green);
+    margin: 0 0 10px;
+  }
+
+  /* ---------- case studies section ---------- */
+  #case-studies { margin-top: 80px; }
+  /* --first-version's featured layout (row, image+content side by side) doesn't
+     move the icon out of the way — it's still absolutely positioned at the card's
+     top-left corner, which sits inside the content column here and, with no
+     clearance, lands directly on the title. Verified this specific collision
+     with "Automated Stock Trading Platform" as card 1 earlier; fixing it here
+     with top clearance rather than by avoiding the featured layout, since the
+     user wants Coinstar back in that full-width slot. */
+  .itx-big-grid__wrapper--first-version .itx-big-grid__item:nth-child(1) .itx-big-grid__title {
+    margin-top: 56px;
+  }
+  @media screen and (max-width: 768px) {
+    .itx-big-grid__wrapper--first-version .itx-big-grid__item:nth-child(1) .itx-big-grid__title {
+      margin-top: 0;
+    }
+  }
+  .cs-outcome-note {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border: 1px dashed var(--color-gray-300);
+    border-radius: var(--radius-2xl);
+    background: var(--color-gray-50);
+    font-size: 14px;
+    color: var(--color-ink-80, rgba(5,19,32,.8));
+  }
+  .cs-outcome-note strong { color: var(--color-ink); }
+
+  /* ---------- what we build (merged capability list) ---------- */
+  #what-we-build { margin-top: 80px; }
+
+  /* ---------- placeholder shell (compliance, team/stack) ---------- */
+  .itx-shell-section { margin-top: 80px; }
+  .itx-shell {
+    border: 1.5px dashed #b8763a;
+    background: repeating-linear-gradient(135deg, #fdf6ee, #fdf6ee 10px, #fbeeda 10px, #fbeeda 20px);
+    border-radius: var(--radius-2xl);
+  }
+  .itx-shell .three-col__item-content { padding: 24px; }
+  .itx-shell-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #b8763a;
+    background: #fff;
+    border: 1px solid #b8763a;
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
+  .itx-shell p { font-size: 14px; }
+  .itx-shell .itx-shell-why {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    font-style: italic;
+    color: #8a5a2a;
+  }
+
+  /* ---------- engagement models ---------- */
+  #engagement { margin-top: 80px; }
+  .three-col__item--recommended { border-color: #25bb4d !important; position: relative; }
+  .em-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #25bb4d;
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
+
+  /* ---------- testimonials carousel ---------- */
+  /* scroll-snap on top of the theme's native overflow-x:auto wrapper — a real
+     enhancement (not fabricated), makes button clicks and manual drag-scroll
+     both settle cleanly on a card boundary instead of stopping mid-card. */
+  .itx-slider-new-wrapper { scroll-snap-type: x mandatory; }
+  .itx-slide-new { scroll-snap-align: start; }
+  @media screen and (max-width: 900px) {
+    .testimonials-new__slide { width: calc(100vw - 64px) !important; }
+  }
+  /* The theme positions these buttons *inside* the track's horizontal bounds
+     (translateX(-50%)/(110%)), which overlaps the cards. Pull them out to sit
+     just clear of the container edges instead. */
+  .itx-slider-new-control { width: 100%; }
+  .itx-slider-new-control__btn_prev { transform: translateX(-24px); }
+  .itx-slider-new-control__btn_next { transform: translateX(24px); }
+  /* Hide whichever button can't do anything at the current scroll position,
+     rather than leaving a dead control on screen. Toggled by the JS below. */
+  .itx-slider-new-control__btn[hidden] { display: none; }
+
+  /* ---------- awards marquee (CSS-only, no slick.js) ----------
+     The live page auto-scrolls 12 badges via a slick carousel. Reproducing the
+     mechanism, not just the badge list: an infinite CSS marquee, track content
+     duplicated once, translated by exactly -50% so the loop is seamless. Fades
+     at both edges instead of a hard clip, pauses on hover, and disables for
+     prefers-reduced-motion — the theme CSS doesn't define any of this since
+     the original relies on slick.js, so it's built from scratch here rather
+     than adapted from an existing rule. Badges kept in their original color;
+     no grayscale/opacity treatment invented that the source page doesn't use. */
+  .itx-awards-marquee {
+    margin-top: 32px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .itx-awards-marquee__track {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    width: max-content;
+    animation: itx-marquee 32s linear infinite;
+  }
+  .itx-awards-marquee__track img {
+    height: 40px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .itx-awards-marquee:hover .itx-awards-marquee__track {
+    animation-play-state: paused;
+  }
+  @keyframes itx-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .itx-awards-marquee__track { animation: none; }
+    .itx-awards-marquee { overflow-x: auto; }
+  }
+
+  /* ---------- FAQ accordion trigger (converted to real <button>) ---------- */
+  .itx-faq-new__question {
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: var(--font-sans);
+    text-align: left;
+  }
+  /* The theme CSS points at these icons via a path relative to the theme's original
+     nested folder (template-parts/blocks/faq-new/style.min.css → ../../../images/…),
+     which doesn't resolve from this flattened css/ directory. Overriding with local
+     copies rather than rebuilding the original folder nesting. */
+  .itx-faq-new__question:after {
+    background-image: url(img/chevron-down.svg);
+  }
+  .itx-faq-new__question.open:after {
+    background-image: url(img/chevron-up-green.svg);
+  }
+
+  /* ---------- section anchors used by CTAs (offset for the sticky-ish header) ---------- */
+  section[id] { scroll-margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<header class="header new_header_version">
+  <div class="container-blog general-container header__inner">
+    <div class="logo">
+      <a href="https://stage.itexus.com/">
+        <img src="img/logo-white-itexus.svg" alt="Itexus" width="99" height="29">
+      </a>
+    </div>
+    <div class="navbar-menu-wrapper">
+      <nav class="navbar-menu-inner">
+        <ul class="new_header_version-menu">
+          <li class="menu-item"><span class="menu-item-title">Services</span></li>
+          <li class="menu-item"><span class="menu-item-title">Our Products</span></li>
+          <li class="menu-item"><a href="https://stage.itexus.com/portfolio/">Case Studies</a></li>
+          <li class="menu-item"><span class="menu-item-title">Hire Developers</span></li>
+          <li class="menu-item"><span class="menu-item-title">About Us</span></li>
+        </ul>
+      </nav>
+    </div>
+    <a href="/contacts/" class="header-button">Contact Us</a>
+  </div>
+</header>
+
+<!-- ============ 1. HERO (unchanged from hero-new.html) ============ -->
+<section class="itx-main-block-new">
+  <div class="general-container">
+    <div class="itx-main-block-new__wrapper">
+      <div class="itx-main-block-new__conent">
+
+        <p class="itx-hero__eyebrow">Trading platform development</p>
+
+        <h1 class="itx-main-block-new__heading">
+          Trading platforms built by people who have <span class="itx-main-block-new__heading--green">shipped them before</span>
+        </h1>
+
+        <p class="itx-main-block-new__description">
+          FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and investing products for fintechs and investment managers, and this is the stack we work in.
+        </p>
+
+        <div class="itx-main-block-new__buttons-block">
+          <a class="itx-main-block-new__button" href="#contact-form">Get a proposal</a>
+          <a class="itx-main-block-new__arrow-button" href="#case-studies">
+            See the platforms we've built
+            <span class="arrow"></span>
+          </a>
+        </div>
+
+        <p class="itx-hero__assurance">We reply within 24 hours and sign an NDA before you share the details.</p>
+
+        <ul class="itx-hero__proof">
+          <li>300+ projects</li>
+          <li>Building since 2013</li>
+          <li>4.9 on Clutch from 40 reviews</li>
+        </ul>
+
+      </div>
+
+      <div class="itx-main-block-new__image">
+        <picture>
+          <img
+            src="img/trading-app-main-image.webp"
+            alt="Trading app screens showing a wallet balance with deposit and withdraw controls, and a live candlestick price chart for a listed security"
+            width="870"
+            height="548"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high">
+        </picture>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="itx-main-block-new__black-bg"></div>
+  <div class="main-block-new__bg-image">
+    <picture>
+      <img decoding="async" src="img/abstract-black-liquid-swirling-design-texture-2.webp" alt="">
+    </picture>
+  </div>
+  <div class="itx-hero__scrim"></div>
+</section>
+
+<!-- ============ 2. CASE STUDIES — moved up from ~30% to ~15% depth,
+     leads with the three trading projects (previously Coinstar, a crypto
+     wallet not a trading platform, was the sole featured card) ============ -->
+<section id="case-studies" class="itx-block itx-big-grid">
+  <div class="general-container">
+    <p class="itx-section-eyebrow">Case studies</p>
+    <h2 class="itx-big-grid__section-title h2">Trading platforms we've built</h2>
+
+    <!-- --first-version gives :nth-child(1) a wide featured treatment (row layout,
+         image+content side by side). That collided the badge icon with the title
+         on whichever card was first — fixed for good by giving the featured card's
+         title explicit top clearance below, rather than by avoiding the modifier. -->
+    <div class="itx-big-grid__wrapper itx-big-grid__wrapper--first-version">
+
+      <div class="itx-big-grid__item">
+        <div class="itx-big-grid__content">
+          <div class="itx-big-grid__icon">
+            <img decoding="async" src="img/coinstar-logo.png" alt="" loading="lazy">
+          </div>
+          <div class="itx-big-grid__title"><span>Cryptocurrency e-Wallet Ecosystem for a Global FinTech Enterprise</span></div>
+          <div class="itx-big-grid__description">
+            <p>PCI DSS-compliant application ecosystem for Coinstar, a leading international fintech company with $2.2 billion in annual revenue: web and mobile crypto wallets, embedded kiosk software, and a cloud-based API server.</p>
+          </div>
+          <div class="itx-big-grid__tags">
+            <span class="itx-big-grid__tags-item">Enterprise</span>
+            <span class="itx-big-grid__tags-item">Fintech</span>
+          </div>
+        </div>
+        <div class="itx-big-grid__image fullsize">
+          <img decoding="async" width="578" height="333" src="img/coinstar-pict.png" class="attachment-full size-full" alt="Coinstar crypto wallet application screens" loading="lazy">
+        </div>
+        <a href="https://stage.itexus.com/portfolio/application-ecosystem-for-cryptocurrency-e-wallet-for-a-global-fintech-enterprise/" class="itx-big-grid__link" aria-label="Read more about Coinstar Cryptocurrency e-Wallet Ecosystem"></a>
+      </div>
+
+      <div class="itx-big-grid__item">
+        <div class="itx-big-grid__content">
+          <div class="itx-big-grid__icon">
+            <img decoding="async" src="img/case-study-icon.png" alt="" loading="lazy">
+          </div>
+          <div class="itx-big-grid__title"><span>Automated Stock Trading Platform</span></div>
+          <div class="itx-big-grid__description">
+            <p>An automated, real-time trading system that allows administrators to configure trading strategies.</p>
+          </div>
+          <div class="itx-big-grid__tags">
+            <span class="itx-big-grid__tags-item">Fintech</span>
+            <span class="itx-big-grid__tags-item">Trading</span>
+          </div>
+        </div>
+        <div class="itx-big-grid__image fullsize">
+          <img decoding="async" width="800" height="470" src="img/case2-automated-stock-trading.png" class="attachment-full size-full" alt="Automated Stock Trading Platform dashboard" loading="lazy">
+        </div>
+        <a href="https://stage.itexus.com/portfolio/automated-stock-trading-platform-for-an-international-investment-management-company/" class="itx-big-grid__link" aria-label="Read more about Automated Stock Trading Platform"></a>
+      </div>
+
+      <div class="itx-big-grid__item">
+        <div class="itx-big-grid__content">
+          <div class="itx-big-grid__icon">
+            <img decoding="async" src="img/case-study-icon.png" alt="" loading="lazy">
+          </div>
+          <div class="itx-big-grid__title"><span>Stock Trading Signals Platform</span></div>
+          <div class="itx-big-grid__description">
+            <p>Intelligent investment assistant that performs technical analysis for a number of stocks.</p>
+          </div>
+          <div class="itx-big-grid__tags">
+            <span class="itx-big-grid__tags-item">Fintech</span>
+            <span class="itx-big-grid__tags-item">Trading</span>
+          </div>
+        </div>
+        <div class="itx-big-grid__image fullsize">
+          <img decoding="async" width="1058" height="592" src="img/case3-stock-signals.png" class="attachment-full size-full" alt="Stock Trading Signals Platform interface" loading="lazy">
+        </div>
+        <a href="https://stage.itexus.com/portfolio/" class="itx-big-grid__link" aria-label="Read more about Stock Trading Signals Platform"></a>
+      </div>
+
+      <div class="itx-big-grid__item">
+        <div class="itx-big-grid__content">
+          <div class="itx-big-grid__icon">
+            <img decoding="async" src="img/case-study-icon.png" alt="" loading="lazy">
+          </div>
+          <div class="itx-big-grid__title"><span>Algorithmic Intraday Stock Trading System</span></div>
+          <div class="itx-big-grid__description">
+            <p>SaaS system for automated intraday stock trading, allowing investors to connect their brokerage accounts.</p>
+          </div>
+          <div class="itx-big-grid__tags">
+            <span class="itx-big-grid__tags-item">Fintech</span>
+            <span class="itx-big-grid__tags-item">Trading</span>
+          </div>
+        </div>
+        <div class="itx-big-grid__image fullsize">
+          <img decoding="async" width="2172" height="1276" src="img/case4-algorithmic-intraday.png" class="attachment-full size-full" alt="Algorithmic Intraday Stock Trading System dashboard" loading="lazy">
+        </div>
+        <a href="https://stage.itexus.com/portfolio/system-for-algorithmic-robo-intraday-stock-trading/" class="itx-big-grid__link" aria-label="Read more about Algorithmic Intraday Stock Trading System"></a>
+      </div>
+
+      <div class="cs-outcome-note">
+        <span>📋</span>
+        <span><strong>TODO: outcome numbers.</strong> These four cards describe features, not results. Even anonymised figures (order latency, orders processed per day, users onboarded) would do more for a risk-averse buyer than any amount of feature description. Add per-card once available.</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. WHAT WE BUILD — merges four overlapping sections
+     (21 + 6 + 6 + 13 = 46 items) into 12. The 6 "must-haves" items are kept
+     verbatim from the source page; the other 6 are pulled verbatim from the
+     13-item "Core Features" section, selected for relevance to this hero's
+     audience (execution, compliance, strategy) rather than pure end-user UX.
+     Built on .text-picture-alternate-border (real theme component, originally
+     used for the old Core Features section, unused in the first pass at this
+     rebuild) instead of a single text-only column — its alternating rows pair
+     each group of 4 items with a real product screenshot, so the merged list
+     keeps a visual anchor instead of reading as one long block of text. ============ -->
+<section id="what-we-build" class="itx-block text-picture-alternate-border">
+  <div class="general-container">
+    <div class="text-picture-alternate-border__container">
+      <p class="itx-section-eyebrow">What we build</p>
+      <h2 class="text-picture-alternate-border__section-title">Trading Platform Capabilities</h2>
+      <p class="text-picture-alternate-border__section-subtitle">The parts a trading platform needs to actually go live.</p>
+
+      <div class="text-picture-alternate-border__wrapper">
+
+        <div class="text-picture-alternate-border__row">
+          <div class="text-picture-alternate-border__col">
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Integration With Brokers</div>
+              <div class="text-picture-alternate-border__text">We help select and integrate brokers based on market coverage, API quality, latency, and SLA.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Trading Execution Middleware</div>
+              <div class="text-picture-alternate-border__text">Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer to connect services across the trading chain.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Market Data Storage</div>
+              <div class="text-picture-alternate-border__text">A market database pulling multiple sources via APIs, with historical intraday data for equities, futures, FX, options, indices, and indicators.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Other Features</div>
+              <div class="text-picture-alternate-border__text">Extend broker capabilities with portfolio management, FIX gateways, and scalable matching components.</div>
+            </div>
+          </div>
+          <div class="text-picture-alternate-border__image">
+            <picture><img decoding="async" src="img/software-1.png" alt="Trading app onboarding screen" loading="lazy"></picture>
+          </div>
+        </div>
+
+        <div class="text-picture-alternate-border__row">
+          <div class="text-picture-alternate-border__col">
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Order Management</div>
+              <div class="text-picture-alternate-border__text">Manage order types (market, stop, limit, etc.), define quantity, leverage, time in force, and price, and execute stop-loss and take-profit strategies.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Trading Algorithms</div>
+              <div class="text-picture-alternate-border__text">We implement your strategy and provide a no-code builder with parameter checks and safeguards.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Strategy Builder</div>
+              <div class="text-picture-alternate-border__text">Both a visual builder and a code editor, so your users can create their own strategies with different indicators and algorithms.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Backtesting</div>
+              <div class="text-picture-alternate-border__text">Test and optimize strategies using historical market data before risking money on a real trade.</div>
+            </div>
+          </div>
+          <div class="text-picture-alternate-border__image">
+            <picture><img decoding="async" src="img/software-2.png" alt="Order entry screen with a limit price slider" loading="lazy"></picture>
+          </div>
+        </div>
+
+        <div class="text-picture-alternate-border__row">
+          <div class="text-picture-alternate-border__col">
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Investor Interfaces</div>
+              <div class="text-picture-alternate-border__text">Web, mobile, and desktop interfaces with fast presets, hotkeys, and watchlists.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Real-Time Alerts on Changes</div>
+              <div class="text-picture-alternate-border__text">Fine-tuned asset alerts notify users within seconds when a target price for one of their assets or exchange-traded funds rises or falls.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Trade Log</div>
+              <div class="text-picture-alternate-border__text">Detailed trading histories (rules set for orders, instruments, order types, number of contracts, price, and time) make it possible to identify mistakes and adjust strategies.</div>
+            </div>
+            <div class="text-picture-alternate-border__item">
+              <div class="text-picture-alternate-border__title">Paper Trading</div>
+              <div class="text-picture-alternate-border__text">Simulated trades under real market conditions let users test strategies and practice buying and selling without risking real money.</div>
+            </div>
+          </div>
+          <div class="text-picture-alternate-border__image">
+            <picture><img decoding="async" src="img/software-3.png" alt="Order confirmation screen after a trade" loading="lazy"></picture>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. MID-PAGE CTA — repointed on-page, copy unchanged ============ -->
+<section class="itx-block trading-cta-block">
+  <div class="general-container">
+    <div class="trading-cta-block__wrapper">
+      <div class="trading-cta-block__title">
+        <p>Need to talk to a <span class="trading-cta-block__title--green">trading solution architect?</span></p>
+      </div>
+      <div class="trading-cta-block__description">
+        <p>We're here to contribute our expertise and can take over the entire project, from discovery to design, coding, and scaling.</p>
+      </div>
+      <a href="#contact-form" class="trading-cta-block__button">Get a proposal</a>
+      <div class="trading-cta-block__bg-image">
+        <img decoding="async" width="1289" height="242" src="img/trading-cta-bg.webp" class="attachment-full size-full" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. ENGAGEMENT MODELS — real models from /how-we-work/,
+     no invented figures, per the user's explicit choice ============ -->
+<section id="engagement" class="itx-block three-col">
+  <div class="general-container">
+    <p class="itx-section-eyebrow">How we work together</p>
+    <h2 class="three-col__section-title">Engagement Models</h2>
+
+    <div class="three-col__wrapper">
+
+      <div class="three-col__item three-col__item--recommended">
+        <div class="three-col__item-content">
+          <span class="em-badge">Recommended</span>
+          <div class="three-col__item-title"><span>Efficient Hours (Agile with Budget Control)</span></div>
+          <div class="three-col__itme-description">
+            <p>Delivered in two-week sprints with a demo at the end of each one. You only pay for efficient hours within an agreed estimate, and can adjust requirements as new ideas come up.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="three-col__item">
+        <div class="three-col__item-content">
+          <div class="three-col__item-title"><span>Fixed Price</span></div>
+          <div class="three-col__itme-description">
+            <p>Requirements, price, and timeline are documented and signed before work starts. Suits projects with a scope that's already well defined and unlikely to change.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="three-col__item">
+        <div class="three-col__item-content">
+          <div class="three-col__item-title"><span>Outstaffing / Development Team as a Service</span></div>
+          <div class="three-col__itme-description">
+            <p>Vetted engineers join your team directly and work under your own project management, billed at a pre-agreed monthly rate.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p style="margin-top:24px;font-size:14px;color:var(--color-ink-80,rgba(5,19,32,.8))">See the full breakdown of each model on our <a href="https://stage.itexus.com/how-we-work/" style="color:#25bb4d;text-decoration:underline">Cooperation Models</a> page.</p>
+  </div>
+</section>
+
+<!-- ============ 6. SECURITY & COMPLIANCE — placeholder shell.
+     Not fabricated: the user did not supply this content, so it ships as a
+     clearly marked TODO rather than invented claims. ============ -->
+<section class="itx-block three-col itx-shell-section">
+  <div class="general-container">
+    <p class="itx-section-eyebrow">Trust &amp; compliance</p>
+    <h2 class="three-col__section-title">Security &amp; Compliance</h2>
+    <div class="three-col__wrapper">
+
+      <div class="three-col__item itx-shell">
+        <div class="three-col__item-content">
+          <span class="itx-shell-tag">TODO: content needed</span>
+          <div class="three-col__item-title"><span>Certifications</span></div>
+          <div class="three-col__itme-description">
+            <p>Name any certifications held (SOC 2, ISO 27001) or state the controls you work to if not formally certified.</p>
+          </div>
+          <span class="itx-shell-why">Why: buyers in this segment often can't shortlist a vendor without this.</span>
+        </div>
+      </div>
+
+      <div class="three-col__item itx-shell">
+        <div class="three-col__item-content">
+          <span class="itx-shell-tag">TODO: content needed</span>
+          <div class="three-col__item-title"><span>Regulatory experience</span></div>
+          <div class="three-col__itme-description">
+            <p>Name the regimes you've shipped under, e.g. FINRA, MiFID II, or FCA, if applicable to past projects.</p>
+          </div>
+          <span class="itx-shell-why">Why: currently zero regulatory regimes are named anywhere on the page.</span>
+        </div>
+      </div>
+
+      <div class="three-col__item itx-shell">
+        <div class="three-col__item-content">
+          <span class="itx-shell-tag">TODO: content needed</span>
+          <div class="three-col__item-title"><span>Security practices</span></div>
+          <div class="three-col__itme-description">
+            <p>Describe pen-testing cadence, data handling, and audit-trail practices for regulated financial data.</p>
+          </div>
+          <span class="itx-shell-why">Why: pairs with the Audit Trail &amp; Activity Logging capability above.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. TESTIMONIALS — all 5 quotes from the source (static grid,
+     no slick carousel JS in this prototype); investing-fund quote leads since
+     it's the only finance-relevant one. Awards row is a CSS marquee with all
+     12 original badges, restoring the live page's actual mechanism (an
+     auto-scrolling slick.js strip) instead of a static row of 3 — a marquee
+     was the right call to fit 12 real trust badges without either shrinking
+     them to illegible size or permanently consuming a lot of vertical space. ============ -->
+<section class="itx-block itx-testimonials-new itx-boxes">
+  <h2 class="itx-testimonials__title h2 general-container">What our clients say about us</h2>
+  <div class="testimonials-new-container general-container">
+
+    <!-- Real slider structure (.itx-slider-new-wrapper/.itx-slider-new/.itx-slide-new,
+         all already in the mirrored CSS): the wrapper is natively horizontally
+         scrollable (overflow-x:auto), and the prev/next buttons drive it with
+         scrollBy() below — a lightweight replacement for the original's slick.js,
+         not a static grid. Fixes the "why is this 2 rows" issue: that was the
+         grid wrapping 5 items at 3-per-row; this scrolls instead of wrapping. -->
+    <div class="itx-slider-new-wrapper" id="itx-slider-new-testimonials">
+      <div class="itx-slider-new">
+
+      <div class="itx-slide-new testimonials-new__slide">
+        <div class="testimonials-new__main">
+          <div class="testimonials-new__icon"><img decoding="async" src="img/quotes-icon.svg" alt="" loading="lazy"></div>
+          <div class="testimonials-new__text">
+            <p>Itexus delivered the app according to the requirements. The team met all development milestones and deliverables. They were efficient, friendly, and cooperative. Itexus team was very timely with updates, a regular meeting cadence, and ad-hoc questions and answers via Slack. The team was very responsive and still is.</p>
+          </div>
+        </div>
+        <div class="testimonials-new__person">
+          <div class="testimonials-new__person-name">Risk Management Director, Investing Fund</div>
+        </div>
+      </div>
+
+      <div class="itx-slide-new testimonials-new__slide">
+        <div class="testimonials-new__main">
+          <div class="testimonials-new__icon"><img decoding="async" src="img/quotes-icon.svg" alt="" loading="lazy"></div>
+          <div class="testimonials-new__text">
+            <p>Itexus' work positions the business well for an imminent launch. They excel at managing their team, presenting frequent product demos to ensure that the project is aligned with development goals. An affordable price structure coupled with remarkable technical skill makes them an attractive partner.</p>
+          </div>
+        </div>
+        <div class="testimonials-new__person">
+          <div class="testimonials-new__person-name">Phill Osolinski<br><span style="font-weight:400">CEO Ryze Rewards</span></div>
+        </div>
+      </div>
+
+      <div class="itx-slide-new testimonials-new__slide">
+        <div class="testimonials-new__main">
+          <div class="testimonials-new__icon"><img decoding="async" src="img/quotes-icon.svg" alt="" loading="lazy"></div>
+          <div class="testimonials-new__text">
+            <p>The assigned team was easy to work with and they are especially strong collaborators and communicators. They demonstrated flexibility, professionalism, and trust in everything they did, and completed the work on time and budget.</p>
+          </div>
+        </div>
+        <div class="testimonials-new__person">
+          <div class="testimonials-new__person-name">Sue Wollan Fan<br><span style="font-weight:400">CEO Mango Connects</span></div>
+        </div>
+      </div>
+
+      <div class="itx-slide-new testimonials-new__slide">
+        <div class="testimonials-new__main">
+          <div class="testimonials-new__icon"><img decoding="async" src="img/quotes-icon.svg" alt="" loading="lazy"></div>
+          <div class="testimonials-new__text">
+            <p>Itexus excelled at both experimental AI and sprint-oriented UI/UX tasks. Itexus did strong project management work, too, a necessity in such a complicated project.</p>
+          </div>
+        </div>
+        <div class="testimonials-new__person">
+          <div class="testimonials-new__person-name">Jesse Dubin<br><span style="font-weight:400">Senior PM Standard&amp;Poors</span></div>
+        </div>
+      </div>
+
+      <div class="itx-slide-new testimonials-new__slide">
+        <div class="testimonials-new__main">
+          <div class="testimonials-new__icon"><img decoding="async" src="img/quotes-icon.svg" alt="" loading="lazy"></div>
+          <div class="testimonials-new__text">
+            <p>They're a great group of developers who really understand the reality of business.</p>
+          </div>
+        </div>
+        <div class="testimonials-new__person">
+          <div class="testimonials-new__person-name">Andreea Vanacker<br><span style="font-weight:400">CEO SPARKX5</span></div>
+        </div>
+      </div>
+
+      </div>
+      <div class="itx-slider-new-control">
+        <button type="button" class="itx-slider-new-control__btn itx-slider-new-control__btn_prev" aria-label="Previous testimonial">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="itx-slider-new-control__btn itx-slider-new-control__btn_next" aria-label="Next testimonial">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5L12.5 10L7.5 15" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:32px;margin-top:40px">
+      <a href="https://clutch.co/profile/itexus" class="new-clutch" target="_blank" rel="nofollow external noreferrer">
+        <div class="new-clutch__top">
+          <span>40 reviews on </span>
+          <img decoding="async" src="img/clutch-icon.svg" alt="" loading="lazy">
+        </div>
+        <div class="new-clutch__bottom">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 13L21 9L17 5" stroke="#25BB4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 19H8C5.23858 19 3 16.7614 3 14C3 11.2386 5.23858 9 8 9H21" stroke="#25BB4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>4.9</span>
+          <img decoding="async" src="img/clutch-avatars.png" alt="" loading="lazy">
+        </div>
+      </a>
+    </div>
+
+    <div class="itx-awards-marquee">
+      <div class="itx-awards-marquee__track">
+        <img src="img/award-goodfirms.png" alt="GoodFirms">
+        <img src="img/award-youteam.png" alt="YouTeam">
+        <img src="img/award-clutch.png" alt="Clutch">
+        <img src="img/award-expertise.png" alt="Expertise">
+        <img src="img/award-selectfirms.png" alt="SelectedFirms">
+        <img src="img/award-topdevelopers.png" alt="TopDevelopers">
+        <img src="img/award-toprated1.png" alt="Top Rated Custom Software Development Companies">
+        <img src="img/award-itfirms.png" alt="ITFirms">
+        <img src="img/award-trustfirms.png" alt="TrustFirms">
+        <img src="img/award-topsoftware.png" alt="Top Software Developers">
+        <img src="img/award-toprated2.png" alt="Top Rated Mobile App Companies">
+        <img src="img/award-techreviewer.svg" alt="techreviewer.co">
+        <!-- duplicated once for a seamless loop -->
+        <img src="img/award-goodfirms.png" alt="" aria-hidden="true">
+        <img src="img/award-youteam.png" alt="" aria-hidden="true">
+        <img src="img/award-clutch.png" alt="" aria-hidden="true">
+        <img src="img/award-expertise.png" alt="" aria-hidden="true">
+        <img src="img/award-selectfirms.png" alt="" aria-hidden="true">
+        <img src="img/award-topdevelopers.png" alt="" aria-hidden="true">
+        <img src="img/award-toprated1.png" alt="" aria-hidden="true">
+        <img src="img/award-itfirms.png" alt="" aria-hidden="true">
+        <img src="img/award-trustfirms.png" alt="" aria-hidden="true">
+        <img src="img/award-topsoftware.png" alt="" aria-hidden="true">
+        <img src="img/award-toprated2.png" alt="" aria-hidden="true">
+        <img src="img/award-techreviewer.svg" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. FAQ — cost question rewritten to answer on-page rather
+     than deflect to a blog post; two definitional entries dropped (they
+     addressed someone learning the category, not evaluating a vendor);
+     accordion triggers converted to real <button> with aria-expanded ============ -->
+<section id="faq" class="itx-block itx-faq-new">
+  <div class="general-container">
+    <h2 class="itx-faq-new__section-title h2">FAQs</h2>
+    <div class="itx-faq-new__wrapper">
+      <div class="itx-faq-new__list">
+
+        <div class="itx-faq-new__item" id="faq-1">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-1">
+            <h3>How much does trading platform development cost?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-1">
+            <p>Cost depends on the engagement model. Efficient Hours (Agile with Budget Control) bills only efficient hours against an agreed estimate. Fixed Price sets the full cost upfront once requirements are documented. Outstaffing bills a pre-agreed monthly rate per engineer. See the <a href="#engagement">Engagement Models</a> section above.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-2">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-2">
+            <h3>How long does it take to build a trading platform?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-2">
+            <p>Trading platform software development usually takes about 3 months or more, and directly depends on the features you want to implement. <a href="#contact-form">Get in touch</a> to find out the estimated development time for a project like yours.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-3">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-3">
+            <h3>Can you create a trading platform and integrate it with a third-party service?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-3">
+            <p>Yes, we work with world-class service providers and integrate third-party APIs and services according to your business goals: brokers, payment gateways, KYC providers, news providers, market data providers, crypto exchanges, and more.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-4">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-4">
+            <h3>Do you offer support services?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-4">
+            <p>Yes, we offer post-production support on a regular basis or on demand.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-5">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-5">
+            <h3>Do you sign an NDA agreement?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-5">
+            <p>We are comfortable signing legal agreements when developing a trading platform. We can either sign your NDA contract or create our own and send it to you.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-6">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-6">
+            <h3>Have you built a trading platform before?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-6">
+            <p>Yes, we have extensive experience in trading software development, with a specialty in stock market application development. See our <a href="#case-studies">trading platform case studies</a> above.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-7">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-7">
+            <h3>I have an idea for a trading platform. Where should I start?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-7">
+            <p>Your next step depends on whether you have a clear product vision and detailed requirements. If not, we recommend that you start with the discovery phase. <a href="#contact-form">Contact us</a> to discuss your idea.</p>
+          </div>
+        </div>
+
+        <div class="itx-faq-new__item" id="faq-8">
+          <div class="itx-faq-new__question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-8">
+            <h3>How to hire trading platform developers?</h3>
+          </div>
+          <div class="itx-faq-new__answer" id="faq-answer-8">
+            <p>Define your project scope and tech stack, then search for candidates with experience in financial software, security protocols, and relevant technologies. Assess candidates through technical interviews and coding tests, and prioritize a proven track record in developing secure, scalable trading platforms.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. CONTACT FORM — NDA checkbox added (existed on /contacts/
+     but was missing here); 4-step process block unchanged ============ -->
+<section id="contact-form" class="itx-block itx-contact-form-new">
+  <div class="general-container">
+    <div class="itx-contact-form-new__wrapper itx-contact-form-new__with-steps">
+      <div class="itx-contact-form-new__conent">
+        <h2 class="itx-contact-form-new__section-title desktop h2">Let's discuss how we can help with your project</h2>
+
+        <div class="itx-contact-form-new__form">
+          <form class="contact-form cf small-cf" id="main" enctype="multipart/form-data" action="#" method="POST" novalidate>
+            <div class="form-item cf__user-name">
+              <input type="text" maxlength="50" name="name" autocomplete="off" class="control-default" placeholder="Your name" required>
+            </div>
+            <div class="form-item cf__company">
+              <input type="text" minlength="3" maxlength="50" name="company" autocomplete="off" class="control-default" placeholder="Company name">
+            </div>
+            <div class="form-item cf__email">
+              <input type="email" name="email" autocomplete="off" class="control-default" placeholder="Email" required>
+            </div>
+            <div class="form-item cf__number">
+              <input type="text" autocomplete="off" name="phone" class="control-default" placeholder="Phone number">
+            </div>
+            <div class="form-textarea-item cf__message">
+              <textarea minlength="20" maxlength="1500" name="message" placeholder="Tell us about your project" class="control-default" required></textarea>
+            </div>
+
+            <div class="checkbox-nda-policy">
+              <div class="checkbox-nda-policy__item">
+                <input type="checkbox" id="nda" name="nda">
+                <label for="nda"><span class="checkbox-nda-policy__checkbox-nda-policy__item">NDA Required</span></label>
+              </div>
+              <div class="checkbox-nda-policy__item">
+                <input type="checkbox" id="policy" name="policy" required>
+                <label for="policy"><span class="checkbox-nda-policy__checkbox-nda-policy__item">I agree</span> with Itexus <a href="/privacy-policy/" target="_blank">Privacy Policy</a></label>
+              </div>
+              <div class="checkbox-nda-policy__submit">
+                <button class="form-submit submit" type="submit">Send (reply within 24 hours)</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="itx-contact-form-new__image">
+          <img decoding="async" width="1282" height="602" src="img/contact-form-bg.png" class="attachment-full size-full" alt="">
+        </div>
+      </div>
+
+      <div class="itx-contact-form-new__steps">
+        <div class="itx-contact-form-new__step">
+          <div class="itx-contact-form-new__number"><span>1</span></div>
+          <div class="itx-contact-form-new__step-content">
+            <div class="itx-contact-form-new__step-title"><span>Share your project idea</span></div>
+            <div class="itx-contact-form-new__step-description"><p>and we'll get back to you within 24 hours to sign the NDA and discuss the next steps.</p></div>
+          </div>
+        </div>
+        <div class="itx-contact-form-new__step">
+          <div class="itx-contact-form-new__number"><span>2</span></div>
+          <div class="itx-contact-form-new__step-content">
+            <div class="itx-contact-form-new__step-title"><span>Discuss your project</span></div>
+            <div class="itx-contact-form-new__step-description"><p>with a team of expert software architects, fintech analysts, and UI/UX designers.</p></div>
+          </div>
+        </div>
+        <div class="itx-contact-form-new__step">
+          <div class="itx-contact-form-new__number"><span>3</span></div>
+          <div class="itx-contact-form-new__step-content">
+            <div class="itx-contact-form-new__step-title"><span>Receive a detailed proposal</span></div>
+            <div class="itx-contact-form-new__step-description"><p>including software architecture, functionality, UI/UX design, and a detailed cost estimate with a feature-by-feature breakdown.</p></div>
+          </div>
+        </div>
+        <div class="itx-contact-form-new__step">
+          <div class="itx-contact-form-new__number"><span>4</span></div>
+          <div class="itx-contact-form-new__step-content">
+            <div class="itx-contact-form-new__step-title"><span>We start development</span></div>
+            <div class="itx-contact-form-new__step-description"><p>If you like the proposal, we'll sign the contract and start development within 1–2 weeks, and get your MVP live in 3–4 months.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // FAQ accordion: real button semantics (role="button" + aria-expanded) driven
+  // by a small script, since this is a static prototype with no WP JS loaded.
+  document.querySelectorAll('.itx-faq-new__question').forEach(function (q) {
+    function toggle() {
+      var open = q.getAttribute('aria-expanded') === 'true';
+      q.setAttribute('aria-expanded', String(!open));
+      q.classList.toggle('open', !open);
+      var item = q.closest('.itx-faq-new__item');
+      item.classList.toggle('itx-faq-new__item_open', !open);
+    }
+    q.addEventListener('click', toggle);
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  // Sticky header background on scroll. The header is transparent by default
+  // (by design — it reads as part of the hero gradient), which is correct
+  // over the hero but leaves it floating unstyled, ghosting over lighter
+  // sections once you scroll past it. .scroll-header already exists in the
+  // loaded theme CSS for exactly this — it's normally toggled by the theme's
+  // own JS, which isn't loaded in this static prototype, so toggling it here
+  // reproduces real site behavior rather than inventing new styling.
+  var header = document.querySelector('.header');
+  function onScroll() {
+    header.classList.toggle('scroll-header', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Testimonials carousel: prev/next buttons scroll the native overflow-x:auto
+  // wrapper by one card width. Lightweight replacement for the original's
+  // slick.js — reads the actual rendered card width + gap rather than a
+  // hardcoded number, so it stays correct across the 3-per-view desktop layout
+  // and the full-width mobile override above.
+  var track = document.querySelector('#itx-slider-new-testimonials');
+  var prevBtn = document.querySelector('.itx-slider-new-control__btn_prev');
+  var nextBtn = document.querySelector('.itx-slider-new-control__btn_next');
+  if (track && prevBtn && nextBtn) {
+    function cardStep() {
+      var card = track.querySelector('.itx-slide-new');
+      if (!card) return 0;
+      var style = getComputedStyle(track.querySelector('.itx-slider-new'));
+      var gap = parseFloat(style.gap) || 30;
+      return card.getBoundingClientRect().width + gap;
+    }
+    prevBtn.addEventListener('click', function () {
+      track.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', function () {
+      track.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    });
+  }
+</script>
+
+</body>
+</html>

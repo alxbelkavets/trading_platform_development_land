@@ -1,0 +1,839 @@
+<title>Design Critique — Itexus Trading Platform Development</title>
+<style>
+  :root {
+    --paper:        #F1F3F2;
+    --surface:      #FBFCFB;
+    --surface-sunk: #E7EBE9;
+    --ink:          #0D1614;
+    --ink-2:        #3C4B47;
+    --ink-3:        #6B7B76;
+    --rule:         #CBD4D0;
+    --rule-soft:    #DDE4E1;
+    --accent:       #0F7A35;
+    --accent-soft:  #E1EFE6;
+    --crit:         #B32A22;
+    --crit-soft:    #F6E3E1;
+    --mod:          #98650A;
+    --mod-soft:     #F6EDDA;
+    --min:          #2E6F76;
+    --min-soft:     #E0EDEE;
+    --good:         #0F7A35;
+
+    --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --f-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #0B1211;
+      --surface:      #131C1A;
+      --surface-sunk: #0A100F;
+      --ink:          #E8EEEB;
+      --ink-2:        #A9B8B3;
+      --ink-3:        #74847F;
+      --rule:         #2A3835;
+      --rule-soft:    #1E2A28;
+      --accent:       #4FC97C;
+      --accent-soft:  #16301F;
+      --crit:         #F08078;
+      --crit-soft:    #331715;
+      --mod:          #E0AC4A;
+      --mod-soft:     #2E2312;
+      --min:          #6FC4CC;
+      --min-soft:     #14282A;
+      --good:         #4FC97C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:        #0B1211;
+    --surface:      #131C1A;
+    --surface-sunk: #0A100F;
+    --ink:          #E8EEEB;
+    --ink-2:        #A9B8B3;
+    --ink-3:        #74847F;
+    --rule:         #2A3835;
+    --rule-soft:    #1E2A28;
+    --accent:       #4FC97C;
+    --accent-soft:  #16301F;
+    --crit:         #F08078;
+    --crit-soft:    #331715;
+    --mod:          #E0AC4A;
+    --mod-soft:     #2E2312;
+    --min:          #6FC4CC;
+    --min-soft:     #14282A;
+    --good:         #4FC97C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 0 1.75rem 6rem;
+  }
+
+  .col { max-width: 40rem; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 4.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--ink-3);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .standfirst {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 38rem;
+  }
+
+  .meta {
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: var(--ink-3);
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 0 1rem;
+    max-width: 38rem;
+    margin: 0;
+  }
+  .meta dt { color: var(--ink-3); }
+  .meta dd { margin: 0; color: var(--ink-2); }
+
+  /* ---------- ticker rail ---------- */
+
+  .tape {
+    margin: 3rem 0 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    overflow-x: auto;
+  }
+
+  .tape-inner {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+    font-family: var(--f-mono);
+    font-size: 0.74rem;
+  }
+
+  .tape-cell {
+    padding: 0.85rem 1.25rem;
+    border-right: 1px solid var(--rule-soft);
+    white-space: nowrap;
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+  .tape-cell:last-child { border-right: 0; }
+  .tape-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--crit);
+  }
+  .tape-val.is-ok { color: var(--good); }
+  .tape-lab {
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { margin-top: 4.5rem; }
+
+  h2 {
+    font-size: 1.85rem;
+    line-height: 1.15;
+    letter-spacing: -0.024em;
+    font-weight: 750;
+    margin: 0 0 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.08rem;
+    letter-spacing: -0.012em;
+    font-weight: 700;
+    margin: 2.25rem 0 0.5rem;
+  }
+
+  .lede {
+    color: var(--ink-2);
+    margin: 0 0 1.75rem;
+    max-width: 40rem;
+  }
+
+  p { margin: 0 0 1.1rem; }
+  .col p:last-child { margin-bottom: 0; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  code, .m {
+    font-family: var(--f-mono);
+    font-size: 0.86em;
+    font-variant-numeric: tabular-nums;
+  }
+  code {
+    background: var(--surface-sunk);
+    padding: 0.1em 0.36em;
+    border-radius: 3px;
+  }
+
+  /* ---------- findings ---------- */
+
+  .findings {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule-soft);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .finding {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 0 1.75rem;
+    padding: 1.6rem 0 1.6rem 1rem;
+    border-left: 3px solid var(--rule);
+  }
+  .finding[data-sev="critical"] { border-left-color: var(--crit); }
+  .finding[data-sev="moderate"] { border-left-color: var(--mod); }
+  .finding[data-sev="minor"]    { border-left-color: var(--min); }
+
+  .sev {
+    font-family: var(--f-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding-top: 0.34rem;
+  }
+  .sev span {
+    display: inline-block;
+    padding: 0.18rem 0.45rem;
+    border-radius: 2px;
+  }
+  .finding[data-sev="critical"] .sev span { color: var(--crit); background: var(--crit-soft); }
+  .finding[data-sev="moderate"] .sev span { color: var(--mod);  background: var(--mod-soft); }
+  .finding[data-sev="minor"]    .sev span { color: var(--min);  background: var(--min-soft); }
+
+  .finding h4 {
+    margin: 0 0 0.4rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .finding p { margin: 0 0 0.7rem; color: var(--ink-2); font-size: 0.95rem; }
+  .finding p:last-child { margin-bottom: 0; }
+
+  .fix {
+    display: block;
+    border-left: 2px solid var(--accent);
+    padding-left: 0.85rem;
+    color: var(--ink) !important;
+    font-size: 0.93rem !important;
+  }
+  .fix b {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.12rem;
+    font-weight: 600;
+  }
+
+  .evidence {
+    font-family: var(--f-mono);
+    font-size: 0.74rem;
+    color: var(--ink-3);
+    background: var(--surface-sunk);
+    border-radius: 3px;
+    padding: 0.5rem 0.7rem;
+    margin: 0 0 0.7rem;
+    display: inline-block;
+    line-height: 1.6;
+  }
+
+  /* ---------- contrast table ---------- */
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 34rem;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.62rem 0.9rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  thead th {
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    background: var(--surface-sunk);
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num {
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+  .fail { color: var(--crit); }
+  .pass { color: var(--good); }
+  .swatch {
+    display: inline-block;
+    width: 0.72rem; height: 0.72rem;
+    border-radius: 2px;
+    vertical-align: -1px;
+    margin-right: 0.4rem;
+    border: 1px solid rgba(128,128,128,0.35);
+  }
+
+  /* ---------- flow / hierarchy ---------- */
+
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .flow-row {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr 5.5rem;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: 0.92rem;
+  }
+  .flow-row:last-child { border-bottom: 0; }
+  .flow-row .depth {
+    font-family: var(--f-mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .flow-row .verdict {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .v-hold { color: var(--good); }
+  .v-drift { color: var(--mod); }
+  .v-lose { color: var(--crit); }
+
+  /* ---------- works well ---------- */
+
+  .wins {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--rule-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .wins li {
+    background: var(--surface);
+    padding: 1.1rem 1.25rem;
+  }
+  .wins strong { display: block; margin-bottom: 0.2rem; }
+  .wins span { color: var(--ink-2); font-size: 0.94rem; }
+
+  /* ---------- priorities ---------- */
+
+  .prio { counter-reset: p; display: flex; flex-direction: column; gap: 1.4rem; }
+  .prio > li {
+    counter-increment: p;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .prio > li::before {
+    content: counter(p, decimal-leading-zero);
+    font-family: var(--f-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+  }
+  .prio h3 { margin: 0 0 0.35rem; font-size: 1.12rem; }
+  .prio p { margin: 0; color: var(--ink-2); font-size: 0.97rem; }
+  .prio .effort {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  hr.rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 40rem) {
+    body { font-size: 16px; }
+    .finding { grid-template-columns: 1fr; gap: 0.6rem; }
+    .sev { padding-top: 0; }
+    .meta { grid-template-columns: 1fr; gap: 0; }
+    .meta dt { margin-top: 0.5rem; }
+    .flow-row { grid-template-columns: 3rem 1fr; }
+    .flow-row .verdict { grid-column: 2; text-align: left; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Design critique · Landing page · Stage build</p>
+    <h1>Trading Platform Development <em>— itexus.com</em></h1>
+    <p class="standfirst">A well-briefed page with an accessibility problem serious enough to block its own conversion path. The copy knows who it is talking to; the build does not yet let all of them reply.</p>
+    <dl class="meta">
+      <dt>URL</dt><dd>stage.itexus.com/trading-platform-development/</dd>
+      <dt>Reviewed</dt><dd>1440 × 900 desktop · 390 × 844 mobile</dd>
+      <dt>Method</dt><dd>Rendered DOM inspection — computed contrast, focus order, semantics, measured type</dd>
+      <dt>Stage</dt><dd>Final polish / pre-launch</dd>
+      <dt>Audience</dt><dd>Hedge funds, brokerages, exchanges, FCMs, fintechs</dd>
+    </dl>
+  </header>
+
+  <div class="tape" role="group" aria-label="Measured summary">
+    <div class="tape-inner">
+      <div class="tape-cell"><span class="tape-val">2.53:1</span><span class="tape-lab">CTA contrast</span></div>
+      <div class="tape-cell"><span class="tape-val">2.70:1</span><span class="tape-lab">Hero H1</span></div>
+      <div class="tape-cell"><span class="tape-val">2.26:1</span><span class="tape-lab">Hero subhead</span></div>
+      <div class="tape-cell"><span class="tape-val">0</span><span class="tape-lab">Form labels</span></div>
+      <div class="tape-cell"><span class="tape-val">10</span><span class="tape-lab">Inert FAQ rows</span></div>
+      <div class="tape-cell"><span class="tape-val">174</span><span class="tape-lab">Chars per line</span></div>
+      <div class="tape-cell"><span class="tape-val">48</span><span class="tape-lab">Small tap targets</span></div>
+      <div class="tape-cell"><span class="tape-val is-ok">7.32:1</span><span class="tape-lab">Nav contrast</span></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Overall impression</h2>
+    <div class="col">
+      <p>The strategic work here is good. The first sentence names five buyer segments and two technical concerns — low-latency execution and risk controls — which is more specificity than most agency pages in this category manage anywhere on the page. The visual system is coherent: one card treatment, one CTA vocabulary, one accent.</p>
+      <p>The problem is that the page is built like a brochure and priced like a sales asset. Its single conversion surface — the contact form — cannot be completed with a keyboard, because the required consent checkbox is <code>display: none</code> and therefore absent from the tab order. Its primary button ships with a <code>.disabled</code> class and <code>cursor: not-allowed</code>, so even a mouse user reads it as broken before they start typing. And every green CTA on the page sits at 2.53:1 against its own label.</p>
+      <p><strong>The biggest opportunity is not a redesign.</strong> It is a week of correctness work on the conversion path plus one darker green, after which the existing layout would perform noticeably better than it does now.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>First impression — the two-second read</h2>
+    <div class="col">
+      <p><strong>What draws the eye first:</strong> the phone renders on the right, not the headline. They occupy roughly 45% of the hero, carry the highest local contrast on the page (black candlesticks and red percentages on white UI), and sit at the natural focal point. The headline — white at 2.7:1 over a mid-green gradient — is the second thing you see.</p>
+      <p>That ordering is defensible for a product company. For a development services firm it is backwards: the mockups are someone else's product, and a visitor who reads them first spends their attention on a UI they cannot buy.</p>
+      <p><strong>Emotional read:</strong> competent, corporate, slightly generic. The green-and-white palette is the default for fintech services and does nothing to distinguish itexus from the twenty other firms this buyer is shortlisting.</p>
+      <p><strong>Is the purpose clear?</strong> Yes, immediately, and that is a real win. The H1 is literal, the subhead qualifies the audience, and the single CTA is unambiguous.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Usability</h2>
+    <p class="lede">Ordered by impact on the page's ability to generate a lead.</p>
+
+    <div class="findings">
+
+      <div class="finding" data-sev="critical">
+        <div class="sev"><span>Critical</span></div>
+        <div>
+          <h4>Keyboard users cannot submit the contact form</h4>
+          <p>The required consent checkbox <code>input[name="policy"]</code> is hidden with <code>display: none</code> and replaced by a styled label. <code>display: none</code> removes an element from both the tab order and the accessibility tree, so there is no way to satisfy the requirement without a mouse.</p>
+          <p class="evidence">Tab order inside the form: text · text · email · text · textarea · a · button<br>Consent input: display: none — not present</p>
+          <p class="fix"><b>Fix</b>Keep the real input in the DOM and clip it visually (<code>position:absolute; opacity:0; width:1px; height:1px</code>) rather than removing it, and style the visible box from <code>:checked</code> / <code>:focus-visible</code> on the sibling. Add a visible focus ring on the proxy box.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="critical">
+        <div class="sev"><span>Critical</span></div>
+        <div>
+          <h4>The submit button looks broken before you touch it</h4>
+          <p>“Get in touch” renders grey (<code>#606060</code>) with a 40%-opacity white label and <code>cursor: not-allowed</code> from first paint. The class list is <code>form-submit disabled submit</code> — the disabled state is the default state, released only once consent is ticked. Every visitor's first impression of the form is a dead button, and per the finding above, a keyboard user can never revive it.</p>
+          <p class="evidence">Label contrast: rgba(255,255,255,.4) over #606060 → 2.40:1</p>
+          <p class="fix"><b>Fix</b>Ship the button enabled and validate on submit, surfacing a specific inline message next to the unchecked consent box. A disabled control that never explains itself is a dead end; an enabled control that explains the blocker is an instruction. If you keep the disabled state, raise the label to at least 4.5:1 and pair it with visible helper text.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="critical">
+        <div class="sev"><span>Critical</span></div>
+        <div>
+          <h4>All ten FAQ answers are mouse-only</h4>
+          <p>Each row is a <code>&lt;div class="itx-faq-new__question"&gt;</code> wrapping an <code>&lt;h3&gt;</code>. There is no <code>&lt;button&gt;</code>, no <code>role</code>, no <code>tabindex</code>, and no <code>aria-expanded</code> anywhere in the block — only <code>cursor: pointer</code>. Keyboard and screen-reader users cannot open any answer, including the two that matter most commercially: cost and timeline.</p>
+          <p class="evidence">.itx-faq-new [aria-expanded] → 0 matches<br>tabindex: null · role: null · cursor: pointer</p>
+          <p class="fix"><b>Fix</b>Wrap each question in a <code>&lt;button aria-expanded&gt;</code> controlling the answer panel by id, or replace the whole block with native <code>&lt;details&gt;/&lt;summary&gt;</code>, which gives you keyboard support, state announcement, and in-page find for free.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="critical">
+        <div class="sev"><span>Critical</span></div>
+        <div>
+          <h4>A logo collides with the flagship case study's title</h4>
+          <p>The Coinstar mark is absolutely positioned and lands on top of the heading “Cryptocurrency e-Wallet Application Ecosystem…” at 1440px, rendering both illegible. At 390px it moves onto the thumbnail image instead. This is the first item in the proof section — the moment the page asks to be believed.</p>
+          <p class="fix"><b>Fix</b>Put the client mark in its own grid row above the title rather than positioning it absolutely, and cap it at a fixed height so logos of differing aspect ratios sit on one baseline.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="moderate">
+        <div class="sev"><span>Moderate</span></div>
+        <div>
+          <h4>The form has no labels and no required-field marking</h4>
+          <p>All five visible fields are placeholder-only. The placeholder disappears the moment a user types, so anyone who pauses mid-form, tabs back, or uses autofill loses the field's identity — and screen readers get nothing. Three of the five are required (<code>name</code>, <code>email</code>, <code>message</code>) with no visual or programmatic indication.</p>
+          <p class="evidence">5 visible fields · labels: 0 · aria-label: 0 · required: 3 (unmarked)</p>
+          <p class="fix"><b>Fix</b>Add persistent labels above each field — a float-label pattern preserves the current density if the layout matters. Mark the three required fields and drop “Company name” and “Phone number” to optional-labelled, which also signals a lower commitment.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="moderate">
+        <div class="sev"><span>Moderate</span></div>
+        <div>
+          <h4>The proof section proves the wrong thing</h4>
+          <p>The featured case study is a crypto e-wallet, not a trading platform. The three studies that <em>are</em> trading projects are all badged “Under NDA” with no client, no metric, and no outcome — “An automated, real-time trading system that allows administrators to configure trading strategies” is a feature description, not evidence. Of five testimonials, only one comes from a trading or investing firm, and it is the only anonymous one.</p>
+          <p class="fix"><b>Fix</b>NDA does not prevent quantified outcomes. Replace the descriptions with anonymised numbers a buyer in this category actually weighs — order round-trip latency, peak messages per second, instruments supported, months to first live trade, exchange or broker integrations shipped. Promote the “Risk Management Director, Investing Fund” quote to the top of the carousel; it is the most relevant one you have.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="moderate">
+        <div class="sev"><span>Moderate</span></div>
+        <div>
+          <h4>Forty-six capability bullets, no commercial anchor</h4>
+          <p>Four separate sections list what itexus can build — 21 solution items, 6 must-haves, 6 service areas, 13 core features — with almost no overlap in structure and heavy overlap in content (“Trading Execution Middleware” appears in two of them). Nowhere does the page state a price band, an engagement model, a team shape, or a reason to choose this firm over a competitor. The FAQ answers the cost question with “there is no fixed cost” and a link away from the page.</p>
+          <p class="fix"><b>Fix</b>Collapse the four lists into two — “what we build” and “how we build it” — and reclaim the space for the two questions the buyer actually has: what does an engagement cost, and what have you shipped in production. A starting band (“discovery from $X, MVP typically $Y–Z”) qualifies leads rather than losing them.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="moderate">
+        <div class="sev"><span>Moderate</span></div>
+        <div>
+          <h4>Chat widget overlaps live controls</h4>
+          <p>At 1440px the chat bubble sits on top of the cookie banner's “Accept All” button. At 390px it covers the “Trading Software Solutions We Develop” heading and, further down, body copy in the case study card. The cookie banner itself offers “Accept All” and “Cookie Settings” with no reject control of equal prominence.</p>
+          <p class="fix"><b>Fix</b>Suppress the chat launcher while the consent bar is visible, and give it a lower z-index than page headings. Add a “Reject non-essential” button beside “Accept All”.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="minor">
+        <div class="sev"><span>Minor</span></div>
+        <div>
+          <h4>A 470px decorative band interrupts the argument</h4>
+          <p>Between the must-haves list and the case studies sits a full-width photograph of two phones carrying no caption, no data, and no relationship to the sections either side of it. On mobile it costs a full screen of scroll at the exact point where the reader is deciding whether to continue.</p>
+          <p class="fix"><b>Fix</b>Cut it, or earn it — the same slot could hold an architecture diagram of the execution path, which is the one visual that would actually differentiate this page from a generic services page.</p>
+        </div>
+      </div>
+
+      <div class="finding" data-sev="minor">
+        <div class="sev"><span>Minor</span></div>
+        <div>
+          <h4>Award badges render below legibility</h4>
+          <p>The eleven trust badges under the testimonials display between 40px and 69px wide. None is readable, the first is clipped at the container edge, and each is served at three to eight times its display size.</p>
+          <p class="fix"><b>Fix</b>Keep three or four — Clutch 4.9/40 reviews is the only one carrying real signal — at a legible size, and drop the rest.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Visual hierarchy</h2>
+
+    <h3>What draws the eye, in order</h3>
+    <div class="flow">
+      <div class="flow-row"><span class="depth">0–640</span><span>Phone renders → H1 → subhead → CTA</span><span class="verdict v-drift">Inverted</span></div>
+      <div class="flow-row"><span class="depth">690</span><span>Bento grid: “Data &amp; Analytics” top-left of eye path</span><span class="verdict v-drift">Wrong card</span></div>
+      <div class="flow-row"><span class="depth">1672</span><span>“Must-haves” — 174-char lines, empty right half</span><span class="verdict v-lose">Skimmed</span></div>
+      <div class="flow-row"><span class="depth">2338</span><span>Decorative photo band</span><span class="verdict v-lose">No content</span></div>
+      <div class="flow-row"><span class="depth">2868</span><span>Case studies — logo collision on the first card</span><span class="verdict v-lose">Breaks</span></div>
+      <div class="flow-row"><span class="depth">4004</span><span>“Need to talk to a trading solution architect?”</span><span class="verdict v-hold">Strong</span></div>
+      <div class="flow-row"><span class="depth">4300</span><span>Six service cards</span><span class="verdict v-drift">Redundant</span></div>
+      <div class="flow-row"><span class="depth">4890</span><span>13 core features, zig-zag, 1530px tall</span><span class="verdict v-lose">Fatigue</span></div>
+      <div class="flow-row"><span class="depth">6509</span><span>FAQ</span><span class="verdict v-hold">Well-placed</span></div>
+      <div class="flow-row"><span class="depth">7541</span><span>Testimonials + badges</span><span class="verdict v-drift">Off-target</span></div>
+      <div class="flow-row"><span class="depth">8257</span><span>Form + 4-step process</span><span class="verdict v-hold">Best block</span></div>
+    </div>
+
+    <h3>The H1 has no dominance</h3>
+    <div class="col">
+      <p>The page headline and every section heading are set at the same <code>40px / 600</code>. The only thing separating the page's thesis from “FAQs” is position. In a 1440px canvas with a 640px-tall hero, the H1 is confined to a 625px column at 40px — small enough that the phone renders win the hero by default.</p>
+      <p>Raise the H1 to roughly 56–64px and pull section H2s down to 30–32px. That single change fixes both the hero focal order and the flatness of the scroll, at no layout cost.</p>
+    </div>
+
+    <h3>Line length is more than double the readable maximum</h3>
+    <div class="col">
+      <p>In the “Must-haves for Automated Trading App Development” block, 14px body copy runs inside a 1196px box — approximately <span class="m">174 characters per line</span> against a comfortable range of 45–75. The eye loses its place returning to the left margin, so the section reads as a wall and gets skipped. The right half of the card is empty while this happens.</p>
+      <p>Cap prose at <code>max-width: 68ch</code> and run the six must-haves as a two-column grid. The section shortens, the measure halves, and the dead space disappears in one move.</p>
+    </div>
+
+    <h3>The bento grid buries its own headline category</h3>
+    <div class="col">
+      <p>“Trading Platforms” — the category that names the page and contains custom platforms, mobile apps, OTC and HFT systems — sits mid-left in the masonry, below the fold of the section, while “Data &amp; Analytics” and “Execution &amp; Middleware” take the top row. Masonry ordering is being decided by card height rather than by importance. Pin “Trading Platforms” to the first cell and let the rest flow.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Consistency</h2>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Element</th><th scope="col">Inconsistency observed</th><th scope="col">Recommendation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Heading scale</td>
+            <td>H1 and H2 both 40px/600; H3 20px. Two levels doing three jobs.</td>
+            <td>Three-step scale: 60 / 32 / 20, weights 800 / 700 / 600.</td>
+          </tr>
+          <tr>
+            <td>Body size</td>
+            <td>14px (must-haves), 16px (service cards), 18px (hero) with no rule governing which applies where.</td>
+            <td>One body size at 17px; 15px reserved for captions and tags only.</td>
+          </tr>
+          <tr>
+            <td>Line height</td>
+            <td>1.40 on 14px body — tight for the longest measure on the page.</td>
+            <td>1.6 for body, 1.15 for display.</td>
+          </tr>
+          <tr>
+            <td>Section rhythm</td>
+            <td>Mixes margin-driven (50 / 60px) and padding-driven (50 / 60px) spacing across eleven sections; adjacent margins collapse unpredictably.</td>
+            <td>Padding only, on a 4px scale: 96px desktop, 64px mobile.</td>
+          </tr>
+          <tr>
+            <td>Contact process steps</td>
+            <td>Step 1's heading and body have no gap; steps 2–4 do.</td>
+            <td>Set the gap on the flex container, not on individual children.</td>
+          </tr>
+          <tr>
+            <td>Headings in markup</td>
+            <td>“Let's discuss how we can help with your project” appears as an H2 twice in the same section.</td>
+            <td>Remove the duplicate; keep one per section.</td>
+          </tr>
+          <tr>
+            <td>Card system</td>
+            <td>Consistent radius, border, and elevation across five section types.</td>
+            <td class="pass">Keep as is — this is working.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accessibility</h2>
+    <p class="lede">Measured against WCAG 2.1 AA on the rendered page.</p>
+
+    <h3>Colour contrast</h3>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Text</th><th scope="col">Foreground / background</th><th scope="col">Ratio</th><th scope="col">Required</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>All green CTAs<br><span class="m" style="color:var(--ink-3)">Book a consultation · Contact Us · View all projects · Get in Touch</span></td>
+            <td><span class="swatch" style="background:#ffffff"></span>#FFFFFF on <span class="swatch" style="background:#25BB4D"></span>#25BB4D</td>
+            <td class="num fail">2.53:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Hero H1 — 40px/600</td>
+            <td><span class="swatch" style="background:#ffffff"></span>#FFFFFF on <span class="swatch" style="background:#82A4A2"></span>~#82A4A2</td>
+            <td class="num fail">2.70:1</td>
+            <td>3:1 (large)</td>
+          </tr>
+          <tr>
+            <td>Hero subheadline — 18px</td>
+            <td>80% white on <span class="swatch" style="background:#82A4A2"></span>~#82A4A2</td>
+            <td class="num fail">2.26:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Submit button label</td>
+            <td>40% white on <span class="swatch" style="background:#606060"></span>#606060</td>
+            <td class="num fail">2.40:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Cookie “Accept All”</td>
+            <td><span class="swatch" style="background:#ffffff"></span>#FFFFFF on <span class="swatch" style="background:#2CAA4D"></span>#2CAA4D</td>
+            <td class="num fail">3.02:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Body copy</td>
+            <td><span class="swatch" style="background:#051320"></span>#051320 on <span class="swatch" style="background:#ffffff"></span>#FFFFFF</td>
+            <td class="num pass">18.74:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Nav links</td>
+            <td><span class="swatch" style="background:#ffffff"></span>#FFFFFF on <span class="swatch" style="background:#3A5B5C"></span>#3A5B5C</td>
+            <td class="num pass">7.32:1</td>
+            <td>4.5:1</td>
+          </tr>
+          <tr>
+            <td>Form placeholders</td>
+            <td><span class="swatch" style="background:#AEAEAE"></span>~#AEAEAE on <span class="swatch" style="background:#393939"></span>~#393939</td>
+            <td class="num pass">5.21:1</td>
+            <td>4.5:1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col" style="margin-top:1.5rem">
+      <p><strong>On the green.</strong> <code>#25BB4D</code> is the brand's most-used colour and it fails on every button that carries a word. Two routes out. Darken it for text-bearing surfaces — <code>#0F7A35</code> gives 5.45:1 with white and still reads as the same brand green; keep <code>#25BB4D</code> for icons, borders, rules and hover states where no text sits on it. Or keep the bright green and switch the labels to near-black: <code>#0B1F12</code> on <code>#25BB4D</code> measures 8.2:1. The first route preserves the current look more faithfully.</p>
+      <p><strong>On the hero.</strong> The background under the headline sits around <code>#82A4A2</code>. A left-to-right scrim bringing it to roughly <code>#3A5B5C</code> — the colour already used in the header — puts white text at 7.3:1 and needs no new value in the palette.</p>
+    </div>
+
+    <h3>Touch targets</h3>
+    <div class="col">
+      <p><span class="m">48</span> interactive elements fall below the 44 × 44px minimum at 390px, including the header “Contact Us” at 34px tall, the consent label at 24px, the file-upload trigger at 25px, and every footer link at 24px. The footer links in particular sit in a dense stack where a 24px target with no vertical padding produces frequent mis-taps.</p>
+    </div>
+
+    <h3>Other</h3>
+    <div class="col">
+      <p><span class="m">15</span> of 76 images carry no alt text. Nine CSS rules remove focus outlines on <code>:focus</code>; the page does define <code>:focus-visible</code> styles, so verify each removal is paired with a replacement rather than left bare. The testimonial and badge carousels are the bright spot — both sets of arrows carry proper labels (“Previous review or award”), so someone on this team already knows how to do this.</p>
+      <p><span class="m">52</span> images are served at more than 2.2× their display size — <code>clutch-new.png</code> arrives 324px wide to fill a 40px slot. Not an accessibility issue, but on a page that already runs 9,610px on desktop and 13,185px on mobile, it is free performance.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What works well</h2>
+    <ul class="wins">
+      <li><strong>The hero copy is genuinely well-briefed</strong><span>Naming hedge funds, brokerages, exchanges, FCMs and fintechs in the first sentence, then “low-latency execution and risk controls,” signals domain fluency in a category where most competitors write “innovative fintech solutions.” Do not let a redesign soften this.</span></li>
+      <li><strong>One CTA, said one way</strong><span>Book a consultation → Book a Free Consultation → Get in Touch. The page never asks for two things at once, and never invents a fifth verb. That discipline is rarer than it should be.</span></li>
+      <li><strong>The four-step process block is the strongest thing on the page</strong><span>It answers the question every buyer has at a contact form — what happens after I hit send — with commitments rather than adjectives: 24 hours, NDA signed, contract in 1–2 weeks, MVP live in 3–4 months. Consider surfacing an abbreviated version near the hero.</span></li>
+      <li><strong>A coherent card system</strong><span>The same radius, border weight and elevation carry across bento, case study, service and FAQ cards. The page reads as one design, not five.</span></li>
+      <li><strong>Real product screenshots, not stock illustration</strong><span>The bento tiles show actual UI with real numbers. It is the most credible material on the page — which is exactly why the case studies beneath them should carry numbers too.</span></li>
+      <li><strong>Carousel controls are properly labelled</strong><span>“Previous review or award” is a better aria-label than most production sites ship. The knowledge is in the team; it needs applying to the FAQ and the form.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Priority recommendations</h2>
+    <ol class="prio">
+      <li>
+        <div>
+          <h3>Unblock the conversion path</h3>
+          <p>Make the consent checkbox focusable, ship the submit button enabled with inline validation, add persistent labels and required markers to the five fields, and give the FAQ rows real button semantics. Nothing else on this page matters if the form cannot be completed and the two commercial FAQ answers cannot be opened.</p>
+          <span class="effort">Highest impact · roughly one day of front-end work</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Fix the green, then the hero ground</h3>
+          <p>Introduce <code>#0F7A35</code> as the text-bearing green (5.45:1) and keep <code>#25BB4D</code> for non-text use. Add a left-side scrim to the hero taking the background under the headline to <code>#3A5B5C</code>. Two token changes clear five contrast failures and the page looks essentially unchanged.</p>
+          <span class="effort">High impact · half a day</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Repair the case study block and give it numbers</h3>
+          <p>Move the client logo out of absolute positioning so it stops landing on the title. Then replace the feature-description summaries with anonymised outcomes — latency, throughput, integrations shipped, time to first live trade. Lead with a trading project rather than the crypto wallet, and promote the investing-fund testimonial to first position.</p>
+          <span class="effort">High impact · one day build, plus copy from delivery</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Set a type scale and cap the measure</h3>
+          <p>H1 to 60px, H2 to 32px, one 17px body size, <code>max-width: 68ch</code> on all prose. This resolves the flat hierarchy, the 174-character lines, and the three competing body sizes in a single pass, and it will shorten the page.</p>
+          <span class="effort">Medium impact · half a day</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Cut roughly a third of the page</h3>
+          <p>Merge the four capability lists into two, delete the decorative photo band, trim the badge row to three or four legible marks, and reclaim the space for an engagement model and a price band. At 13,185px on mobile with the form at 84% depth, length is currently costing more than the content is earning.</p>
+          <span class="effort">Medium impact · content decision, then half a day</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    Reviewed against the stage build · Chrome, 1440 × 900 and 390 × 844 emulated<br>
+    Contrast ratios computed from rendered pixel values and computed styles, not from the design file<br>
+    Cookie consent left unaccepted throughout; chat and consent overlays hidden locally for capture only
+  </footer>
+
+</div>

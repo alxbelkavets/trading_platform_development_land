@@ -1,0 +1,128 @@
+.trading-software-solutions {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions {
+    padding: 20px 4px;
+    margin: 44px 16px 30px 16px;
+    box-shadow: 0 4px 44px -9px rgba(0, 0, 0, 0.03);
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+.trading-software-solutions__section-title {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  color: #051320;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__section-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}
+.trading-software-solutions__section-subtitle {
+  font-size: 18px;
+  line-height: 140%;
+  color: rgba(5, 19, 32, 0.8);
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__section-subtitle {
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+}
+.trading-software-solutions__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__wrapper {
+    gap: 16px;
+    flex-direction: column;
+  }
+}
+.trading-software-solutions__col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__col {
+    gap: 16px;
+  }
+}
+.trading-software-solutions__col_third .trading-software-solutions__item:nth-child(2) {
+  order: 1;
+}
+.trading-software-solutions__item {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 44px -9px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+.trading-software-solutions__title h3 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+  color: #051320;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__title h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+.trading-software-solutions__text {
+  font-size: 16px;
+  line-height: 140%;
+  color: rgba(5, 19, 32, 0.8);
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__text {
+    font-size: 14px;
+  }
+}
+.trading-software-solutions__text li {
+  padding-left: 24px;
+  position: relative;
+}
+.trading-software-solutions__text li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: rgba(5, 19, 32, 0.8);
+}
+.trading-software-solutions__image {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 44px -9px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+}
+.trading-software-solutions__image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media screen and (max-width: 768px) {
+  .trading-software-solutions__image {
+    border-radius: 12px;
+  }
+}/*# sourceMappingURL=style.min.css.map */

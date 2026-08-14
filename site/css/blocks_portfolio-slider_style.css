@@ -1,0 +1,338 @@
+.itx-portfolio-slider {
+}
+
+/* CONTAINER: */
+.itx-portfolio-slider__container {
+    padding: 8rem 0 10rem 0;
+    transition: padding .4s ease-in-out .1s;
+}
+@media screen and (max-width: 1024px) {
+    .itx-portfolio-slider__container {
+        padding: 6rem 0 8rem 0;
+    }
+}
+@media screen and (max-width: 768px) {
+    .itx-portfolio-slider__container {
+        padding: 4rem 0 6rem 0;
+    }
+}
+@media screen and (max-width: 425px) {
+    .itx-portfolio-slider__container {
+        padding: 3rem 0 4rem 0;
+    }
+}
+/* -- CONTAINER */
+
+/* TITLE: */
+.itx-portfolio-slider__title {
+    font-size: var(--itx-font-size-h2);
+    line-height: var(--itx-line-height-h2);
+    font-weight: bold;
+    font-family: var(--itx-ff-HB);
+    color: var(--itx-color-text-default);
+    margin: 0;
+    max-width: 800px;
+}
+@media screen and (max-width: 1024px) {
+    .itx-portfolio-slider__title {
+        max-width: 100%;
+    }
+}
+/* -- TITLE */
+
+.itx-portfolio-slider .container-common {
+    padding-top: 40px;
+    padding-bottom: 100px;
+    border-top: none;
+}
+@media screen and (max-width: 992px) {
+    .itx-portfolio-slider .container-common {
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+}
+.itx-portfolio-slider__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+@media screen and (max-width: 768px) {
+    .itx-portfolio-slider__header {
+        margin-bottom: 1rem;
+    }
+}
+@media screen and (max-width: 425px) {
+    .itx-portfolio-slider__header {
+        align-items: center;
+    }
+}
+@media screen and (max-width: 380px) {
+    .itx-portfolio-slider__header h2 {
+        padding-right: 0;
+    }
+}
+.itx-portfolio-slider__title-btn {
+    color: var(--itx-color-accent);
+    font-size: 18px;
+    line-height: 20px;
+    white-space: nowrap;
+    padding-left: 2rem;
+    display: flex;
+}
+.itx-portfolio-slider__header .itx-ps__btn_full {
+    display: block;
+    font-size: 17px;
+}
+.itx-portfolio-slider__header .itx-ps__btn_short {
+    font-size: 18px;
+    padding-top: 1px;
+    margin-left: .75rem;
+    transition: transform .25s ease-in-out;
+}
+@media screen and (max-width: 425px) {
+    .itx-portfolio-slider__header .itx-ps__btn_full {
+        display: none;
+    }
+    .itx-portfolio-slider__header .itx-ps__btn_short {
+        display: block;
+        font-size: 28px;
+    }
+}
+@media screen and (max-width: 300px) {
+    .itx-portfolio-slider__header .itx-portfolio-slider__title-btn {
+        display: none;
+    }
+}
+.itx-portfolio-slider__title-btn:hover,
+.itx-portfolio-slider__title-btn:focus {
+    color: #4dc87c;
+}
+.itx-portfolio-slider__title-btn:hover .itx-ps__btn_short,
+.itx-portfolio-slider__title-btn:focus .itx-ps__btn_short {
+    transform: translateX(5px);
+}
+.itx-portfolio-slider__title-btn:active {
+    color: #209c53;
+}
+.itx-portfolio-slider__item .slick-list {
+    min-height: 365px;
+}
+.itx-portfolio-slider .slick-dots {
+    bottom: -30px;
+}
+@media screen and (max-width: 576px) {
+    .itx-portfolio-slider .slick-dots {
+        bottom: -25px;
+    }
+}
+.itx-portfolio-slider .slick-dots li {
+    margin: 0 2px;
+}
+.itx-portfolio-slider .slick-dots li button:before {
+    font-size: 37px;
+    color: #ebecee;
+    opacity: 1;
+}
+.itx-portfolio-slider .slick-list {
+    margin: 0 -7px;
+}
+
+.itx-portfolio-slider .slick-dots li button:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    background-color: #999;
+    width: 8px;
+    height: 8px;
+    border-radius: 15px;
+    font-size: 6px;
+    line-height: 20px;
+    text-align: center;
+    color: black;
+    opacity: .25;
+    transition: all .2s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.itx-portfolio-slider .slick-dots li button:hover:before,
+.itx-portfolio-slider .slick-dots li button:focus:before {
+    opacity: 1;
+    background-color: var(--itx-color-accent-hover);
+}
+.itx-portfolio-slider .slick-dots li:hover button:before {
+    box-shadow: inset 0 0 4px var(--itx-color-accent);
+    transform: scale(1.2);
+}
+.itx-portfolio-slider .slick-dots li.slick-active button:before {
+    width: 30px;
+    color: var(--itx-color-accent);
+    background-color: var(--itx-color-accent);
+    transform: translateX(-10px);
+    opacity: 1;
+}
+.itx-portfolio-slider .slick-dots li.slick-active {
+    margin: 0 10px;
+}
+.itx-portfolio-slider .flip-card {
+    padding: 1px;
+    width: 338px;
+    height: 358px;
+}
+.itx-portfolio-slider .flip-card-inner {
+    position: relative;
+}
+.itx-portfolio-slider .flip-card-front,
+.itx-portfolio-slider .flip-card-back {
+    position: absolute;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+    width: calc(100% - 16px);
+    text-align: center;
+    background: #f6f6f6;
+    padding: 20px;
+    margin: 8px;
+    border-radius: 12px;
+    height: 338px;
+}
+.itx-portfolio-slider .flip-card-front .absolute-link,
+.itx-portfolio-slider .flip-card-back .absolute-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.itx-portfolio-slider .flip-card-front {
+    z-index: 2;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    background: #f6f6f6;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.itx-portfolio-slider .flip-card-back {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 0 8px 0 #999c99;
+    transform: rotateY(-180deg);
+}
+.itx-portfolio-slider .flip-card-back__text {
+    margin: 10px 0;
+    color: var(--itx-color-text-default);
+    font: 14px/18px var(--itx-ff-HR);
+}
+.itx-portfolio-slider .flip-card-back .btn-color {
+    position: relative;
+    height: 40px;
+    margin-top: 15px;
+    max-width: 140px;
+}
+.itx-portfolio-slider .flip-card-back .btn-color:hover,
+.itx-portfolio-slider .flip-card-back .btn-color:focus {
+    background: #4dc87c;
+}
+.itx-portfolio-slider .flip-card-back .btn-color:active {
+    background: #209c53;
+}
+.itx-portfolio-slider .flip-card-inner.hover .flip-card-back,
+.itx-portfolio-slider .flip-card-inner:hover .flip-card-back {
+    transform: rotateY(0deg);
+    opacity: 0;
+    animation: showCard 0.8s forwards;
+}
+.itx-portfolio-slider .flip-card-inner.hover .flip-card-front,
+.itx-portfolio-slider .flip-card-inner:hover .flip-card-front {
+    transform: rotateY(180deg);
+    opacity: 0;
+    animation: showCard 0.8s forwards;
+}
+@-webkit-keyframes showCard {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes showCard {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.itx-portfolio-slider .case-screen {
+    max-width: 280px;
+    height: auto;
+    max-height: 240px;
+    margin-top: 10px;
+}
+.itx-portfolio-slider .case-screen img {
+    max-width: 100%;
+    height: auto;
+    max-height: 240px;
+}
+.itx-portfolio-slider h3 {
+    position: relative;
+    font: 18px/20px var(--itx-ff-HM);
+    padding-bottom: 5px;
+    width: 100%;
+    z-index: -1;
+    text-align: left;
+    color: var(--itx-color-text-default);
+}
+.itx-portfolio-slider .flip-card-back h3 {
+    text-align: center;
+}
+.itx-portfolio-slider .flip-technologies {
+    margin-top: 1rem;
+}
+.itx-portfolio-slider .flip-technologies li {
+    color: #9fa1a7;
+    font-size: 11px;
+    padding: 5px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 4px;
+    background-color: var(--itx-color-gray-light);
+}
+.itx-portfolio-slider .flip-domains {
+    font: 16px/20px var(--itx-ff-HB);
+    color: var(--itx-color-accent);
+    margin-bottom: 1rem;
+}
+.itx-portfolio-slider .flip-domains li {
+    display: inline-block;
+    padding: 0 .5rem;
+}
+
+/* Scroll: */
+.flip-card-back::-webkit-scrollbar{width:1px;}
+.flip-card-back::-webkit-scrollbar-track{background:0 0}
+.flip-card-back::-webkit-scrollbar-thumb{
+    background-color:#00000000;
+}
+/* -- Scroll */
+
+@media screen and (max-width: 475px) {
+    .flip-card-back .itx-btn {
+        width: auto;
+    }
+}
+@media screen and (max-width: 320px) {
+    .flip-card-back .itx-btn {
+        width: 100%;
+    }
+}

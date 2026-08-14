@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Black.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Bold.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-ExtraBold.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-ExtraBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Light.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-ExtraLight.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-ExtraLight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Regular.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Medium.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-Thin.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Heebo";
+  src: url("../fonts/Heebo/web/Heebo-SemiBold.woff2") format("woff2"), url("../fonts/Heebo/web/Heebo-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+.h0 {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 110%;
+  color: #000;
+}
+
+h1,
+.h1 {
+  font-weight: 600;
+  font-size: 56px;
+  line-height: 110%;
+  color: #000;
+}
+
+h2,
+.h2 {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 110%;
+  color: #051320;
+}
+@media screen and (max-width: 768px) {
+  h2,
+  .h2 {
+    font-size: 32px;
+    line-height: 110%;
+  }
+}
+
+h4,
+.h3 {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 110%;
+  color: #051320;
+}
+
+h4,
+.h4 {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+  color: #051320;
+}
+
+h5,
+.h5 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  color: #051320;
+}
+
+h6,
+.h6 {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  color: #051320;
+}
+
+body {
+  font-family: Heebo;
+  color: #051320;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.general-container {
+  max-width: 1312px;
+  padding: 0 16px;
+  margin: auto;
+}
+
+.header.new_header_version.scroll-header {
+  background-color: #3a5b5c;
+}
+
+.navbar-menu-wrapper .new_header_version-menu > .menu-item > .sub-menu {
+  background-color: #3a5b5c;
+}
+
+@media screen and (max-width: 1000px) {
+  .header.new_header_version {
+    background-color: #3a5b5c;
+    border-bottom: 1px solid #fff;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .navbar-menu-wrapper.active {
+    background-color: #3a5b5c;
+  }
+}
+@media screen and (max-width: 768px) {
+  .itx-big-grid {
+    padding-top: 0 !important;
+  }
+  .itx-main-block-new__button {
+    width: -moz-fit-content !important;
+    width: fit-content !important;
+  }
+  .itx-main-block-new__buttons-block {
+    justify-content: flex-start !important;
+  }
+}/*# sourceMappingURL=trading-style.css.map */

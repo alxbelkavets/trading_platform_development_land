@@ -1,0 +1,556 @@
+<title>Conversion &amp; Content Analysis — Itexus Trading Platform Page</title>
+<style>
+  :root {
+    --paper:        #F1F3F2;
+    --surface:      #FBFCFB;
+    --surface-sunk: #E7EBE9;
+    --ink:          #0D1614;
+    --ink-2:        #3C4B47;
+    --ink-3:        #6B7B76;
+    --rule:         #CBD4D0;
+    --rule-soft:    #DDE4E1;
+    --accent:       #0F7A35;
+    --accent-soft:  #E1EFE6;
+    --leak:         #B32A22;
+    --leak-soft:    #F6E3E1;
+    --warn:         #98650A;
+    --warn-soft:    #F6EDDA;
+    --hold:         #2E6F76;
+    --hold-soft:    #E0EDEE;
+
+    --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --f-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #0B1211;
+      --surface:      #131C1A;
+      --surface-sunk: #0A100F;
+      --ink:          #E8EEEB;
+      --ink-2:        #A9B8B3;
+      --ink-3:        #74847F;
+      --rule:         #2A3835;
+      --rule-soft:    #1E2A28;
+      --accent:       #4FC97C;
+      --accent-soft:  #16301F;
+      --leak:         #F08078;
+      --leak-soft:    #331715;
+      --warn:         #E0AC4A;
+      --warn-soft:    #2E2312;
+      --hold:         #6FC4CC;
+      --hold-soft:    #14282A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:        #0B1211;
+    --surface:      #131C1A;
+    --surface-sunk: #0A100F;
+    --ink:          #E8EEEB;
+    --ink-2:        #A9B8B3;
+    --ink-3:        #74847F;
+    --rule:         #2A3835;
+    --rule-soft:    #1E2A28;
+    --accent:       #4FC97C;
+    --accent-soft:  #16301F;
+    --leak:         #F08078;
+    --leak-soft:    #331715;
+    --warn:         #E0AC4A;
+    --warn-soft:    #2E2312;
+    --hold:         #6FC4CC;
+    --hold-soft:    #14282A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.75rem 6rem; }
+  .col { max-width: 40rem; }
+
+  .masthead { padding: 4.5rem 0 0; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .eyebrow {
+    font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.9rem); line-height: 1.02; letter-spacing: -0.035em;
+    font-weight: 800; margin: 0; text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--ink-3); font-weight: 500; letter-spacing: -0.02em; }
+
+  .standfirst { font-size: 1.2rem; line-height: 1.5; color: var(--ink-2); margin: 0; max-width: 38rem; }
+
+  .meta {
+    font-family: var(--f-mono); font-size: 0.75rem; line-height: 1.9; color: var(--ink-3);
+    display: grid; grid-template-columns: 7.5rem 1fr; gap: 0 1rem; max-width: 38rem; margin: 0;
+  }
+  .meta dd { margin: 0; color: var(--ink-2); }
+
+  section { margin-top: 4.5rem; }
+
+  h2 {
+    font-size: 1.85rem; line-height: 1.15; letter-spacing: -0.024em;
+    font-weight: 750; margin: 0 0 0.5rem;
+  }
+  h3 { font-size: 1.08rem; letter-spacing: -0.012em; font-weight: 700; margin: 2.25rem 0 0.5rem; }
+
+  .lede { color: var(--ink-2); margin: 0 0 1.75rem; max-width: 40rem; }
+  p { margin: 0 0 1.1rem; }
+  .col p:last-child { margin-bottom: 0; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  code, .m { font-family: var(--f-mono); font-size: 0.86em; font-variant-numeric: tabular-nums; }
+  code { background: var(--surface-sunk); padding: 0.1em 0.36em; border-radius: 3px; }
+
+  /* ---------- thesis callout ---------- */
+
+  .thesis {
+    margin: 3rem 0 0;
+    border-top: 3px solid var(--leak);
+    background: var(--surface);
+    padding: 1.75rem;
+    border-radius: 0 0 4px 4px;
+  }
+  .thesis p { margin: 0 0 0.9rem; max-width: 44rem; }
+  .thesis p:last-child { margin: 0; }
+  .thesis .eyebrow { color: var(--leak); margin-bottom: 0.75rem; }
+
+  /* ---------- funnel depth map ---------- */
+
+  .depthmap {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .depthmap-row {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.72rem 1rem;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: 0.92rem;
+    border-left: 3px solid transparent;
+  }
+  .depthmap-row:last-child { border-bottom: 0; }
+  .depthmap-row.head {
+    background: var(--surface-sunk);
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .depthmap-row[data-k="leak"] { border-left-color: var(--leak); }
+  .depthmap-row[data-k="hold"] { border-left-color: var(--accent); }
+  .depth {
+    font-family: var(--f-mono); font-size: 0.78rem;
+    font-variant-numeric: tabular-nums; color: var(--ink-3);
+  }
+  .dest { font-family: var(--f-mono); font-size: 0.78rem; }
+  .dest.leak { color: var(--leak); }
+  .dest.hold { color: var(--accent); }
+
+  /* ---------- gap grid ---------- */
+
+  .gaps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1px;
+    background: var(--rule-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .gap { background: var(--surface); padding: 1.15rem 1.25rem; }
+  .gap .q {
+    font-weight: 700; font-size: 0.98rem; margin: 0 0 0.35rem; display: block;
+  }
+  .gap .a { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+  .gap .verdict {
+    font-family: var(--f-mono); font-size: 0.64rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600; color: var(--leak);
+    display: block; margin-top: 0.6rem;
+  }
+  .gap .verdict.part { color: var(--warn); }
+  .gap .verdict.ok { color: var(--accent); }
+
+  /* ---------- before / after ---------- */
+
+  .ba {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .ba > div { background: var(--surface); padding: 1.25rem 1.35rem; }
+  .ba .lab {
+    font-family: var(--f-mono); font-size: 0.64rem; letter-spacing: 0.11em;
+    text-transform: uppercase; font-weight: 600; margin: 0 0 0.7rem;
+  }
+  .ba .now .lab { color: var(--ink-3); }
+  .ba .next .lab { color: var(--accent); }
+  .ba .now { color: var(--ink-3); }
+  .ba p { margin: 0 0 0.55rem; font-size: 0.95rem; }
+  .ba p:last-child { margin-bottom: 0; }
+  .ba .hd { font-weight: 750; font-size: 1.12rem; line-height: 1.2; letter-spacing: -0.02em; }
+  .ba .next .hd { color: var(--ink); }
+  .ba .btn {
+    display: inline-block; font-size: 0.85rem; font-weight: 650;
+    padding: 0.42rem 0.85rem; border-radius: 3px; margin: 0.35rem 0.35rem 0 0;
+  }
+  .ba .now .btn { background: var(--surface-sunk); color: var(--ink-3); }
+  .ba .next .btn.p { background: var(--accent); color: var(--paper); }
+  .ba .next .btn.s { border: 1px solid var(--accent); color: var(--accent); }
+  .ba .strip {
+    font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-2);
+    margin-top: 0.85rem; padding-top: 0.7rem; border-top: 1px solid var(--rule-soft);
+  }
+
+  .note {
+    font-size: 0.88rem; color: var(--ink-3); border-left: 2px solid var(--rule);
+    padding-left: 0.85rem; max-width: 40rem;
+  }
+
+  /* ---------- tables ---------- */
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 0.62rem 0.9rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  thead th {
+    font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 600;
+    background: var(--surface-sunk); border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-weight: 700; }
+  .cut { color: var(--leak); }
+  .keep { color: var(--accent); }
+
+  /* ---------- ordered plan ---------- */
+
+  .plan { counter-reset: p; display: flex; flex-direction: column; gap: 1.5rem; padding: 0; margin: 0; }
+  .plan > li {
+    counter-increment: p; list-style: none;
+    display: grid; grid-template-columns: 3rem 1fr; gap: 1.25rem; align-items: start;
+  }
+  .plan > li::before {
+    content: counter(p, decimal-leading-zero);
+    font-family: var(--f-mono); font-size: 1.5rem; font-weight: 700;
+    color: var(--accent); line-height: 1.05; font-variant-numeric: tabular-nums;
+  }
+  .plan h3 { margin: 0 0 0.35rem; font-size: 1.12rem; }
+  .plan p { margin: 0 0 0.5rem; color: var(--ink-2); font-size: 0.97rem; }
+  .plan .why {
+    font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3); display: block;
+  }
+
+  ul.tight { padding-left: 1.1rem; margin: 0 0 1.1rem; max-width: 40rem; }
+  ul.tight li { margin-bottom: 0.45rem; color: var(--ink-2); font-size: 0.96rem; }
+  ul.tight li strong { color: var(--ink); }
+
+  footer {
+    margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+    font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-3); line-height: 1.8;
+  }
+
+  @media (max-width: 44rem) {
+    body { font-size: 16px; }
+    .ba { grid-template-columns: 1fr; }
+    .depthmap-row { grid-template-columns: 4rem 1fr; }
+    .depthmap-row .dest { grid-column: 2; }
+    .meta { grid-template-columns: 1fr; gap: 0; }
+    .meta dt { margin-top: 0.5rem; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Conversion &amp; content analysis · Companion to the design critique</p>
+    <h1>Every CTA on this page <em>leaves the page</em></h1>
+    <p class="standfirst">The traffic strategy is sound and the audience targeting is unusually sharp. What follows the click is a page that describes a category rather than selling a vendor, and a CTA system that routes qualified visitors away from the only context that qualifies them.</p>
+    <dl class="meta">
+      <dt>URL</dt><dd>stage.itexus.com/trading-platform-development/</dd>
+      <dt>Page length</dt><dd>1,779 words · 9,581px desktop · 13,185px mobile</dd>
+      <dt>CTAs</dt><dd>6 · five navigate off-page · form at 86% depth</dd>
+      <dt>Buyer</dt><dd>Hedge funds, brokerages, exchanges, FCMs, fintechs</dd>
+      <dt>Deal shape</dt><dd>3–4 month MVP · six figures · committee purchase</dd>
+    </dl>
+  </header>
+
+  <div class="thesis">
+    <p class="eyebrow">The core problem</p>
+    <p>This page is built to <strong>rank</strong>, not to <strong>close</strong>. It explains what a trading platform is to an audience that already runs one, lists 46 capabilities without making a single argument for itexus over a competitor, and then hands the visitor a form.</p>
+    <p>The buyer it names — a hedge fund, a brokerage, an FCM — is the most risk-averse buyer in software. They are not asking “what features does a trading platform have.” They are asking “can this firm be trusted with order flow, and what happens to me if they can't.” In 1,779 words the page answers neither.</p>
+  </div>
+
+  <section>
+    <h2>The CTA system routes away from itself</h2>
+    <p class="lede">Five of six calls to action navigate to <code>/contacts/</code> — a generic company-wide form. The page's own contact form, which is better than the destination, sits at 86% depth and is reachable only by scrolling.</p>
+
+    <div class="depthmap">
+      <div class="depthmap-row head"><span>Depth</span><span>Call to action</span><span>Destination</span></div>
+      <div class="depthmap-row" data-k="leak"><span class="depth">5%</span><span>Book a consultation <span style="color:var(--ink-3)">— the only hero CTA</span></span><span class="dest leak">→ /contacts/</span></div>
+      <div class="depthmap-row" data-k="leak"><span class="depth">41%</span><span>View all projects</span><span class="dest leak">→ /portfolio/</span></div>
+      <div class="depthmap-row" data-k="leak"><span class="depth">44%</span><span>Book a Free Consultation</span><span class="dest leak">→ /contacts/</span></div>
+      <div class="depthmap-row" data-k="leak"><span class="depth">71%</span><span>Get in touch with our team <span style="color:var(--ink-3)">— inside an FAQ answer</span></span><span class="dest leak">→ /contacts/</span></div>
+      <div class="depthmap-row" data-k="leak"><span class="depth">77%</span><span>Contact <span style="color:var(--ink-3)">— inside an FAQ answer</span></span><span class="dest leak">→ /contacts/</span></div>
+      <div class="depthmap-row" data-k="hold"><span class="depth">86%</span><span>On-page form <span style="color:var(--ink-3)">— with the 4-step process block</span></span><span class="dest hold">stays on page</span></div>
+      <div class="depthmap-row" data-k="hold"><span class="depth">92%</span><span>Get in touch <span style="color:var(--ink-3)">— the form's own submit</span></span><span class="dest hold">submits</span></div>
+    </div>
+
+    <div class="col" style="margin-top:1.75rem">
+      <h3>The destination is worse than the origin</h3>
+      <p><code>/contacts/</code> carries the identical five fields, no calendar, no trading context, and — critically — <em>none</em> of the four-step reassurance block (“24 hours · NDA signed · contract in 1–2 weeks · MVP live in 3–4 months”) that makes the landing page's own form persuasive. It does add one thing the landing page lacks: an <strong>“NDA Required” checkbox</strong>, which is exactly the risk-reversal control this audience wants and it is on the wrong page.</p>
+      <p>So a visitor who clicks the hero CTA in the first five seconds is moved from a page that has just qualified them into a generic form that has forgotten who they are, with less reassurance and a fresh page load.</p>
+
+      <h3>“Book” is a promise the page doesn't keep</h3>
+      <p>“Book a consultation” and “Book a Free Consultation” use calendar language. There is no calendar — no embed, no slots, no named person, no duration. The visitor braces for a two-click booking and gets a five-field form and an unspecified wait. Either install a real scheduler and keep the verb, or change the verb to match what happens.</p>
+
+      <h3>Fifty exits from the body copy</h3>
+      <p>The main content contains 50 links leaving the page, several placed at the highest-intent moments. The FAQ answer to “How much does trading platform development cost?” — the single most commercially loaded question on the page — resolves to “there is no fixed cost” and a link to a blog post. The reader's cost question is answered by sending them somewhere else.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Message-match breaks at the door</h2>
+    <div class="col">
+      <p>The meta description — the promise made in the search result — reads: <em>“…aligned with your business goals and built for traders. <strong>300+ Projects, Ph.D. level engineers</strong>.”</em></p>
+      <p>Neither claim appears anywhere on the page. Searching the full 1,779 words for <code>300</code>, <code>Ph.D</code>, <code>PhD</code>, <code>engineers</code>, or <code>years</code> returns zero matches. The strongest credibility the company advertises evaporates on arrival, and the visitor's first screen carries 30 words, one CTA, and no reason to believe anything.</p>
+      <p>The page title is also pure keyword — “Trading Platform Development Services” — repeated verbatim as the H1. That is a wasted asset twice: no differentiator in the SERP snippet to win the click, and no argument in the H1 to hold the visit.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What this buyer needs, and what the page provides</h2>
+    <p class="lede">A due-diligence checklist for a brokerage or fund evaluating a build partner, scored against the current page.</p>
+
+    <div class="gaps">
+      <div class="gap">
+        <span class="q">Have you shipped this before, in production?</span>
+        <p class="a">Three trading case studies, all “Under NDA,” all described by feature rather than outcome. The featured one is a crypto wallet, not a trading platform.</p>
+        <span class="verdict">Not answered</span>
+      </div>
+      <div class="gap">
+        <span class="q">How fast is it, and at what volume?</span>
+        <p class="a">“Low-latency” appears three times as an adjective. No microseconds, no messages per second, no order throughput, no uptime figure anywhere on the page.</p>
+        <span class="verdict">Not answered</span>
+      </div>
+      <div class="gap">
+        <span class="q">Are you safe to hand regulated data to?</span>
+        <p class="a">No SOC 2, no ISO 27001, no pen-test posture, no named regulatory regimes (FINRA, MiFID II, SEC, FCA). PCI DSS is mentioned once, in a case study about a different product.</p>
+        <span class="verdict">Not answered</span>
+      </div>
+      <div class="gap">
+        <span class="q">What will this cost?</span>
+        <p class="a">“There is no fixed cost,” then a link off-page. No band, no engagement model, no rate structure, no discovery price.</p>
+        <span class="verdict">Deflected</span>
+      </div>
+      <div class="gap">
+        <span class="q">Who exactly is doing the work?</span>
+        <p class="a">No team, no named architect, no location beyond “United States, Poland” in the footer, no tech stack, no sample CVs. “Ph.D. level engineers” is claimed only in the meta description.</p>
+        <span class="verdict">Not answered</span>
+      </div>
+      <div class="gap">
+        <span class="q">What if it goes wrong?</span>
+        <p class="a">No IP ownership statement, no code escrow, no exit terms, no warranty, no fixed-price option. NDA appears only in an FAQ and one process step.</p>
+        <span class="verdict">Not answered</span>
+      </div>
+      <div class="gap">
+        <span class="q">Do peers like me trust you?</span>
+        <p class="a">Five testimonials; one is from an investing fund and it is the only anonymous one. The four named clients are a rewards app, a connector app, S&amp;P (quoted on “experimental AI and UI/UX”), and SPARKX5.</p>
+        <span class="verdict part">Partially</span>
+      </div>
+      <div class="gap">
+        <span class="q">What happens after I hit send?</span>
+        <p class="a">The four-step process block states 24 hours, NDA, contract in 1–2 weeks, MVP in 3–4 months. Concrete, dated, credible — the strongest content on the page.</p>
+        <span class="verdict ok">Answered well</span>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:1.5rem">Seven of eight due-diligence questions go unanswered on a page whose stated audience cannot sign a contract without answering them. Every one of these is content the company already has internally — this is a publishing gap, not a capability gap.</p>
+  </section>
+
+  <section>
+    <h2>The page has one offer, and it is the most expensive one</h2>
+    <div class="col">
+      <p>Every conversion path on the page terminates in the same high-commitment action: talk to sales. For a purchase with a 3–4 month delivery and a six-figure price, the share of visitors ready for that on first visit is small. Everyone else — the architect doing vendor research, the CTO building a shortlist, the founder scoping a budget — has nothing to convert into.</p>
+      <p>There is no second rung on the ladder. No cost model, no reference architecture, no build-vs-buy comparison, no compliance checklist, no sample proposal, no benchmark report, no newsletter. The page captures in-market buyers and loses the entire research-stage audience it worked hard to attract, at exactly the moment they were most interested.</p>
+      <p>The most obvious asset is already written and living on the blog: the trading-system cost breakdown the FAQ links to. Gate a deeper version of it on the page rather than sending the reader to a blog post that has no CTA of its own.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Copy: written from the vendor's side of the desk</h2>
+
+    <div class="ba">
+      <div class="now">
+        <p class="lab">As written</p>
+        <p><strong>Server-Side Development</strong></p>
+        <p>“Our backend developers design, build, and maintain the server-side code to ensure the high performance of your platform.”</p>
+      </div>
+      <div class="next">
+        <p class="lab">Buyer's side</p>
+        <p><strong>Matching engine &amp; order state</strong></p>
+        <p>“Order state that survives a venue disconnect, reconciles on reconnect, and is auditable to the millisecond. We've rebuilt this for brokerages after it broke in production.”</p>
+      </div>
+    </div>
+
+    <div class="ba">
+      <div class="now">
+        <p class="lab">As written</p>
+        <p><strong>Registration</strong></p>
+        <p>“A signup process should include KYC and bank account verification without compromising the user experience. As part of AML, these procedures enable the market to remain transparent and regulated.”</p>
+      </div>
+      <div class="next">
+        <p class="lab">Buyer's side</p>
+        <p><strong>Onboarding that doesn't leak applicants</strong></p>
+        <p>“KYC/AML that clears the regulator without losing half your signups to it — provider selection, fallback paths when verification fails, and a re-entry flow for abandoned applications.”</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>The pattern repeats through all four capability sections: the page describes <em>what a trading platform contains</em>, addressed to someone learning the category, while claiming to speak to hedge funds and exchanges who built one already. The result reads as a glossary with a form attached.</p>
+      <p>The exception proves the point. <em>“We help select and integrate brokers based on market coverage, API quality, latency, and SLA”</em> is the best sentence on the page, because it is the only one that names a decision the buyer is actually struggling with rather than a component they already know exists. Write the other forty-five that way, or cut them.</p>
+      <p>Two FAQ entries actively serve the wrong reader. “What does trading software do?” defines the category to someone buying custom development of it. “What is the most used trading software?” answers with MetaTrader 4, TradingView and Thinkorswim — the page spends a paragraph recommending three competing products to a prospect. Both belong on the blog, where they can earn informational traffic without diluting a sales page.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rewriting the first screen</h2>
+    <p class="lede">Thirty words, one CTA and no proof are currently doing the work of the most valuable real estate on the page. Everything proposed below is sourced from itexus's own material — the meta description, the footer copyright, the Clutch widget, and the existing process block.</p>
+
+    <div class="ba">
+      <div class="now">
+        <p class="lab">Current hero</p>
+        <p class="hd">Trading Platform Development Services</p>
+        <p>Trading platform development services for hedge funds, brokerages, exchanges, futures commission merchants, and fintechs. From mobile apps to low-latency execution and risk controls.</p>
+        <span class="btn">Book a consultation</span>
+        <p class="strip">No proof · no numbers · no risk reversal · CTA leaves the page</p>
+      </div>
+      <div class="next">
+        <p class="lab">Proposed hero</p>
+        <p class="hd">Trading platforms your compliance team will sign off on</p>
+        <p>Order management, execution and risk systems for hedge funds, brokerages, exchanges and FCMs — FIX gateways, market-data fan-out, KYC/AML and full audit trails. MVP live in 3–4 months.</p>
+        <span class="btn p">Book a 30-min architecture call</span>
+        <span class="btn s">Get the cost breakdown</span>
+        <p class="strip">300+ projects · 12 years · 4.9 on Clutch (40 reviews) · NDA signed before the first call</p>
+      </div>
+    </div>
+
+    <p class="note">Sources: “300+ projects” from the page's own meta description; “12 years” from the footer's © 2013 line; the Clutch rating from the widget already on the page; “NDA before the first call” from step 1 of the existing process block and the NDA FAQ. Verify each with the team before publishing — the point is that the claims already exist and are simply not on the page.</p>
+
+    <div class="col" style="margin-top:1.5rem">
+      <p>Three changes are doing the work here. The headline states an <strong>outcome the buyer is accountable for</strong> instead of restating the page title. The subhead trades adjectives for named components a technical evaluator can grade. And the CTA pair splits the audience: a real booking for the in-market buyer, a gated asset for the researcher who would otherwise leave with nothing.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Content architecture: cut a third, add the third that's missing</h2>
+    <p class="lede">The page currently spends its length on capability lists and none of it on vendor credibility. Reallocating rather than extending.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Section</th><th scope="col">Current role</th><th scope="col">Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hero</td><td>30 words, 1 CTA, no proof</td><td class="keep">Rewrite — add proof strip and dual CTA</td></tr>
+          <tr><td>Case studies</td><td>At 30% depth, NDA-blanked, crypto wallet featured</td><td class="keep">Move to ~15%, lead with trading, add outcome numbers</td></tr>
+          <tr><td>Trading Software Solutions (21 items)</td><td>Bento grid of capability names</td><td>Merge with the two lists below into one 12-item section</td></tr>
+          <tr><td>Must-haves (6 items)</td><td>Overlaps the above; “Trading Execution Middleware” appears twice</td><td class="cut">Merge and cut duplicates</td></tr>
+          <tr><td>Solutions We Provide (6 items)</td><td>Service-line names — the org chart, not the offer</td><td class="cut">Merge and cut</td></tr>
+          <tr><td>Core Features (13 items)</td><td>1,530px of category education</td><td class="cut">Cut to a collapsed reference list, or move to a spec page</td></tr>
+          <tr><td>Decorative photo band (470px)</td><td>No content</td><td class="cut">Replace with an execution-path architecture diagram</td></tr>
+          <tr><td>Testimonials</td><td>Four of five outside the category; relevant one is anonymous</td><td class="keep">Lead with the investing-fund quote; add a trading logo wall</td></tr>
+          <tr><td>Award badges (11)</td><td>40–69px wide, illegible</td><td class="cut">Keep 3 legible, drop 8</td></tr>
+          <tr><td>FAQ</td><td>10 items, two aimed at the wrong reader, cost answer links away</td><td class="keep">Answer cost on-page; move the two definitional entries to the blog; add FAQPage schema</td></tr>
+          <tr><td>Form + 4-step process</td><td>Best block on the page, at 86% depth</td><td class="keep">Keep; add the NDA checkbox; repeat the process block mid-page</td></tr>
+          <tr><td colspan="3" style="background:var(--accent-soft)"><strong>Missing entirely —</strong> pricing bands and engagement models · security &amp; compliance posture · team, stack and named architect · risk reversal (IP, escrow, exit, warranty) · performance numbers · a second, lower-commitment offer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Form friction</h2>
+    <div class="col">
+      <p>Five visible fields plus consent, on a page where the reader has been given no reason to trust the recipient. Beyond the accessibility defects covered in the design critique, three conversion changes:</p>
+      <ul class="tight">
+        <li><strong>Cut to three fields.</strong> Name, work email, and “what are you building.” Company can be inferred from the email domain; phone is the field people abandon on, and you can ask for it in the reply.</li>
+        <li><strong>Move the NDA checkbox here.</strong> It exists on <code>/contacts/</code> and not on the page that actually needs it. For this audience, “NDA required” next to the submit button is the single highest-value control you can add.</li>
+        <li><strong>Set the expectation at the button, not beside it.</strong> “Get in touch” says nothing. “Send — reply within 24 hours” restates the commitment at the exact moment the reader decides.</li>
+      </ul>
+      <p>Also worth testing: the four-step process block currently sits <em>beside</em> the form on desktop but <em>above</em> it on mobile, where it pushes the fields to 84% depth behind four paragraphs of explanation. On mobile, put the fields first and the process below them.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where to start</h2>
+    <ol class="plan">
+      <li>
+        <div>
+          <h3>Point the CTAs at the page's own form</h3>
+          <p>Change the five off-page CTAs to an anchor scroll to the on-page form, and move the NDA checkbox over from <code>/contacts/</code>. This is a href change and a checkbox, and it stops the page discarding its own qualifying context on every click.</p>
+          <span class="why">Hours of work · touches every conversion path</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Put proof in the first screen</h3>
+          <p>Add the proof strip — projects, years, Clutch rating, NDA-first — and rewrite the H1 as an outcome rather than a repeat of the page title. The claims already exist in the meta description and the footer; they are simply not where the visitor can see them.</p>
+          <span class="why">Days of work · fixes the message-match break</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Answer the cost question on the page</h3>
+          <p>Replace “there is no fixed cost” with a discovery price and two or three engagement bands. A range qualifies out the visitors who were never going to buy and reassures the ones who were; the current answer does neither and sends both to the blog.</p>
+          <span class="why">A pricing decision, then an afternoon</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Add the second offer</h3>
+          <p>Gate a deeper version of the cost breakdown you already publish, and put it behind the secondary hero CTA and a mid-page inline capture. This is the only change that converts the research-stage traffic the page is currently attracting and losing.</p>
+          <span class="why">One asset · captures the 90% not ready to talk</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Rebuild proof and add the due-diligence content</h3>
+          <p>Anonymised outcome numbers on the three trading case studies, a security and compliance section, a named architect with a stack, and explicit risk-reversal terms. Then cut the four capability lists to one. This is the largest job and the one that decides whether a brokerage can actually shortlist you.</p>
+          <span class="why">Weeks · content the company has but hasn't published</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    Analysis based on the rendered stage page · 1,779 words · 6 CTAs · 50 outbound links from main content<br>
+    CTA destinations, depth percentages and word counts measured from the live DOM<br>
+    Companion document to the design and accessibility critique
+  </footer>
+
+</div>

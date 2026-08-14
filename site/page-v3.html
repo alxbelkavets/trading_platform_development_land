@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trading Platform Development | Itexus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Trading platform development for fintechs and investment managers: order management, execution, FIX gateways, and risk controls. 300+ projects, shipping since 2013.">
+
+<!--
+  Implementation of "Landing Page.dc.html" (Claude Design project "Landing page UI mockups").
+  Differences from the mockup, made while turning it into a real page:
+  - Self-hosted Heebo via tokens.css instead of the Google Fonts CDN link, matching this
+    project's convention (see page-v2.html, DESIGN-SYSTEM.md).
+  - Every inline style="" / style-hover="" pair became a real CSS class with :hover and
+    :focus-visible states below, instead of per-element style attributes.
+  - The dc-runtime {{ }} bindings (testimonial carousel, form validation) became a small
+    vanilla-JS module at the bottom of the page — no React/support.js runtime.
+  - Added responsive breakpoints and a mobile nav toggle; the mockup was a fixed desktop
+    canvas with no small-screen behavior defined.
+  - The contact form's success message read "this is a mockup, so nothing was sent" —
+    replaced with real production copy. The form still only validates client-side; wire
+    it to a real endpoint before relying on it to deliver messages.
+-->
+<link rel="stylesheet" href="tokens.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "Cost depends on the engagement model. Efficient Hours (Agile with Budget Control) bills only efficient hours against an agreed estimate. Fixed Price sets the full cost upfront once requirements are documented. Outstaffing bills a pre-agreed monthly rate per engineer." } },
+    { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "Trading platform software development usually takes about 3 months or more, and directly depends on the features you want to implement." } },
+    { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we integrate third-party APIs and services according to your business goals: brokers, payment gateways, KYC providers, news providers, market data providers, crypto exchanges, and more." } },
+    { "@type": "Question", "name": "Do you offer support services?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we offer post-production support on a regular basis or on demand." } },
+    { "@type": "Question", "name": "Do you sign an NDA agreement?", "acceptedAnswer": { "@type": "Answer", "text": "We are comfortable signing legal agreements when developing a trading platform. We can either sign your NDA contract or create our own and send it to you." } },
+    { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we have extensive experience in trading software development, with a specialty in stock market application development." } },
+    { "@type": "Question", "name": "I have an idea. Where should I start?", "acceptedAnswer": { "@type": "Answer", "text": "Your next step depends on whether you have a clear product vision and detailed requirements. If not, we recommend that you start with the discovery phase." } },
+    { "@type": "Question", "name": "How do I hire trading platform developers?", "acceptedAnswer": { "@type": "Answer", "text": "Define your project scope and tech stack, then look for a team with experience in financial software, security protocols, and relevant technologies." } }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --link:#0f7a35;
+  --copy:#444f58;
+  --muted:#666;
+  --mint:#7fd99a;
+  --mint-bright:#41cf68;
+  --cta-bg:#0e2b30;
+  --mint-tint-bg:#eaf7ee;
+  --badge-bg:rgba(37,187,77,.14);
+  --badge-text:#0f5c29;
+  --error:#b32a22;
+  --dark-card:#1f2432;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-sans);color:var(--color-ink);background:#fff;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3,p,dl,dd,dt,figure,blockquote{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--color-brand-green)}
+:focus-visible{outline:3px solid var(--color-brand-green);outline-offset:3px;border-radius:6px}
+section[id]{scroll-margin-top:90px}
+.container{max-width:var(--container-max);margin:0 auto;padding:0 24px}
+
+@keyframes itxMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;
+  font-family:inherit;font-size:16px;font-weight:600;border:0;border-radius:var(--radius-lg);
+  cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease}
+.btn-primary{background:var(--color-brand-green);color:var(--color-ink)}
+.btn-primary:hover,.btn-primary:focus-visible{background:var(--color-brand-green-bright)}
+.btn-lg{min-height:50px;padding:0 32px}
+.btn-outline{gap:10px;min-height:50px;padding:0 26px;color:#fff;font-weight:500;border:1px solid rgba(255,255,255,.36);background:none}
+.btn-outline:hover,.btn-outline:focus-visible{border-color:var(--mint-bright);color:var(--mint)}
+
+/* ---------- header ---------- */
+.site-header{background:var(--color-header-bg);position:sticky;top:0;z-index:40}
+.site-header .container{display:flex;align-items:center;gap:20px;min-height:76px}
+.logo-link{display:flex;align-items:center;flex:none}
+.main-nav{margin-left:auto}
+.main-nav ul{display:flex;gap:2px}
+.nav-link{display:flex;align-items:center;min-height:44px;padding:0 14px;font-size:15px;
+  color:#fff;border-radius:8px;transition:background .15s ease}
+.nav-link:hover,.nav-link:focus-visible{background:var(--color-header-bg-dark)}
+.nav-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;
+  margin-left:auto;background:none;border:0;border-radius:8px;cursor:pointer;flex:none}
+.nav-toggle:hover{background:var(--color-header-bg-dark)}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
+  content:"";display:block;width:22px;height:2px;background:#fff;border-radius:2px;position:relative;transition:transform .2s ease,opacity .2s ease}
+.nav-toggle span::before{position:absolute;top:-7px}
+.nav-toggle span::after{position:absolute;top:7px}
+.nav-open .nav-toggle span{background:transparent}
+.nav-open .nav-toggle span::before{transform:translateY(7px) rotate(45deg)}
+.nav-open .nav-toggle span::after{transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--color-ink);overflow:hidden;border-radius:0 0 100px 100px}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+.hero-scrim{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(5,19,32,.92) 0%,rgba(5,19,32,.8) 34%,rgba(5,19,32,.3) 64%,rgba(5,19,32,.05) 80%)}
+.hero .container{position:relative;padding:96px 24px 0;min-height:600px}
+.hero-copy{position:relative;z-index:1;max-width:600px}
+.eyebrow-dark{font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}
+.hero h1{margin-top:14px;font-size:56px;line-height:1.08;letter-spacing:-.03em;font-weight:700;color:#fff;text-wrap:pretty}
+.hero h1 span{color:var(--mint-bright)}
+.hero-lede{margin-top:24px;max-width:52ch;font-size:19px;line-height:1.6;color:rgba(255,255,255,.9)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero-note{margin:22px 0 96px;max-width:46ch;font-size:16px;line-height:1.6;color:rgba(255,255,255,.8)}
+.hero-art{position:absolute;right:0;bottom:0;pointer-events:none;z-index:0}
+.hero-art img{display:block;
+  width:min(1320px, calc((100vw - max(0px,(100vw - 1312px)/2) - 672px) * 1.2));
+  height:auto;max-width:none}
+
+/* ---------- sections ---------- */
+.section{padding:96px 0}
+.section-alt{background:var(--color-gray-50)}
+.section-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px}
+.section-head-simple{max-width:62ch;margin-bottom:40px}
+.eyebrow{margin-bottom:12px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--link)}
+.eyebrow-light{color:var(--mint)}
+h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
+.lede{margin-top:14px;font-size:19px;line-height:1.6;color:var(--copy);max-width:60ch}
+.disclaimer{margin:0;font-size:13px;line-height:1.5;color:var(--muted);border:1px dashed rgba(0,0,0,.28);
+  border-radius:10px;padding:10px 14px;max-width:36ch}
+.disclaimer strong{color:var(--color-ink)}
+
+.card{background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-2xl);box-shadow:var(--shadow-lg)}
+
+/* ---------- case studies ---------- */
+.case-featured{overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.case-featured-body{padding:40px;display:flex;flex-direction:column;gap:20px}
+.case-featured-brand{display:flex;align-items:center;gap:16px}
+.case-featured-brand .divider{width:1px;height:22px;background:rgba(0,0,0,.14)}
+.case-featured-brand .tag{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.case-featured h3{font-size:27px;line-height:1.25;letter-spacing:-.02em;font-weight:600;max-width:32ch}
+.case-featured-copy{font-size:17px;line-height:1.6;color:var(--copy);max-width:60ch}
+.case-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--color-border);border:1px solid var(--color-border);border-radius:var(--radius-xl);overflow:hidden}
+.case-stats > div{background:var(--color-gray-50);padding:16px 18px}
+.case-stats .figure{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--color-ink)}
+.case-stats .figure small{font-size:15px;font-weight:600;color:var(--muted)}
+.case-stats .label{margin-top:4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.tag-pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text)}
+.case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px}
+.case-featured-media img{width:100%;max-width:578px;object-fit:contain;border-radius:10px}
+
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:24px}
+.case-card{overflow:hidden;display:flex;flex-direction:column}
+.case-card-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;padding:18px}
+.case-card-media.dark{background:var(--dark-card)}
+.case-card-media.light{background:var(--color-gray-50)}
+.case-card-media img{max-width:100%;max-height:100%;object-fit:contain}
+.case-card-body{padding:26px;display:flex;flex-direction:column;gap:14px;flex:1}
+.badge-nda{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:var(--color-brand-green);color:var(--color-ink)}
+.case-card h3{font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+.case-card-copy{font-size:16px;line-height:1.55;color:var(--copy)}
+.case-card dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px 0;
+  border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border)}
+.case-card dd{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+.case-card dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tag-pill-light{font-size:13px;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--color-gray-50);color:var(--copy)}
+
+/* ---------- capabilities ---------- */
+.figure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:32px}
+.figure-card{overflow:hidden}
+.figure-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.figure-card figcaption{padding:16px 20px;display:flex;align-items:baseline;gap:10px;border-top:1px solid rgba(0,0,0,.08)}
+.figure-card .num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
+.figure-card .name{font-size:16px;font-weight:600}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--color-border);border:1px solid var(--color-border);border-radius:var(--radius-2xl);overflow:hidden}
+.feature-grid li{background:#fff;padding:26px 24px}
+.feature-grid .num{margin-bottom:10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--link);font-variant-numeric:tabular-nums}
+.feature-grid h3{margin-bottom:8px;font-size:19px;line-height:1.3;font-weight:600}
+.feature-grid p{font-size:16px;line-height:1.55;color:var(--copy)}
+
+/* ---------- mid CTA ---------- */
+.mid-cta{position:relative;background:var(--cta-bg);overflow:hidden}
+.mid-cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mid-cta-scrim{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(5,19,32,.9) 0%,rgba(5,19,32,.72) 55%,rgba(5,19,32,.4) 100%)}
+.mid-cta .container{position:relative;padding:64px 24px;display:grid;
+  grid-template-columns:minmax(0,1.4fr) auto;gap:40px;align-items:center}
+.mid-cta h2{font-size:34px;line-height:1.2;letter-spacing:-.025em;color:#fff;max-width:34ch}
+.mid-cta h2 span{color:var(--mint-bright)}
+.mid-cta p{margin-top:14px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.86);max-width:62ch}
+.mid-cta .btn{justify-self:start;white-space:nowrap}
+
+/* ---------- engagement ---------- */
+.engagement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.engagement-card{padding:32px;display:flex;flex-direction:column;gap:16px}
+.engagement-card.recommended{border:2px solid var(--color-brand-green)}
+.engagement-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.engagement-card .num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
+.badge-recommended{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:var(--color-brand-green);color:var(--color-ink)}
+.engagement-card h3{font-size:23px;line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.engagement-card h3 small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
+.engagement-card p{font-size:17px;line-height:1.6;color:var(--copy)}
+.engagement-link{margin-top:28px;font-size:17px}
+.engagement-link a{font-weight:600}
+
+/* ---------- testimonials ---------- */
+.testimonial-controls{display:flex;align-items:center;gap:12px}
+.carousel-btn{width:52px;height:52px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#fff;
+  color:var(--color-ink);font-size:20px;line-height:1;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.carousel-btn:hover,.carousel-btn:focus-visible{border-color:var(--color-brand-green);background:var(--color-brand-green)}
+.testimonial-card{padding:44px 48px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start;min-height:280px}
+.testimonial-card img{opacity:.9}
+.testimonial-quote{font-size:23px;line-height:1.5;letter-spacing:-.01em;font-weight:500;max-width:64ch;text-wrap:pretty}
+.testimonial-meta{margin-top:26px;padding-top:20px;border-top:1px solid var(--color-border);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.testimonial-meta .author{font-size:17px;font-weight:600}
+.testimonial-meta .role{font-size:16px;color:var(--muted)}
+.testimonial-meta .counter{margin-left:auto;font-size:14px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.testimonial-dots{display:flex;gap:8px;margin-top:20px}
+.testimonial-dots button{height:44px;padding:0 6px;border:0;background:none;cursor:pointer}
+.testimonial-dots span{display:block;width:34px;height:4px;border-radius:2px;background:rgba(0,0,0,.2);transition:background .15s ease}
+.testimonial-dots button[aria-current="true"] span{background:var(--color-brand-green)}
+.clutch-strip{margin-top:36px;padding:22px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.clutch-strip p{font-size:18px;font-weight:600}
+.clutch-strip p span{font-weight:400;color:var(--muted)}
+.clutch-strip img:last-child{height:34px;margin-left:auto}
+.award-marquee{margin-top:28px;overflow:hidden;position:relative}
+.marquee-track{display:flex;width:max-content;gap:40px;align-items:center;animation:itxMarquee 44s linear infinite}
+.marquee-track img{height:66px;width:auto}
+
+/* ---------- FAQ ---------- */
+.faq-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:56px;align-items:start}
+.faq-side p{margin-top:16px;font-size:17px;line-height:1.6;color:var(--copy);max-width:44ch}
+.faq-side .btn{margin-top:22px}
+.faq-list{border-top:1px solid rgba(0,0,0,.12)}
+.faq-list details{border-bottom:1px solid rgba(0,0,0,.12)}
+.faq-list summary{cursor:pointer;padding:22px 8px;font-size:20px;font-weight:600;line-height:1.35;color:var(--color-ink);
+  list-style:none;position:relative;padding-right:32px}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";position:absolute;right:8px;top:22px;font-size:22px;font-weight:400;color:var(--link)}
+.faq-list details[open] summary::after{content:"\2212"}
+.faq-list p{padding:0 8px 24px;max-width:68ch;font-size:17px;line-height:1.65;color:var(--copy)}
+.faq-list a{font-weight:600}
+
+/* ---------- contact ---------- */
+.contact-section{position:relative;background:var(--color-ink);overflow:hidden}
+.contact-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.contact-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,19,32,.82) 0%,rgba(5,19,32,.93) 100%)}
+.contact-section .container{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:56px;align-items:start}
+.contact-section h3{font-size:34px;line-height:1.2;letter-spacing:-.025em;font-weight:700;color:#fff;max-width:26ch}
+.contact-steps{display:flex;flex-direction:column;gap:22px;margin-top:36px}
+.contact-steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;align-items:start}
+.contact-steps .step-num{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;
+  background:rgba(37,187,77,.18);border:1px solid rgba(37,187,77,.5);color:var(--mint);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.contact-steps .step-title{font-size:19px;font-weight:600;color:#fff}
+.contact-steps .step-copy{margin-top:4px;font-size:16px;line-height:1.6;color:rgba(255,255,255,.78);max-width:52ch}
+
+.contact-form{background:#fff;border-radius:var(--radius-2xl);box-shadow:0 4px 44px -9px rgba(0,0,0,.28);
+  padding:36px;display:flex;flex-direction:column;gap:20px}
+.form-success{margin:0;padding:14px 16px;border-radius:10px;background:var(--badge-bg);border:1px solid var(--color-brand-green);
+  font-size:16px;font-weight:600;display:none}
+.form-success.visible{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:15px;font-weight:600}
+.field label .opt{font-weight:400;color:var(--muted)}
+.field label .req{color:var(--link)}
+.field input,.field textarea{min-height:48px;padding:0 14px;font:inherit;font-size:16px;color:var(--color-ink);
+  background:#fff;border:1px solid rgba(0,0,0,.28);border-radius:var(--radius-lg)}
+.field textarea{min-height:0;padding:12px 14px;resize:vertical}
+.error{margin:0;font-size:14px;font-weight:600;color:var(--error);display:none}
+.field.has-error input,.field.has-error textarea{border-color:var(--error)}
+.has-error .error{display:block}
+.consent-block{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--color-gray-50);border-radius:var(--radius-xl)}
+.consent-block label{display:flex;align-items:center;gap:12px;min-height:44px;font-size:16px;font-weight:600;cursor:pointer}
+.consent-block label.policy-label{align-items:flex-start;font-weight:400;line-height:1.5}
+.consent-block input[type="checkbox"]{width:22px;height:22px;accent-color:var(--color-brand-green);flex:none;margin-top:2px}
+.consent-block .req{color:var(--link)}
+.submit-btn{gap:10px;min-height:54px;font-size:17px}
+.submit-btn .note{font-weight:400;font-size:15px}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--color-header-bg);padding:36px 0}
+.site-footer .container{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;color:rgba(255,255,255,.82);font-size:15px}
+.site-footer a{color:#fff}
+.site-footer .privacy{margin-left:auto}
+
+/* ================= responsive ================= */
+@media (max-width:1080px){
+  .case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:900px){
+  .main-nav{display:none}
+  .main-nav.open{display:block;position:absolute;top:76px;left:0;right:0;background:var(--color-header-bg);
+    box-shadow:0 12px 24px rgba(0,0,0,.2)}
+  .main-nav.open ul{flex-direction:column;padding:12px;gap:4px}
+  .main-nav.open .nav-link{min-height:48px}
+  .nav-toggle{display:flex}
+  .header-cta{display:none}
+
+  .hero{border-radius:0 0 48px 48px;display:flex;flex-direction:column}
+  .hero .container{padding-top:56px;min-height:0}
+  .hero-copy{max-width:none}
+  .hero-art{position:relative;z-index:2;height:auto;order:-1}
+  .hero-art img{display:block;width:calc(100% + 48px);height:auto;margin:0 -24px 32px;max-width:none}
+
+  .case-featured{grid-template-columns:1fr}
+  .case-featured-media{order:-1}
+  .case-grid{grid-template-columns:1fr}
+  .figure-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+
+  .mid-cta .container{grid-template-columns:1fr}
+
+  .engagement-grid{grid-template-columns:1fr}
+
+  .faq-layout{grid-template-columns:1fr}
+
+  .contact-section .container{grid-template-columns:1fr}
+}
+
+@media (max-width:640px){
+  .container{padding:0 var(--container-pad)}
+  .section{padding:56px 0}
+  .hero{border-radius:0 0 32px 32px}
+  .hero .container{padding:56px 16px 0}
+  .hero-note{margin-bottom:48px}
+  .hero-art img{width:calc(100% + 32px);margin:0 -16px 24px}
+  .hero h1{font-size:38px;line-height:1.12}
+  .hero-lede{font-size:17px}
+  h2{font-size:28px}
+  .lede{font-size:17px}
+  .mid-cta h2{font-size:26px}
+  .mid-cta .container{padding:48px 16px}
+  .contact-section h3{font-size:26px}
+  .case-featured-body{padding:26px}
+  .case-featured h3{font-size:22px}
+  .case-stats{grid-template-columns:1fr}
+  .testimonial-card{padding:28px 22px;grid-template-columns:1fr;gap:16px}
+  .testimonial-card img{display:none}
+  .testimonial-quote{font-size:19px}
+  .form-grid{grid-template-columns:1fr}
+  .engagement-grid{gap:16px}
+  .section-head{align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="#top" class="logo-link"><img src="img/logo-white-itexus.svg" alt="Itexus" width="99" height="29"></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="#capabilities" class="nav-link">Services</a></li>
+        <li><a href="#capabilities" class="nav-link">Our Products</a></li>
+        <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
+        <li><a href="#engagement" class="nav-link">Hire Developers</a></li>
+        <li><a href="#testimonials" class="nav-link">About Us</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu"><span></span></button>
+    <a href="#contact" class="btn btn-primary header-cta">Contact Us</a>
+  </div>
+</header>
+
+<main>
+  <section id="top" class="hero">
+    <img src="img/hero-bg.webp" alt="" class="hero-bg">
+    <div class="hero-scrim"></div>
+    <div class="container">
+      <div class="hero-copy">
+        <p class="eyebrow-dark">Trading platform development</p>
+        <h1>Trading platforms built by people who have <span>shipped them before</span></h1>
+        <p class="hero-lede">FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and investing products for fintechs and investment managers, and this is the stack we work in.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary btn-lg">Get a proposal</a>
+          <a href="#case-studies" class="btn-outline btn btn-lg">See the platforms we've built <span aria-hidden="true">&#8594;</span></a>
+        </div>
+        <p class="hero-note">We reply within 24 hours and sign an NDA before you share the details.</p>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="img/trading-app-main-image.webp" alt="Trading app screens: a wallet balance with deposit and withdraw controls, and a live candlestick price chart" width="870" height="548">
+    </div>
+  </section>
+
+  <section id="case-studies" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div style="max-width:62ch">
+          <p class="eyebrow">01 &nbsp;/&nbsp; Case Studies</p>
+          <h2>Trading platforms we've built</h2>
+          <p class="lede">Four production ecosystems, from anonymised trading systems to a $2.2B fintech's crypto wallet.</p>
+        </div>
+        <p class="disclaimer">Metrics below are <strong>placeholder digits</strong>, shown to judge visual weight. Replace with anonymised production figures.</p>
+      </div>
+
+      <article class="card case-featured">
+        <div class="case-featured-body">
+          <div class="case-featured-brand">
+            <img src="img/coinstar-logo.png" alt="Coinstar" style="height:26px;width:auto">
+            <span class="divider"></span>
+            <span class="tag">Featured</span>
+          </div>
+          <h3>Cryptocurrency e-Wallet Ecosystem for a Global FinTech Enterprise</h3>
+          <p class="case-featured-copy">PCI DSS-compliant application ecosystem for Coinstar, a leading international fintech company with $2.2 billion in annual revenue: web and mobile crypto wallets, embedded kiosk software, and a cloud-based API server.</p>
+          <div class="case-stats">
+            <div><p class="figure">00.0<small>&nbsp;ms</small></p><p class="label">Order round-trip</p></div>
+            <div><p class="figure">000<small>&nbsp;k/day</small></p><p class="label">Transactions</p></div>
+            <div><p class="figure">00<small>&nbsp;mo</small></p><p class="label">To first release</p></div>
+          </div>
+          <div class="tag-row">
+            <span class="tag-pill">Enterprise</span>
+            <span class="tag-pill">Fintech</span>
+          </div>
+        </div>
+        <div class="case-featured-media">
+          <img src="img/coinstar-pict.png" alt="Coinstar crypto wallet application screens" width="578" height="333">
+        </div>
+      </article>
+
+      <div class="case-grid">
+        <article class="card case-card">
+          <div class="case-card-media dark">
+            <img src="img/case2-automated-stock-trading.png" alt="Automated stock trading platform on a laptop, showing a candlestick chart and strategy modules">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Automated Stock Trading Platform</h3>
+            <p class="case-card-copy">An automated, real-time trading system that allows administrators to configure trading strategies.</p>
+            <dl>
+              <div><dd>00.0 ms</dd><dt>Order latency</dt></div>
+              <div><dd>00 k/s</dd><dt>Peak messages</dt></div>
+            </dl>
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+        <article class="card case-card">
+          <div class="case-card-media light">
+            <img src="img/case4-algorithmic-intraday.png" alt="Stock trading signals platform on a laptop, showing the signal library and signal settings table">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Stock Trading Signals Platform</h3>
+            <p class="case-card-copy">Intelligent investment assistant that performs technical analysis for a number of stocks.</p>
+            <dl>
+              <div><dd>0 000</dd><dt>Instruments</dt></div>
+              <div><dd>00 s</dd><dt>Signal delivery</dt></div>
+            </dl>
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+        <article class="card case-card">
+          <div class="case-card-media dark">
+            <img src="img/case3-stock-signals.png" alt="Algorithmic intraday trading dashboard showing recent trades and account statistics">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Algorithmic Intraday Stock Trading System</h3>
+            <p class="case-card-copy">SaaS system for automated intraday stock trading, allowing investors to connect their brokerage accounts.</p>
+            <dl>
+              <div><dd>00</dd><dt>Broker integrations</dt></div>
+              <div><dd>00.0 %</dd><dt>Uptime</dt></div>
+            </dl>
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities" class="section section-alt">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">02 &nbsp;/&nbsp; What We Build</p>
+        <h2>Trading Platform Capabilities</h2>
+        <p class="lede">The parts a trading platform needs to actually go live.</p>
+      </div>
+
+      <div class="figure-grid">
+        <figure class="card figure-card">
+          <img src="img/software-1.png" alt="Onboarding screen from a trading app" style="object-position:center 22%">
+          <figcaption><span class="num">01</span><span class="name">Onboarding</span></figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="img/software-2.png" alt="Order entry screen with a limit price slider" style="object-position:center 18%">
+          <figcaption><span class="num">02</span><span class="name">Order entry, limit price</span></figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="img/software-3.png" alt="Order confirmation screen after a trade" style="object-position:center 22%">
+          <figcaption><span class="num">03</span><span class="name">Trade confirmation</span></figcaption>
+        </figure>
+      </div>
+
+      <ul class="feature-grid">
+        <li><p class="num">01</p><h3>Integration With Brokers</h3><p>We help select and integrate brokers based on market coverage, API quality, latency, and SLA.</p></li>
+        <li><p class="num">02</p><h3>Trading Execution Middleware</h3><p>Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer.</p></li>
+        <li><p class="num">03</p><h3>Order Management</h3><p>Order types, quantity, leverage, time in force, stop-loss and take-profit strategies.</p></li>
+        <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists.</p></li>
+        <li><p class="num">05</p><h3>Market Data Storage</h3><p>Multi-source database with historical intraday data for equities, futures, FX, options.</p></li>
+        <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and provide a no-code builder with parameter checks and safeguards.</p></li>
+        <li><p class="num">07</p><h3>Strategy Builder</h3><p>Visual builder and a code editor for custom indicators and algorithms.</p></li>
+        <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimize strategies using historical market data before risking real money.</p></li>
+        <li><p class="num">09</p><h3>Real-Time Alerts</h3><p>Fine-tuned asset alerts notify users within seconds of a target price change.</p></li>
+        <li><p class="num">10</p><h3>Trade Log</h3><p>Detailed trading histories make it possible to identify mistakes and adjust strategies.</p></li>
+        <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under real market conditions, no real money at risk.</p></li>
+        <li><p class="num">12</p><h3>Other Features</h3><p>Extend broker capabilities with portfolio management, FIX gateways, and scalable matching components.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mid-cta">
+    <img src="img/trading-cta-bg.webp" alt="" class="mid-cta-bg">
+    <div class="mid-cta-scrim"></div>
+    <div class="container">
+      <div>
+        <h2>Need to talk to a <span>trading solution architect?</span></h2>
+        <p>We're here to contribute our expertise and can take over the entire project, from discovery to design, coding, and scaling.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary btn-lg">Get a proposal</a>
+    </div>
+  </section>
+
+  <section id="engagement" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">03 &nbsp;/&nbsp; How We Work</p>
+        <h2>Engagement Models</h2>
+        <p class="lede">Three real cooperation models, no invented figures.</p>
+      </div>
+      <div class="engagement-grid">
+        <article class="card engagement-card recommended">
+          <div class="engagement-card-top">
+            <span class="num">01</span>
+            <span class="badge-recommended">Recommended</span>
+          </div>
+          <h3>Efficient Hours <small>Agile with Budget Control</small></h3>
+          <p>Delivered in two-week sprints with a demo at the end of each one. You only pay for efficient hours within an agreed estimate, and can adjust requirements as new ideas come up.</p>
+        </article>
+        <article class="card engagement-card">
+          <span class="num">02</span>
+          <h3>Fixed Price</h3>
+          <p>Requirements, price, and timeline are documented and signed before work starts. Suits projects with a scope that's already well defined and unlikely to change.</p>
+        </article>
+        <article class="card engagement-card">
+          <span class="num">03</span>
+          <h3>Outstaffing <small>Development Team as a Service</small></h3>
+          <p>Vetted engineers join your team directly and work under your own project management, billed at a pre-agreed monthly rate.</p>
+        </article>
+      </div>
+      <p class="engagement-link"><a href="/how-we-work/">See the full breakdown of each model on our Cooperation Models page &#8594;</a></p>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <div style="max-width:62ch">
+          <p class="eyebrow">04 &nbsp;/&nbsp; What Clients Say</p>
+          <h2>What our clients say about us</h2>
+        </div>
+        <div class="testimonial-controls">
+          <button type="button" class="carousel-btn" id="testimonial-prev" aria-label="Previous review">&#8592;</button>
+          <button type="button" class="carousel-btn" id="testimonial-next" aria-label="Next review">&#8594;</button>
+        </div>
+      </div>
+
+      <div class="card testimonial-card" aria-live="polite">
+        <img src="img/quotes-icon.svg" alt="" width="44" height="36">
+        <div>
+          <blockquote class="testimonial-quote" id="testimonial-quote"></blockquote>
+          <div class="testimonial-meta">
+            <p class="author" id="testimonial-author"></p>
+            <p class="role" id="testimonial-role"></p>
+            <p class="counter" id="testimonial-counter"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-dots" id="testimonial-dots" role="tablist" aria-label="Choose a review"></div>
+
+      <div class="card clutch-strip">
+        <img src="img/clutch-icon.svg" alt="Clutch" style="height:28px;width:auto">
+        <p>4.9 rating <span>from 40 reviews</span></p>
+        <img src="img/clutch-avatars.png" alt="Reviewer avatars">
+      </div>
+
+      <div class="award-marquee" aria-label="Industry awards">
+        <div class="marquee-track">
+          <img src="img/award-goodfirms.png" alt="GoodFirms">
+          <img src="img/award-youteam.png" alt="YouTeam">
+          <img src="img/award-clutch.png" alt="Clutch">
+          <img src="img/award-expertise.png" alt="Expertise">
+          <img src="img/award-selectfirms.png" alt="SelectedFirms">
+          <img src="img/award-topdevelopers.png" alt="TopDevelopers">
+          <img src="img/award-toprated2.png" alt="Top Rated Custom Software Development Companies">
+          <img src="img/award-itfirms.png" alt="ITFirms">
+          <img src="img/award-trustfirms.png" alt="TrustFirms">
+          <img src="img/award-topsoftware.png" alt="Top Software Developers">
+          <img src="img/award-toprated1.png" alt="Top Rated Mobile App Companies">
+          <img src="img/award-techreviewer.svg" alt="techreviewer.co">
+          <img src="img/award-goodfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-youteam.png" alt="" aria-hidden="true">
+          <img src="img/award-clutch.png" alt="" aria-hidden="true">
+          <img src="img/award-expertise.png" alt="" aria-hidden="true">
+          <img src="img/award-selectfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-topdevelopers.png" alt="" aria-hidden="true">
+          <img src="img/award-toprated2.png" alt="" aria-hidden="true">
+          <img src="img/award-itfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-trustfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-topsoftware.png" alt="" aria-hidden="true">
+          <img src="img/award-toprated1.png" alt="" aria-hidden="true">
+          <img src="img/award-techreviewer.svg" alt="" aria-hidden="true">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="container faq-layout">
+      <div class="faq-side">
+        <p class="eyebrow">05 &nbsp;/&nbsp; FAQ</p>
+        <h2>Frequently asked questions</h2>
+        <p>Cost and timeline answered here, on the page. If yours isn't covered, ask us directly.</p>
+        <a href="#contact" class="btn btn-primary">Ask a question</a>
+      </div>
+      <div class="faq-list">
+        <details><summary>How much does trading platform development cost?</summary><p>Cost depends on the engagement model. Efficient Hours (Agile with Budget Control) bills only efficient hours against an agreed estimate. Fixed Price sets the full cost upfront once requirements are documented. Outstaffing bills a pre-agreed monthly rate per engineer. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
+        <details><summary>How long does it take to build a trading platform?</summary><p>Trading platform software development usually takes about 3 months or more, and directly depends on the features you want to implement. Get in touch to find out the estimated development time for a project like yours.</p></details>
+        <details><summary>Can you integrate with a third-party service?</summary><p>Yes, we integrate third-party APIs and services according to your business goals: brokers, payment gateways, KYC providers, news providers, market data providers, crypto exchanges, and more.</p></details>
+        <details><summary>Do you offer support services?</summary><p>Yes, we offer post-production support on a regular basis or on demand.</p></details>
+        <details><summary>Do you sign an NDA agreement?</summary><p>We are comfortable signing legal agreements when developing a trading platform. We can either sign your NDA contract or create our own and send it to you.</p></details>
+        <details><summary>Have you built a trading platform before?</summary><p>Yes, we have extensive experience in trading software development, with a specialty in stock market application development. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
+        <details><summary>I have an idea. Where should I start?</summary><p>Your next step depends on whether you have a clear product vision and detailed requirements. If not, we recommend that you start with the discovery phase. Contact us to discuss your idea.</p></details>
+        <details><summary>How do I hire trading platform developers?</summary><p>Define your project scope and tech stack, then look for a team with experience in financial software, security protocols, and relevant technologies. Assess candidates through technical interviews, and prioritize a proven track record in secure, scalable trading platforms.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-section">
+    <img src="img/contact-form-bg.png" alt="" class="contact-bg">
+    <div class="contact-scrim"></div>
+    <div class="container">
+      <div>
+        <p class="eyebrow eyebrow-light">06 &nbsp;/&nbsp; Contact</p>
+        <h3>Let's discuss how we can help with your project</h3>
+        <ol class="contact-steps">
+          <li>
+            <span class="step-num">1</span>
+            <div><p class="step-title">Share your project idea</p><p class="step-copy">and we'll get back to you within 24 hours to sign the NDA and discuss the next steps.</p></div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div><p class="step-title">Discuss your project</p><p class="step-copy">with a team of expert software architects, fintech analysts, and UI/UX designers.</p></div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div><p class="step-title">Receive a detailed proposal</p><p class="step-copy">including software architecture, functionality, UI/UX design, and a detailed cost estimate.</p></div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div><p class="step-title">We start development</p><p class="step-copy">Contract signed and development starts within 1&ndash;2 weeks; MVP live in 3&ndash;4 months.</p></div>
+          </li>
+        </ol>
+      </div>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <p role="status" class="form-success" id="form-success">Thanks — we've received your message and will reply within 24 hours.</p>
+        <div class="form-grid">
+          <div class="field" id="field-name">
+            <label for="cf-name">Your name <span class="req">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name">
+            <p class="error">Please tell us your name.</p>
+          </div>
+          <div class="field">
+            <label for="cf-company">Company name <span class="opt">(optional)</span></label>
+            <input id="cf-company" name="company" type="text" autocomplete="organization">
+          </div>
+          <div class="field" id="field-email">
+            <label for="cf-email">Email <span class="req">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email">
+            <p class="error">Please enter a work email we can reply to.</p>
+          </div>
+          <div class="field">
+            <label for="cf-phone">Phone number <span class="opt">(optional)</span></label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field" id="field-message">
+          <label for="cf-message">Tell us about your project <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" rows="4"></textarea>
+          <p class="error">A sentence or two about what you're building is enough.</p>
+        </div>
+        <div class="consent-block" id="field-policy">
+          <label for="cf-nda">
+            <input id="cf-nda" name="nda" type="checkbox">
+            NDA required before we talk
+          </label>
+          <label for="cf-policy" class="policy-label">
+            <input id="cf-policy" name="policy" type="checkbox">
+            <span>I agree to the <a href="/privacy-policy/">Privacy Policy</a> <span class="req">*</span></span>
+          </label>
+          <p class="error">Tick this so we're allowed to reply to you.</p>
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Send <span class="note">(reply within 24 hours)</span></button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <img src="img/logo-white-itexus.svg" alt="Itexus" width="88" height="26">
+    <p>&copy; 2013&ndash;2026 Itexus. Trading platform development.</p>
+    <p class="privacy"><a href="/privacy-policy/">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- mobile nav ----------
+  var header = document.querySelector(".site-header");
+  var navToggle = document.getElementById("nav-toggle");
+  var mainNav = document.getElementById("main-nav");
+  navToggle.addEventListener("click", function () {
+    var open = mainNav.classList.toggle("open");
+    header.classList.toggle("nav-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  mainNav.addEventListener("click", function (e) {
+    if (e.target.closest("a")) {
+      mainNav.classList.remove("open");
+      header.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // ---------- testimonials carousel ----------
+  var quotes = [
+    { q: "Itexus delivered the app according to the requirements. The team met all development milestones and deliverables. They were efficient, friendly, and cooperative. Itexus team was very timely with updates, a regular meeting cadence, and ad-hoc questions and answers via Slack. The team was very responsive and still is.", a: "Risk Management Director", r: "Investing Fund" },
+    { q: "Itexus' work positions the business well for an imminent launch. They excel at managing their team, presenting frequent product demos to ensure that the project is aligned with development goals. An affordable price structure coupled with remarkable technical skill makes them an attractive partner.", a: "Phill Osolinski", r: "CEO Ryze Rewards" },
+    { q: "The assigned team was easy to work with and they are especially strong collaborators and communicators. They demonstrated flexibility, professionalism, and trust in everything they did, and completed the work on time and budget.", a: "Sue Wollan Fan", r: "CEO Mango Connects" },
+    { q: "Itexus excelled at both experimental AI and sprint-oriented UI/UX tasks. Itexus did strong project management work, too, a necessity in such a complicated project.", a: "Jesse Dubin", r: "Senior PM Standard&Poors" },
+    { q: "They're a great group of developers who really understand the reality of business.", a: "Andreea Vanacker", r: "CEO SPARKX5" }
+  ];
+
+  var current = 0;
+  var quoteEl = document.getElementById("testimonial-quote");
+  var authorEl = document.getElementById("testimonial-author");
+  var roleEl = document.getElementById("testimonial-role");
+  var counterEl = document.getElementById("testimonial-counter");
+  var dotsEl = document.getElementById("testimonial-dots");
+
+  quotes.forEach(function (_, i) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Review " + (i + 1));
+    btn.setAttribute("role", "tab");
+    btn.innerHTML = "<span></span>";
+    btn.addEventListener("click", function () { go(i); });
+    dotsEl.appendChild(btn);
+  });
+
+  function render() {
+    var t = quotes[current];
+    quoteEl.textContent = "“" + t.q + "”";
+    authorEl.textContent = t.a;
+    roleEl.textContent = t.r;
+    counterEl.textContent = (current + 1) + " / " + quotes.length;
+    Array.prototype.forEach.call(dotsEl.children, function (btn, i) {
+      btn.setAttribute("aria-current", String(i === current));
+    });
+  }
+
+  function go(n) {
+    current = (n + quotes.length) % quotes.length;
+    render();
+  }
+
+  document.getElementById("testimonial-prev").addEventListener("click", function () { go(current - 1); });
+  document.getElementById("testimonial-next").addEventListener("click", function () { go(current + 1); });
+  render();
+
+  // ---------- contact form ----------
+  var form = document.getElementById("contact-form");
+  var successMsg = document.getElementById("form-success");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var message = form.elements.message.value.trim();
+    var policy = form.elements.policy.checked;
+
+    var errors = {
+      name: !name,
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+      message: message.length < 2,
+      policy: !policy
+    };
+
+    var fields = { name: "field-name", email: "field-email", message: "field-message", policy: "field-policy" };
+    var firstInvalid = null;
+    Object.keys(errors).forEach(function (key) {
+      var fieldEl = document.getElementById(fields[key]);
+      fieldEl.classList.toggle("has-error", errors[key]);
+      if (errors[key] && !firstInvalid) firstInvalid = key;
+    });
+
+    if (firstInvalid) {
+      successMsg.classList.remove("visible");
+      var control = form.elements[firstInvalid];
+      control.focus();
+      return;
+    }
+
+    successMsg.classList.add("visible");
+  });
+})();
+</script>
+</body>
+</html>
