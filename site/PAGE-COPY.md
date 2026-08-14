@@ -112,7 +112,37 @@ candlestick price chart.
 
 ---
 
-## Section 02 — What We Build (Trading Platform Capabilities)
+## Section 02 — Where You're Starting
+
+**Eyebrow/label:** Where You're Starting
+**H2:** Build, modernize or integrate
+**Lede:** The four platforms above started in three different places. Find the one that matches yours.
+
+Three lean cards (number, title + subtitle, one paragraph) that route the reader to their own
+situation before they hit the capability list below. No metrics invented — see the "known content
+gaps" note at the end of this doc.
+
+1. **Build** *(New platform, from scratch)*
+   You have a strategy, a licence, or a client base, and no platform yet. We take it from
+   discovery and architecture through broker and market-data selection, order management, risk
+   controls, web and mobile terminals, and KYC/AML.
+
+2. **Modernize** *(An existing platform that caps what you can add)*
+   It runs, but a legacy vendor, an unsupported stack, or latency in the hot path limits what you
+   can ship next. We audit the current system, replace the execution and market-data layers a
+   slice at a time, and migrate data without taking trading offline.
+
+3. **Integrate** *(One component into a stack you already run)*
+   The platform exists; you need something wired into it. FIX and proprietary gateways, broker
+   and exchange APIs, market data and news feeds, payment and KYC/AML providers, portfolio and
+   reporting — scoped as a project or delivered by engineers embedded in your team.
+
+**Footer link:** Not sure which one you're in? Describe the situation and we'll tell you which
+path fits → (`#contact`)
+
+---
+
+## Section 03 — What We Build (Trading Platform Capabilities)
 
 **Eyebrow/label:** What We Build
 **H2:** Trading Platform Capabilities
@@ -152,7 +182,7 @@ discovery to design, coding, and scaling.
 
 ---
 
-## Section 03 — Engagement Models (How We Work)
+## Section 04 — Engagement Models (How We Work)
 
 **Eyebrow/label:** How We Work
 **H2:** Engagement Models
@@ -174,7 +204,7 @@ discovery to design, coding, and scaling.
 
 ---
 
-## Section 04 — Testimonials
+## Section 05 — Testimonials
 
 **Eyebrow/label:** What Clients Say
 **H2:** What our clients say about us
@@ -215,7 +245,7 @@ App Companies, techreviewer.co.
 
 ---
 
-## Section 05 — FAQ
+## Section 06 — FAQ
 
 **H2:** Frequently asked questions
 
@@ -260,7 +290,7 @@ operable.
 
 ---
 
-## Section 06 — Contact
+## Section 07 — Contact
 
 **H3:** Let's discuss how we can help with your project
 
@@ -285,7 +315,7 @@ message box*, NDA Required checkbox, Privacy Policy agreement checkbox* (links t
 ## Header / nav (persistent across the page)
 
 Logo: Itexus (white/dark variant depending on background)
-Nav links: Services, Our Products, Case Studies (→ `/portfolio/`), Hire Developers, About Us
+Nav links: Services, Where to Start (→ `#where-to-start`), Case Studies (→ `/portfolio/`), Hire Developers, About Us
 Header CTA button: Contact Us (→ `/contacts/`)
 
 ---
