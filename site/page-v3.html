@@ -172,6 +172,16 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .case-card dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .tag-pill-light{font-size:13px;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--color-gray-50);color:var(--copy)}
 
+/* ---------- buyer paths ---------- */
+.path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.path-card{padding:32px;display:flex;flex-direction:column;gap:16px}
+.path-card .num{display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:999px;background:var(--badge-bg);color:var(--badge-text);
+  font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.path-card h3{font-size:23px;line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.path-card h3 small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
+.path-card p{font-size:17px;line-height:1.6;color:var(--copy)}
+
 /* ---------- capabilities ---------- */
 .figure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:32px}
 .figure-card{overflow:hidden}
@@ -210,8 +220,8 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .engagement-card h3{font-size:23px;line-height:1.25;letter-spacing:-.02em;font-weight:600}
 .engagement-card h3 small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
 .engagement-card p{font-size:17px;line-height:1.6;color:var(--copy)}
-.engagement-link{margin-top:28px;font-size:17px}
-.engagement-link a{font-weight:600}
+.engagement-link,.path-link{margin-top:28px;font-size:17px}
+.engagement-link a,.path-link a{font-weight:600}
 
 /* ---------- testimonials ---------- */
 .testimonial-controls{display:flex;align-items:center;gap:12px}
@@ -325,7 +335,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 
   .mid-cta .container{grid-template-columns:1fr}
 
-  .engagement-grid{grid-template-columns:1fr}
+  .engagement-grid,.path-grid{grid-template-columns:1fr}
 
   .faq-layout{grid-template-columns:1fr}
 
@@ -353,7 +363,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   .testimonial-card img{display:none}
   .testimonial-quote{font-size:19px}
   .form-grid{grid-template-columns:1fr}
-  .engagement-grid{gap:16px}
+  .engagement-grid,.path-grid{gap:16px}
   .section-head{align-items:flex-start}
 }
 </style>
@@ -366,7 +376,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <ul>
         <li><a href="#capabilities" class="nav-link">Services</a></li>
-        <li><a href="#capabilities" class="nav-link">Our Products</a></li>
+        <li><a href="#where-to-start" class="nav-link">Where to Start</a></li>
         <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
         <li><a href="#engagement" class="nav-link">Hire Developers</a></li>
         <li><a href="#testimonials" class="nav-link">About Us</a></li>
@@ -492,10 +502,38 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     </div>
   </section>
 
-  <section id="capabilities" class="section section-alt">
+  <section id="where-to-start" class="section section-alt">
     <div class="container">
       <div class="section-head-simple">
-        <p class="eyebrow">02 &nbsp;/&nbsp; What We Build</p>
+        <p class="eyebrow">02 &nbsp;/&nbsp; Where You're Starting</p>
+        <h2>Build, modernize or integrate</h2>
+        <p class="lede">The four platforms above started in three different places. Find the one that matches yours.</p>
+      </div>
+      <div class="path-grid">
+        <article class="card path-card">
+          <span class="num">01</span>
+          <h3>Build <small>New platform, from scratch</small></h3>
+          <p>You have a strategy, a licence, or a client base, and no platform yet. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML.</p>
+        </article>
+        <article class="card path-card">
+          <span class="num">02</span>
+          <h3>Modernize <small>An existing platform that caps what you can add</small></h3>
+          <p>It runs, but a legacy vendor, an unsupported stack, or latency in the hot path limits what you can ship next. We audit the current system, replace the execution and market-data layers a slice at a time, and migrate data without taking trading offline.</p>
+        </article>
+        <article class="card path-card">
+          <span class="num">03</span>
+          <h3>Integrate <small>One component into a stack you already run</small></h3>
+          <p>The platform exists; you need something wired into it. FIX and proprietary gateways, broker and exchange APIs, market data and news feeds, payment and KYC/AML providers, portfolio and reporting &mdash; scoped as a project or delivered by engineers embedded in your team.</p>
+        </article>
+      </div>
+      <p class="path-link">Not sure which one you're in? <a href="#contact">Describe the situation and we'll tell you which path fits &#8594;</a></p>
+    </div>
+  </section>
+
+  <section id="capabilities" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">03 &nbsp;/&nbsp; What We Build</p>
         <h2>Trading Platform Capabilities</h2>
         <p class="lede">The parts a trading platform needs to actually go live.</p>
       </div>
@@ -547,7 +585,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   <section id="engagement" class="section">
     <div class="container">
       <div class="section-head-simple">
-        <p class="eyebrow">03 &nbsp;/&nbsp; How We Work</p>
+        <p class="eyebrow">04 &nbsp;/&nbsp; How We Work</p>
         <h2>Engagement Models</h2>
         <p class="lede">Three real cooperation models, no invented figures.</p>
       </div>
@@ -579,7 +617,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="container">
       <div class="section-head">
         <div style="max-width:62ch">
-          <p class="eyebrow">04 &nbsp;/&nbsp; What Clients Say</p>
+          <p class="eyebrow">05 &nbsp;/&nbsp; What Clients Say</p>
           <h2>What our clients say about us</h2>
         </div>
         <div class="testimonial-controls">
@@ -642,7 +680,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   <section id="faq" class="section">
     <div class="container faq-layout">
       <div class="faq-side">
-        <p class="eyebrow">05 &nbsp;/&nbsp; FAQ</p>
+        <p class="eyebrow">06 &nbsp;/&nbsp; FAQ</p>
         <h2>Frequently asked questions</h2>
         <p>Cost and timeline answered here, on the page. If yours isn't covered, ask us directly.</p>
         <a href="#contact" class="btn btn-primary">Ask a question</a>
@@ -665,7 +703,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="contact-scrim"></div>
     <div class="container">
       <div>
-        <p class="eyebrow eyebrow-light">06 &nbsp;/&nbsp; Contact</p>
+        <p class="eyebrow eyebrow-light">07 &nbsp;/&nbsp; Contact</p>
         <h3>Let's discuss how we can help with your project</h3>
         <ol class="contact-steps">
           <li>
