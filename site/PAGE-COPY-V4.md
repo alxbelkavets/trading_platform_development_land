@@ -39,7 +39,7 @@ stay as they are; scarcity is out and risk reversal is in (see [§8](#8--the-fir
 
 **Eyebrow:** Trading platform development
 
-**H1:** Trading platforms built by people who have **shipped them before**
+**H1:** We've built trading platforms before. **We can build yours.**
 
 > Bold part in brand green, as before.
 
