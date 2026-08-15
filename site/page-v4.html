@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trading Platform Development | Itexus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="We build trading and investing platforms for fintechs and investment managers: order management, execution middleware, FIX gateways, market data, KYC/AML. Shipping since 2013.">
+
+<!--
+  page-v4.html — implements site/PAGE-PLAN.md and site/PAGE-COPY-V4.md.
+  Built on top of page-v3.html's CSS/JS foundation. Changes from v3:
+  - Reverted to the locked hero (site/PAGE-COPY.md) instead of v3's shipped H1.
+  - One CTA wording ("Talk to a trading architect") in header, hero, offer
+    section, FAQ, and the contact form — v3 had four different CTAs.
+  - New facts strip under the hero (only fields we can currently back with a
+    real value — team size, locations, and client logos are left out rather
+    than filled with a placeholder; see PAGE-COPY-V4.md's "Open inputs" table).
+  - Case-study stat grids (00.0 ms placeholders in v3) removed rather than
+    replaced with more placeholders. Real anonymised metrics go in the
+    CASE-METRICS comment spots in each card when they exist.
+  - Two new sections: "What usually goes wrong" and "Security, compliance
+    and who owns what" (a link to a dedicated engineering-notes page is
+    deliberately omitted until that page exists).
+  - v3's small mid-page CTA band replaced with a fuller "first step" offer
+    section that names what the call is, what the visitor gets afterwards,
+    and why.
+  - FAQ: two generic SEO questions cut, three buying-objection questions
+    added (source ownership, certifications, brokers/gotchas) with honest
+    "ask us" answers rather than invented specifics.
+  - Contact form cut from 5 fields + 2 checkboxes to 2 fields + 2 checkboxes.
+-->
+<link rel="stylesheet" href="tokens.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Efficient Hours bills only efficient hours against an agreed estimate. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer." } },
+    { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope." } },
+    { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Ask on the call and we'll walk through the ones closest to your build." } },
+    { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything." } },
+    { "@type": "Question", "name": "Which certifications do you hold, and which regulations have you worked under?", "acceptedAnswer": { "@type": "Answer", "text": "We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case, on the call." } },
+    { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs." } },
+    { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, either as an ongoing arrangement or on demand." } },
+    { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first technical call. We'll sign yours, or send you ours." } },
+    { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Four are described above, three of them under NDA." } }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --link:#0f7a35;
+  --copy:#444f58;
+  --muted:#666;
+  --mint:#7fd99a;
+  --mint-bright:#41cf68;
+  --cta-bg:#0e2b30;
+  --mint-tint-bg:#eaf7ee;
+  --badge-bg:rgba(37,187,77,.14);
+  --badge-text:#0f5c29;
+  --error:#b32a22;
+  --dark-card:#1f2432;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-sans);color:var(--color-ink);background:#fff;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3,p,dl,dd,dt,figure,blockquote{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--color-brand-green)}
+:focus-visible{outline:3px solid var(--color-brand-green);outline-offset:3px;border-radius:6px}
+section[id]{scroll-margin-top:90px}
+.container{max-width:var(--container-max);margin:0 auto;padding:0 24px}
+
+@keyframes itxMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;
+  font-family:inherit;font-size:16px;font-weight:600;border:0;border-radius:var(--radius-lg);
+  cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease}
+.btn-primary{background:var(--color-brand-green);color:var(--color-ink)}
+.btn-primary:hover,.btn-primary:focus-visible{background:var(--color-brand-green-bright)}
+.btn-lg{min-height:50px;padding:0 32px}
+.btn-outline{gap:10px;min-height:50px;padding:0 26px;color:#fff;font-weight:500;border:1px solid rgba(255,255,255,.36);background:none}
+.btn-outline:hover,.btn-outline:focus-visible{border-color:var(--mint-bright);color:var(--mint)}
+
+/* ---------- header ---------- */
+.site-header{background:var(--color-header-bg);position:sticky;top:0;z-index:40}
+.site-header .container{display:flex;align-items:center;gap:20px;min-height:76px}
+.logo-link{display:flex;align-items:center;flex:none}
+.main-nav{margin-left:auto}
+.main-nav ul{display:flex;gap:2px}
+.nav-link{display:flex;align-items:center;min-height:44px;padding:0 14px;font-size:15px;
+  color:#fff;border-radius:8px;transition:background .15s ease}
+.nav-link:hover,.nav-link:focus-visible{background:var(--color-header-bg-dark)}
+.nav-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;
+  margin-left:auto;background:none;border:0;border-radius:8px;cursor:pointer;flex:none}
+.nav-toggle:hover{background:var(--color-header-bg-dark)}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
+  content:"";display:block;width:22px;height:2px;background:#fff;border-radius:2px;position:relative;transition:transform .2s ease,opacity .2s ease}
+.nav-toggle span::before{position:absolute;top:-7px}
+.nav-toggle span::after{position:absolute;top:7px}
+.nav-open .nav-toggle span{background:transparent}
+.nav-open .nav-toggle span::before{transform:translateY(7px) rotate(45deg)}
+.nav-open .nav-toggle span::after{transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--color-ink);overflow:hidden;border-radius:0 0 100px 100px}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+.hero-scrim{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(5,19,32,.92) 0%,rgba(5,19,32,.8) 34%,rgba(5,19,32,.3) 64%,rgba(5,19,32,.05) 80%)}
+.hero .container{position:relative;padding:96px 24px 0;min-height:600px}
+.hero-copy{position:relative;z-index:1;max-width:600px}
+.eyebrow-dark{font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}
+.hero h1{margin-top:14px;font-size:52px;line-height:1.1;letter-spacing:-.03em;font-weight:700;color:#fff;text-wrap:pretty}
+.hero h1 span{color:var(--mint-bright)}
+.hero-lede{margin-top:24px;max-width:54ch;font-size:19px;line-height:1.6;color:rgba(255,255,255,.9)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero-assurance{margin-top:22px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.75)}
+.hero-note{margin:10px 0 96px;font-size:15px;line-height:1.6;color:rgba(255,255,255,.75)}
+.hero-art{position:absolute;right:0;bottom:0;pointer-events:none;z-index:0}
+.hero-art img{display:block;
+  width:min(1320px, calc((100vw - max(0px,(100vw - 1312px)/2) - 672px) * 1.2));
+  height:auto;max-width:none}
+
+/* ---------- facts strip ---------- */
+.facts-strip{border-bottom:1px solid var(--color-border);background:var(--color-gray-50)}
+.facts-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}
+.fact{padding:22px 20px}
+.fact:not(:last-child){border-right:1px solid var(--color-border)}
+.fact-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fact-value{margin-top:6px;font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--color-ink)}
+
+/* ---------- sections ---------- */
+.section{padding:96px 0}
+.section-alt{background:var(--color-gray-50)}
+.section-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px}
+.section-head-simple{max-width:62ch;margin-bottom:40px}
+.eyebrow{margin-bottom:12px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--link)}
+.eyebrow-light{color:var(--mint)}
+h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
+.lede{margin-top:14px;font-size:19px;line-height:1.6;color:var(--copy);max-width:60ch}
+
+.card{background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-2xl);box-shadow:var(--shadow-lg)}
+
+/* ---------- case studies ---------- */
+.case-featured{overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.case-featured-body{padding:40px;display:flex;flex-direction:column;gap:20px}
+.case-featured-brand{display:flex;align-items:center;gap:16px}
+.case-featured-brand .divider{width:1px;height:22px;background:rgba(0,0,0,.14)}
+.case-featured-brand .tag{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.case-featured h3{font-size:27px;line-height:1.25;letter-spacing:-.02em;font-weight:600;max-width:32ch}
+.case-featured-copy{font-size:17px;line-height:1.6;color:var(--copy);max-width:60ch}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.tag-pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text)}
+.case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px}
+.case-featured-media img{width:100%;max-width:578px;object-fit:contain;border-radius:10px}
+
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:24px}
+.case-card{overflow:hidden;display:flex;flex-direction:column}
+.case-card-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;padding:18px}
+.case-card-media.dark{background:var(--dark-card)}
+.case-card-media.light{background:var(--color-gray-50)}
+.case-card-media img{max-width:100%;max-height:100%;object-fit:contain}
+.case-card-body{padding:26px;display:flex;flex-direction:column;gap:14px;flex:1}
+.badge-nda{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:var(--color-brand-green);color:var(--color-ink)}
+.case-card h3{font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+.case-card-copy{font-size:16px;line-height:1.55;color:var(--copy)}
+.tag-pill-light{font-size:13px;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--color-gray-50);color:var(--copy)}
+
+/* ---------- buyer paths ---------- */
+.path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.path-card{padding:32px;display:flex;flex-direction:column;gap:16px}
+.path-card .num{display:flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:999px;background:var(--badge-bg);color:var(--badge-text);
+  font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.path-card h3{font-size:23px;line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.path-card h3 small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
+.path-card p{font-size:17px;line-height:1.6;color:var(--copy)}
+
+/* ---------- capabilities ---------- */
+.figure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-bottom:32px}
+.figure-card{overflow:hidden}
+.figure-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.figure-card figcaption{padding:16px 20px;display:flex;align-items:baseline;gap:10px;border-top:1px solid rgba(0,0,0,.08)}
+.figure-card .num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
+.figure-card .name{font-size:16px;font-weight:600}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--color-border);border:1px solid var(--color-border);border-radius:var(--radius-2xl);overflow:hidden}
+.feature-grid li{background:#fff;padding:26px 24px}
+.feature-grid .num{margin-bottom:10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--link);font-variant-numeric:tabular-nums}
+.feature-grid h3{margin-bottom:8px;font-size:19px;line-height:1.3;font-weight:600}
+.feature-grid p{font-size:15px;line-height:1.55;color:var(--copy)}
+
+/* ---------- what usually goes wrong ---------- */
+.wrong-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.wrong-card{padding:28px}
+.wrong-card h3{font-size:19px;line-height:1.3;font-weight:600;margin-bottom:10px}
+.wrong-card p{font-size:16px;line-height:1.6;color:var(--copy)}
+
+/* ---------- security / compliance ---------- */
+.compliance-list{padding:0;overflow:hidden}
+.compliance-row{display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,.68fr);gap:24px;padding:22px 28px;border-bottom:1px solid var(--color-border)}
+.compliance-row:last-child{border-bottom:0}
+.compliance-row dt{font-size:15px;font-weight:600;color:var(--color-ink)}
+.compliance-row dd{font-size:16px;line-height:1.6;color:var(--copy)}
+
+/* ---------- offer section (the first step) ---------- */
+.offer-section{position:relative;background:var(--color-ink)}
+.offer-section h2{color:#fff;max-width:34ch}
+.offer-lede{margin-top:14px;font-size:19px;line-height:1.6;color:rgba(255,255,255,.86);max-width:60ch}
+.offer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:48px}
+.offer-block h3{font-size:18px;font-weight:600;color:#fff;margin-bottom:10px}
+.offer-block p{font-size:16px;line-height:1.6;color:rgba(255,255,255,.78)}
+.offer-actions{margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+.offer-risk{font-size:15px;line-height:1.6;color:rgba(255,255,255,.68);max-width:50ch}
+
+/* ---------- engagement ---------- */
+.engagement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
+.engagement-card{padding:32px;display:flex;flex-direction:column;gap:16px}
+.engagement-card.recommended{border:2px solid var(--color-brand-green)}
+.engagement-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.engagement-card .num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
+.badge-recommended{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:var(--color-brand-green);color:var(--color-ink)}
+.engagement-card h3{font-size:23px;line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.engagement-card h3 small{display:block;font-size:16px;font-weight:500;color:var(--muted);margin-top:4px}
+.engagement-card p{font-size:17px;line-height:1.6;color:var(--copy)}
+.engagement-link,.path-link{margin-top:28px;font-size:17px}
+.engagement-link a,.path-link a{font-weight:600}
+
+/* ---------- testimonials ---------- */
+.testimonial-controls{display:flex;align-items:center;gap:12px}
+.carousel-btn{width:52px;height:52px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#fff;
+  color:var(--color-ink);font-size:20px;line-height:1;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+.carousel-btn:hover,.carousel-btn:focus-visible{border-color:var(--color-brand-green);background:var(--color-brand-green)}
+.testimonial-card{padding:44px 48px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start;min-height:280px}
+.testimonial-card img{opacity:.9}
+.testimonial-quote{font-size:23px;line-height:1.5;letter-spacing:-.01em;font-weight:500;max-width:64ch;text-wrap:pretty}
+.testimonial-meta{margin-top:26px;padding-top:20px;border-top:1px solid var(--color-border);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px}
+.testimonial-meta .author{font-size:17px;font-weight:600}
+.testimonial-meta .role{font-size:16px;color:var(--muted)}
+.testimonial-meta .counter{margin-left:auto;font-size:14px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.testimonial-dots{display:flex;gap:8px;margin-top:20px}
+.testimonial-dots button{height:44px;padding:0 6px;border:0;background:none;cursor:pointer}
+.testimonial-dots span{display:block;width:34px;height:4px;border-radius:2px;background:rgba(0,0,0,.2);transition:background .15s ease}
+.testimonial-dots button[aria-current="true"] span{background:var(--color-brand-green)}
+.clutch-strip{margin-top:36px;padding:22px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
+.clutch-strip p{font-size:18px;font-weight:600}
+.clutch-strip p span{font-weight:400;color:var(--muted)}
+.clutch-strip img:last-child{height:34px;margin-left:auto}
+.award-marquee{margin-top:28px;overflow:hidden;position:relative}
+.marquee-track{display:flex;width:max-content;gap:40px;align-items:center;animation:itxMarquee 44s linear infinite}
+.marquee-track img{height:66px;width:auto}
+
+/* ---------- FAQ ---------- */
+.faq-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:56px;align-items:start}
+.faq-side p{margin-top:16px;font-size:17px;line-height:1.6;color:var(--copy);max-width:44ch}
+.faq-side .btn{margin-top:22px}
+.faq-list{border-top:1px solid rgba(0,0,0,.12)}
+.faq-list details{border-bottom:1px solid rgba(0,0,0,.12)}
+.faq-list summary{cursor:pointer;padding:22px 8px;font-size:20px;font-weight:600;line-height:1.35;color:var(--color-ink);
+  list-style:none;position:relative;padding-right:32px}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";position:absolute;right:8px;top:22px;font-size:22px;font-weight:400;color:var(--link)}
+.faq-list details[open] summary::after{content:"\2212"}
+.faq-list p{padding:0 8px 24px;max-width:68ch;font-size:17px;line-height:1.65;color:var(--copy)}
+.faq-list a{font-weight:600}
+
+/* ---------- contact ---------- */
+.contact-section{position:relative;background:var(--color-ink);overflow:hidden}
+.contact-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
+.contact-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,19,32,.82) 0%,rgba(5,19,32,.93) 100%)}
+.contact-section .container{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:56px;align-items:start}
+.contact-section h3{font-size:34px;line-height:1.2;letter-spacing:-.025em;font-weight:700;color:#fff;max-width:26ch}
+.contact-section .lede-dark{margin-top:14px;font-size:17px;line-height:1.6;color:rgba(255,255,255,.78);max-width:48ch}
+.contact-steps{display:flex;flex-direction:column;gap:22px;margin-top:36px}
+.contact-steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;align-items:start}
+.contact-steps .step-num{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;
+  background:rgba(37,187,77,.18);border:1px solid rgba(37,187,77,.5);color:var(--mint);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.contact-steps .step-title{font-size:19px;font-weight:600;color:#fff}
+.contact-steps .step-copy{margin-top:4px;font-size:16px;line-height:1.6;color:rgba(255,255,255,.78);max-width:52ch}
+
+.contact-form{background:#fff;border-radius:var(--radius-2xl);box-shadow:0 4px 44px -9px rgba(0,0,0,.28);
+  padding:36px;display:flex;flex-direction:column;gap:20px}
+.form-success{margin:0;padding:14px 16px;border-radius:10px;background:var(--badge-bg);border:1px solid var(--color-brand-green);
+  font-size:16px;font-weight:600;display:none}
+.form-success.visible{display:block}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:15px;font-weight:600}
+.field label .req{color:var(--link)}
+.field input,.field textarea{min-height:48px;padding:0 14px;font:inherit;font-size:16px;color:var(--color-ink);
+  background:#fff;border:1px solid rgba(0,0,0,.28);border-radius:var(--radius-lg)}
+.field textarea{min-height:0;padding:12px 14px;resize:vertical}
+.error{margin:0;font-size:14px;font-weight:600;color:var(--error);display:none}
+.field.has-error input,.field.has-error textarea{border-color:var(--error)}
+.has-error .error{display:block}
+.consent-block{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--color-gray-50);border-radius:var(--radius-xl)}
+.consent-block label{display:flex;align-items:center;gap:12px;min-height:44px;font-size:16px;font-weight:600;cursor:pointer}
+.consent-block label.policy-label{align-items:flex-start;font-weight:400;line-height:1.5}
+.consent-block input[type="checkbox"]{width:22px;height:22px;accent-color:var(--color-brand-green);flex:none;margin-top:2px}
+.consent-block .req{color:var(--link)}
+.submit-btn{gap:10px;min-height:54px;font-size:17px}
+.submit-btn .note{font-weight:400;font-size:15px}
+.submit-hint{margin:0;font-size:14px;color:var(--muted);text-align:center}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--color-header-bg);padding:36px 0}
+.site-footer .container{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;color:rgba(255,255,255,.82);font-size:15px}
+.site-footer a{color:#fff}
+.site-footer .privacy{margin-left:auto}
+
+/* ================= responsive ================= */
+@media (max-width:1080px){
+  .case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wrong-grid{grid-template-columns:1fr}
+  .offer-grid{grid-template-columns:1fr;gap:28px}
+
+  .facts-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .fact{border-bottom:1px solid var(--color-border)}
+  .fact:nth-child(3n){border-right:0}
+  .fact:nth-last-child(-n+3){border-bottom:0}
+}
+
+@media (max-width:900px){
+  .main-nav{display:none}
+  .main-nav.open{display:block;position:absolute;top:76px;left:0;right:0;background:var(--color-header-bg);
+    box-shadow:0 12px 24px rgba(0,0,0,.2)}
+  .main-nav.open ul{flex-direction:column;padding:12px;gap:4px}
+  .main-nav.open .nav-link{min-height:48px}
+  .nav-toggle{display:flex}
+  .header-cta{display:none}
+
+  .hero{border-radius:0 0 48px 48px;display:flex;flex-direction:column}
+  .hero .container{padding-top:56px;min-height:0}
+  .hero-copy{max-width:none}
+  .hero-art{position:relative;z-index:2;height:auto;order:-1}
+  .hero-art img{display:block;width:calc(100% + 48px);height:auto;margin:0 -24px 32px;max-width:none}
+
+  .case-featured{grid-template-columns:1fr}
+  .case-featured-media{order:-1}
+  .case-grid{grid-template-columns:1fr}
+  .figure-grid{grid-template-columns:1fr}
+  .feature-grid{grid-template-columns:1fr}
+
+  .compliance-row{grid-template-columns:1fr;gap:6px}
+
+  .engagement-grid,.path-grid{grid-template-columns:1fr}
+
+  .faq-layout{grid-template-columns:1fr}
+
+  .contact-section .container{grid-template-columns:1fr}
+}
+
+@media (max-width:640px){
+  .container{padding:0 var(--container-pad)}
+  .section{padding:56px 0}
+  .hero{border-radius:0 0 32px 32px}
+  .hero .container{padding:56px 16px 0}
+  .hero-note{margin-bottom:48px}
+  .hero-art img{width:calc(100% + 32px);margin:0 -16px 24px}
+  .hero h1{font-size:34px;line-height:1.15}
+  .hero-lede{font-size:17px}
+  h2{font-size:28px}
+  .lede{font-size:17px}
+  .offer-lede{font-size:17px}
+  .offer-section .container{padding:56px 0}
+  .contact-section h3{font-size:26px}
+  .case-featured-body{padding:26px}
+  .case-featured h3{font-size:22px}
+  .testimonial-card{padding:28px 22px;grid-template-columns:1fr;gap:16px}
+  .testimonial-card img{display:none}
+  .testimonial-quote{font-size:19px}
+  .engagement-grid,.path-grid{gap:16px}
+  .section-head{align-items:flex-start}
+
+  .facts-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fact:nth-child(3n){border-right:1px solid var(--color-border)}
+  .fact:nth-child(2n){border-right:0}
+  .fact:nth-last-child(-n+3){border-bottom:1px solid var(--color-border)}
+  .fact:nth-last-child(-n+2){border-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="#top" class="logo-link"><img src="img/logo-white-itexus.svg" alt="Itexus" width="99" height="29"></a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="#capabilities" class="nav-link">Services</a></li>
+        <li><a href="#where-to-start" class="nav-link">Where to Start</a></li>
+        <li><a href="#case-studies" class="nav-link">Case Studies</a></li>
+        <li><a href="#engagement" class="nav-link">Hire Developers</a></li>
+        <li><a href="#testimonials" class="nav-link">About Us</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu"><span></span></button>
+    <a href="#contact" class="btn btn-primary header-cta">Talk to a trading architect</a>
+  </div>
+</header>
+
+<main>
+  <section id="top" class="hero">
+    <img src="img/hero-bg.webp" alt="" class="hero-bg">
+    <div class="hero-scrim"></div>
+    <div class="container">
+      <div class="hero-copy">
+        <p class="eyebrow-dark">Trading platform development</p>
+        <h1>Trading platforms built by people who have <span>shipped them before</span></h1>
+        <p class="hero-lede">FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and investing products for fintechs and investment managers, and this is the stack we work in.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary btn-lg">Talk to a trading architect</a>
+          <a href="#case-studies" class="btn-outline btn btn-lg">See the platforms we've built &#8594;</a>
+        </div>
+        <p class="hero-assurance">We reply within 24 hours and sign an NDA before you share the details.</p>
+        <p class="hero-note">300+ projects &middot; Building since 2013 &middot; 4.9 on Clutch from 40 reviews</p>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="img/trading-app-main-image.webp" alt="Trading app screens: a wallet balance with deposit and withdraw controls, and a live candlestick price chart" width="870" height="548">
+    </div>
+  </section>
+
+  <!--
+    Facts strip. Only fields we can currently back with a real value.
+    Team size, delivery locations/timezone overlap, and cleared client
+    logos are left out rather than filled with a placeholder — see the
+    "Open inputs" table in PAGE-COPY-V4.md, rows 6.
+  -->
+  <section class="facts-strip" aria-label="Company facts">
+    <div class="container">
+      <div class="facts-row">
+        <div class="fact"><p class="fact-label">Clutch</p><p class="fact-value">4.9 from 40 reviews</p></div>
+        <div class="fact"><p class="fact-label">Building since</p><p class="fact-value">2013</p></div>
+        <div class="fact"><p class="fact-label">Projects delivered</p><p class="fact-value">300+</p></div>
+        <div class="fact"><p class="fact-label">Paperwork</p><p class="fact-value">NDA + DPA first</p></div>
+        <div class="fact"><p class="fact-label">First reply</p><p class="fact-value">Within 24 hours</p></div>
+        <div class="fact"><p class="fact-label">Typical MVP</p><p class="fact-value">3&ndash;4 months</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="case-studies" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">01 &nbsp;/&nbsp; Case Studies</p>
+        <h2>Trading platforms we've built</h2>
+        <p class="lede">Four production systems: three anonymised trading platforms, and a crypto wallet ecosystem for a fintech with $2.2 billion in annual revenue.</p>
+      </div>
+
+      <article class="card case-featured">
+        <div class="case-featured-body">
+          <div class="case-featured-brand">
+            <img src="img/coinstar-logo.png" alt="Coinstar" style="height:26px;width:auto">
+            <span class="divider"></span>
+            <span class="tag">Featured</span>
+          </div>
+          <h3>Cryptocurrency e-Wallet Ecosystem for a Global FinTech Enterprise</h3>
+          <p class="case-featured-copy">PCI DSS-compliant application ecosystem for Coinstar, an international fintech company with $2.2 billion in annual revenue: web and mobile crypto wallets, embedded kiosk software, and a cloud-based API server.</p>
+          <!-- CASE-METRICS: real anonymised figures go here (e.g. transactions/day, time to first release, uptime) when supplied. Do not fill with placeholder digits. -->
+          <div class="tag-row">
+            <span class="tag-pill">Enterprise</span>
+            <span class="tag-pill">Fintech</span>
+          </div>
+        </div>
+        <div class="case-featured-media">
+          <img src="img/coinstar-pict.png" alt="Coinstar crypto wallet application screens" width="578" height="333">
+        </div>
+      </article>
+
+      <div class="case-grid">
+        <article class="card case-card">
+          <div class="case-card-media dark">
+            <img src="img/case2-automated-stock-trading.png" alt="Automated stock trading platform on a laptop, showing a candlestick chart and strategy modules">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Automated Stock Trading Platform</h3>
+            <p class="case-card-copy">An automated, real-time trading system that lets administrators configure and run trading strategies.</p>
+            <!-- CASE-METRICS: order latency, peak message rate, strategies running concurrently -->
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+        <article class="card case-card">
+          <div class="case-card-media light">
+            <img src="img/case4-algorithmic-intraday.png" alt="Stock trading signals platform on a laptop, showing the signal library and signal settings table">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Stock Trading Signals Platform</h3>
+            <p class="case-card-copy">An investment assistant that runs technical analysis across a universe of stocks and delivers signals to subscribers.</p>
+            <!-- CASE-METRICS: instruments covered, signal delivery time, subscribers -->
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+        <article class="card case-card">
+          <div class="case-card-media dark">
+            <img src="img/case3-stock-signals.png" alt="Algorithmic intraday trading dashboard showing recent trades and account statistics">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Algorithmic Intraday Stock Trading System</h3>
+            <p class="case-card-copy">A SaaS system for automated intraday trading that connects to investors' own brokerage accounts.</p>
+            <!-- CASE-METRICS: broker integrations, accounts connected, uptime during market hours -->
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="where-to-start" class="section section-alt">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">02 &nbsp;/&nbsp; Where You're Starting</p>
+        <h2>Build, modernize or integrate</h2>
+        <p class="lede">The four platforms above started in three different places. Find the one that matches yours.</p>
+      </div>
+      <div class="path-grid">
+        <article class="card path-card">
+          <span class="num">01</span>
+          <h3>Build <small>New platform, from scratch</small></h3>
+          <p>You have a strategy, a licence, or a client base, and no platform yet. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML.</p>
+        </article>
+        <article class="card path-card">
+          <span class="num">02</span>
+          <h3>Modernize <small>An existing platform that caps what you can add</small></h3>
+          <p>It runs, but a legacy vendor, an unsupported stack, or latency in the hot path limits what you can ship next. We audit the current system, replace the execution and market-data layers a slice at a time, and migrate data without taking trading offline.</p>
+        </article>
+        <article class="card path-card">
+          <span class="num">03</span>
+          <h3>Integrate <small>One component into a stack you already run</small></h3>
+          <p>The platform exists; you need something wired into it. FIX and proprietary gateways, broker and exchange APIs, market data and news feeds, payment and KYC/AML providers, portfolio and reporting, scoped as a project or delivered by engineers embedded in your team.</p>
+        </article>
+      </div>
+      <p class="path-link">Not sure which one you're in? <a href="#contact">Describe the situation and we'll tell you which path fits &#8594;</a></p>
+    </div>
+  </section>
+
+  <section id="capabilities" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">03 &nbsp;/&nbsp; What We Build</p>
+        <h2>Trading Platform Capabilities</h2>
+        <p class="lede">The parts a trading platform needs to actually go live, and what tends to go wrong in each one.</p>
+      </div>
+
+      <div class="figure-grid">
+        <figure class="card figure-card">
+          <img src="img/software-1.png" alt="Onboarding screen from a trading app" style="object-position:center 22%">
+          <figcaption><span class="num">01</span><span class="name">Onboarding</span></figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="img/software-2.png" alt="Order entry screen with a limit price slider" style="object-position:center 18%">
+          <figcaption><span class="num">02</span><span class="name">Order entry, limit price</span></figcaption>
+        </figure>
+        <figure class="card figure-card">
+          <img src="img/software-3.png" alt="Order confirmation screen after a trade" style="object-position:center 22%">
+          <figcaption><span class="num">03</span><span class="name">Trade confirmation</span></figcaption>
+        </figure>
+      </div>
+
+      <ul class="feature-grid">
+        <li><p class="num">01</p><h3>Integration With Brokers</h3><p>We help select and integrate brokers on market coverage, API quality, latency, and SLA. The SLA tells you about uptime and nothing about what your open orders look like after a gateway restart, so we test reconnection and state recovery before we recommend anyone.</p></li>
+        <li><p class="num">02</p><h3>Trading Execution Middleware</h3><p>Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer. Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p></li>
+        <li><p class="num">03</p><h3>Order Management</h3><p>Order types, time in force, leverage, stop-loss and take-profit. What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p></li>
+        <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most are the ones showing an order whose state is uncertain. Telling a user their order was cancelled when it actually filled is a support ticket that becomes a complaint.</p></li>
+        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: per-user reporting to the exchange, redistribution licensing, and non-display fees are a cost line that surprises product teams, usually in the form of an audit that arrives with a bill.</p></li>
+        <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those checks do most of the work. A market order on an illiquid symbol at the open, with no pre-trade guardrail, fills far from the last print, and the user only finds out once it has.</p></li>
+        <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two engines drift and the user discovers it with real money on the line.</p></li>
+        <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimise strategies against historical data before risking anything. A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p></li>
+        <li><p class="num">09</p><h3>Real-Time Alerts</h3><p>Asset alerts that reach the user within seconds of a target price move. The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p></li>
+        <li><p class="num">10</p><h3>Trade Log</h3><p>Trading histories that let users find their mistakes and adjust. Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires clocks within 50 ms of NIST. Retrofitting any of this later is a rewrite.</p></li>
+        <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practise against one and then trade for real get results that don't match, and they tend to blame the platform.</p></li>
+        <li><p class="num">12</p><h3>Other Features</h3><p>Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more trouble here than their profile suggests. A split, a spin-off, or a symbol change has to move positions, cost basis, open orders, historical charts, and the tax lot ledger together, and it is where a lot of platforms find out their data model was wrong.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="what-goes-wrong" class="section section-alt">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">04 &nbsp;/&nbsp; Engineering Notes</p>
+        <h2>The parts of this that usually go wrong</h2>
+        <p class="lede">Four of the failure modes we design around. None of them are exotic, and each one is far cheaper to handle in the design than in production.</p>
+      </div>
+      <div class="wrong-grid">
+        <article class="card wrong-card">
+          <h3>A cancel and a fill cross on the wire</h3>
+          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash stay wrong until somebody reconciles them.</p>
+        </article>
+        <article class="card wrong-card">
+          <h3>Market-data entitlements arrive as a bill</h3>
+          <p>Per-user reporting to the exchange, redistribution licensing, and non-display fees are all contractual, and none of them appear in an API doc. Scoping market data as an integration task misses the commercial negotiation underneath it, which is usually where the cost sits.</p>
+        </article>
+        <article class="card wrong-card">
+          <h3>The affirmation cutoff on trade date</h3>
+          <p>US equities have settled T+1 since May 2024. Miss the affirmation window and the trade fails. What used to be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the same point in October 2027.</p>
+        </article>
+        <article class="card wrong-card">
+          <h3>Average-price rounding breaks reconciliation</h3>
+          <p>Recompute AvgPx client-side from individual fills instead of trusting what the counterparty sent, and the number drifts by fractions of a cent. Nobody notices until the end-of-day file doesn't match.</p>
+        </article>
+      </div>
+      <!-- Link to a dedicated engineering-notes page (site/EXPERTISE-PROOF.md §1) intentionally omitted until that page exists and the remaining failure modes have engineer sign-off. -->
+    </div>
+  </section>
+
+  <section id="compliance" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">05 &nbsp;/&nbsp; How We Handle Risk</p>
+        <h2>Security, compliance, and who owns what</h2>
+        <p class="lede">The questions procurement sends us, answered up front.</p>
+      </div>
+      <dl class="card compliance-list">
+        <div class="compliance-row">
+          <dt>Paperwork</dt>
+          <dd>NDA and DPA, signed before the first technical call.</dd>
+        </div>
+        <div class="compliance-row">
+          <dt>Compliance work delivered</dt>
+          <dd>PCI DSS-compliant ecosystem for Coinstar. KYC/AML onboarding, sanctions screening, and audit trails across the trading platforms above.</dd>
+        </div>
+        <div class="compliance-row">
+          <dt>Certifications held</dt>
+          <dd>Ask us. We'll tell you plainly what we hold and what we don't.</dd>
+        </div>
+        <div class="compliance-row">
+          <dt>Regulatory regimes shipped under</dt>
+          <dd>Ask us. We'll name the regimes relevant to your case rather than list every one we've heard of.</dd>
+        </div>
+        <div class="compliance-row">
+          <dt>Source code and exit</dt>
+          <dd>Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="offer-section section" id="first-step">
+    <div class="container">
+      <p class="eyebrow-dark">What Happens Next</p>
+      <h2>A call with an architect, and something in writing afterward</h2>
+      <p class="offer-lede">An hour with the person who would design the system, rather than a discovery call with an account manager.</p>
+
+      <div class="offer-grid">
+        <div class="offer-block">
+          <h3>What the call is</h3>
+          <p>Forty-five to sixty minutes with a solution architect who has built trading systems. We sign the NDA first. The agenda is your requirements, an architecture sketch, the integration options in front of you, the risks we can see, and an indicative range.</p>
+        </div>
+        <div class="offer-block">
+          <h3>What you get afterward, in writing</h3>
+          <p>A summary of what we discussed, a one-page architecture view, and an estimate with its assumptions listed. Yours to use however you like.</p>
+        </div>
+        <div class="offer-block">
+          <h3>Why it's shaped that way</h3>
+          <p>Most people who contact us are not the person who signs. They have to take a recommendation to a board or a committee and defend it there, and a capabilities deck is no help for that. The write-up is what the call is for.</p>
+        </div>
+      </div>
+
+      <div class="offer-actions">
+        <a href="#contact" class="btn btn-primary btn-lg">Talk to a trading architect</a>
+        <p class="offer-risk">The call is free and carries no obligation, and the write-up is yours whether or not you hire us.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="engagement" class="section">
+    <div class="container">
+      <div class="section-head-simple">
+        <p class="eyebrow">06 &nbsp;/&nbsp; How We Work</p>
+        <h2>Engagement Models</h2>
+        <p class="lede">Three real cooperation models, no invented figures.</p>
+      </div>
+      <div class="engagement-grid">
+        <article class="card engagement-card recommended">
+          <div class="engagement-card-top">
+            <span class="num">01</span>
+            <span class="badge-recommended">Recommended</span>
+          </div>
+          <h3>Efficient Hours <small>Agile with Budget Control</small></h3>
+          <p>Delivered in two-week sprints with a demo at the end of each one. You only pay for efficient hours within an agreed estimate, and can adjust requirements as new ideas come up.</p>
+        </article>
+        <article class="card engagement-card">
+          <span class="num">02</span>
+          <h3>Fixed Price</h3>
+          <p>Requirements, price, and timeline are documented and signed before work starts. Suits projects with a scope that's already well defined and unlikely to change.</p>
+        </article>
+        <article class="card engagement-card">
+          <span class="num">03</span>
+          <h3>Outstaffing <small>Development Team as a Service</small></h3>
+          <p>Vetted engineers join your team directly and work under your own project management, billed at a pre-agreed monthly rate.</p>
+        </article>
+      </div>
+      <p class="engagement-link"><a href="/how-we-work/">See the full breakdown of each model on our Cooperation Models page &#8594;</a></p>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <div style="max-width:62ch">
+          <p class="eyebrow">07 &nbsp;/&nbsp; What Clients Say</p>
+          <h2>What our clients say about us</h2>
+        </div>
+        <div class="testimonial-controls">
+          <button type="button" class="carousel-btn" id="testimonial-prev" aria-label="Previous review">&#8592;</button>
+          <button type="button" class="carousel-btn" id="testimonial-next" aria-label="Next review">&#8594;</button>
+        </div>
+      </div>
+
+      <div class="card testimonial-card" aria-live="polite">
+        <img src="img/quotes-icon.svg" alt="" width="44" height="36">
+        <div>
+          <blockquote class="testimonial-quote" id="testimonial-quote"></blockquote>
+          <div class="testimonial-meta">
+            <p class="author" id="testimonial-author"></p>
+            <p class="role" id="testimonial-role"></p>
+            <p class="counter" id="testimonial-counter"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-dots" id="testimonial-dots" role="tablist" aria-label="Choose a review"></div>
+
+      <div class="card clutch-strip">
+        <img src="img/clutch-icon.svg" alt="Clutch" style="height:28px;width:auto">
+        <p>4.9 rating <span>from 40 reviews</span></p>
+        <img src="img/clutch-avatars.png" alt="Reviewer avatars">
+      </div>
+
+      <div class="award-marquee" aria-label="Industry awards">
+        <div class="marquee-track">
+          <img src="img/award-goodfirms.png" alt="GoodFirms">
+          <img src="img/award-youteam.png" alt="YouTeam">
+          <img src="img/award-clutch.png" alt="Clutch">
+          <img src="img/award-expertise.png" alt="Expertise">
+          <img src="img/award-selectfirms.png" alt="SelectedFirms">
+          <img src="img/award-topdevelopers.png" alt="TopDevelopers">
+          <img src="img/award-toprated2.png" alt="Top Rated Custom Software Development Companies">
+          <img src="img/award-itfirms.png" alt="ITFirms">
+          <img src="img/award-trustfirms.png" alt="TrustFirms">
+          <img src="img/award-topsoftware.png" alt="Top Software Developers">
+          <img src="img/award-toprated1.png" alt="Top Rated Mobile App Companies">
+          <img src="img/award-techreviewer.svg" alt="techreviewer.co">
+          <img src="img/award-goodfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-youteam.png" alt="" aria-hidden="true">
+          <img src="img/award-clutch.png" alt="" aria-hidden="true">
+          <img src="img/award-expertise.png" alt="" aria-hidden="true">
+          <img src="img/award-selectfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-topdevelopers.png" alt="" aria-hidden="true">
+          <img src="img/award-toprated2.png" alt="" aria-hidden="true">
+          <img src="img/award-itfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-trustfirms.png" alt="" aria-hidden="true">
+          <img src="img/award-topsoftware.png" alt="" aria-hidden="true">
+          <img src="img/award-toprated1.png" alt="" aria-hidden="true">
+          <img src="img/award-techreviewer.svg" alt="" aria-hidden="true">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="container faq-layout">
+      <div class="faq-side">
+        <p class="eyebrow">08 &nbsp;/&nbsp; FAQ</p>
+        <h2>Frequently asked questions</h2>
+        <p>Cost, timeline, ownership, and compliance, answered here rather than on a call.</p>
+        <a href="#contact" class="btn btn-primary">Talk to a trading architect</a>
+      </div>
+      <div class="faq-list">
+        <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Efficient Hours bills only efficient hours against an agreed estimate. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
+        <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
+        <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Ask on the call and we'll walk through the ones closest to your build.</p></details>
+        <details><summary>Who owns the source code?</summary><p>Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything.</p></details>
+        <details><summary>Which certifications do you hold, and which regulations have you worked under?</summary><p>We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case, on the call. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
+        <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
+        <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand.</p></details>
+        <details><summary>Do you sign an NDA?</summary><p>Before the first technical call. We'll sign yours, or send you ours.</p></details>
+        <details><summary>Have you built a trading platform before?</summary><p>Yes. Four are described above, three of them under NDA. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-section">
+    <img src="img/contact-form-bg.png" alt="" class="contact-bg">
+    <div class="contact-scrim"></div>
+    <div class="container">
+      <div>
+        <p class="eyebrow eyebrow-light">09 &nbsp;/&nbsp; Contact</p>
+        <h3>Tell us what you're building</h3>
+        <p class="lede-dark">A work email and a couple of sentences is enough to start. We'll ask for the rest when we reply.</p>
+        <ol class="contact-steps">
+          <li>
+            <span class="step-num">1</span>
+            <div><p class="step-title">You write</p><p class="step-copy">We reply within 24 hours to sign the NDA and set up the call.</p></div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div><p class="step-title">You talk to an architect</p><p class="step-copy">Plus a fintech analyst and a designer where it helps. Your requirements, an architecture sketch, integration options, risks, an indicative range.</p></div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div><p class="step-title">You get it in writing</p><p class="step-copy">A summary, a one-page architecture view, and an estimate with its assumptions listed.</p></div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div><p class="step-title">We start</p><p class="step-copy">Contract signed and development underway within one to two weeks. MVP in three to four months.</p></div>
+          </li>
+        </ol>
+      </div>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <p role="status" class="form-success" id="form-success">Thanks. We'll reply within 24 hours.</p>
+        <div class="field" id="field-email">
+          <label for="cf-email">Work email <span class="req">*</span></label>
+          <input id="cf-email" name="email" type="email" autocomplete="email">
+          <p class="error">We need an email we can reply to.</p>
+        </div>
+        <div class="field" id="field-message">
+          <label for="cf-message">What are you building? <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" rows="4"></textarea>
+          <p class="error">A sentence or two is enough.</p>
+        </div>
+        <div class="consent-block" id="field-policy">
+          <label for="cf-nda">
+            <input id="cf-nda" name="nda" type="checkbox">
+            Sign an NDA before we talk
+          </label>
+          <label for="cf-policy" class="policy-label">
+            <input id="cf-policy" name="policy" type="checkbox">
+            <span>I agree to the <a href="/privacy-policy/">Privacy Policy</a> <span class="req">*</span></span>
+          </label>
+          <p class="error">Tick this so we're allowed to reply.</p>
+        </div>
+        <button type="submit" class="btn btn-primary submit-btn">Talk to a trading architect</button>
+        <p class="submit-hint">We reply within 24 hours.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <img src="img/logo-white-itexus.svg" alt="Itexus" width="88" height="26">
+    <p>&copy; 2013&ndash;2026 Itexus. Trading platform development.</p>
+    <p class="privacy"><a href="/privacy-policy/">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- mobile nav ----------
+  var header = document.querySelector(".site-header");
+  var navToggle = document.getElementById("nav-toggle");
+  var mainNav = document.getElementById("main-nav");
+  navToggle.addEventListener("click", function () {
+    var open = mainNav.classList.toggle("open");
+    header.classList.toggle("nav-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  mainNav.addEventListener("click", function (e) {
+    if (e.target.closest("a")) {
+      mainNav.classList.remove("open");
+      header.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // ---------- testimonials carousel ----------
+  var quotes = [
+    { q: "Itexus delivered the app according to the requirements. The team met all development milestones and deliverables. They were efficient, friendly, and cooperative. Itexus team was very timely with updates, a regular meeting cadence, and ad-hoc questions and answers via Slack. The team was very responsive and still is.", a: "Risk Management Director", r: "Investing Fund" },
+    { q: "Itexus' work positions the business well for an imminent launch. They excel at managing their team, presenting frequent product demos to ensure that the project is aligned with development goals. An affordable price structure coupled with remarkable technical skill makes them an attractive partner.", a: "Phill Osolinski", r: "CEO Ryze Rewards" },
+    { q: "The assigned team was easy to work with and they are especially strong collaborators and communicators. They demonstrated flexibility, professionalism, and trust in everything they did, and completed the work on time and budget.", a: "Sue Wollan Fan", r: "CEO Mango Connects" },
+    { q: "Itexus excelled at both experimental AI and sprint-oriented UI/UX tasks. Itexus did strong project management work, too, a necessity in such a complicated project.", a: "Jesse Dubin", r: "Senior PM Standard&Poors" },
+    { q: "They're a great group of developers who really understand the reality of business.", a: "Andreea Vanacker", r: "CEO SPARKX5" }
+  ];
+
+  var current = 0;
+  var quoteEl = document.getElementById("testimonial-quote");
+  var authorEl = document.getElementById("testimonial-author");
+  var roleEl = document.getElementById("testimonial-role");
+  var counterEl = document.getElementById("testimonial-counter");
+  var dotsEl = document.getElementById("testimonial-dots");
+
+  quotes.forEach(function (_, i) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Review " + (i + 1));
+    btn.setAttribute("role", "tab");
+    btn.innerHTML = "<span></span>";
+    btn.addEventListener("click", function () { go(i); });
+    dotsEl.appendChild(btn);
+  });
+
+  function render() {
+    var t = quotes[current];
+    quoteEl.textContent = "“" + t.q + "”";
+    authorEl.textContent = t.a;
+    roleEl.textContent = t.r;
+    counterEl.textContent = (current + 1) + " / " + quotes.length;
+    Array.prototype.forEach.call(dotsEl.children, function (btn, i) {
+      btn.setAttribute("aria-current", String(i === current));
+    });
+  }
+
+  function go(n) {
+    current = (n + quotes.length) % quotes.length;
+    render();
+  }
+
+  document.getElementById("testimonial-prev").addEventListener("click", function () { go(current - 1); });
+  document.getElementById("testimonial-next").addEventListener("click", function () { go(current + 1); });
+  render();
+
+  // ---------- contact form ----------
+  var form = document.getElementById("contact-form");
+  var successMsg = document.getElementById("form-success");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = form.elements.email.value.trim();
+    var message = form.elements.message.value.trim();
+    var policy = form.elements.policy.checked;
+
+    var errors = {
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+      message: message.length < 2,
+      policy: !policy
+    };
+
+    var fields = { email: "field-email", message: "field-message", policy: "field-policy" };
+    var firstInvalid = null;
+    Object.keys(errors).forEach(function (key) {
+      var fieldEl = document.getElementById(fields[key]);
+      fieldEl.classList.toggle("has-error", errors[key]);
+      if (errors[key] && !firstInvalid) firstInvalid = key;
+    });
+
+    if (firstInvalid) {
+      successMsg.classList.remove("visible");
+      var control = form.elements[firstInvalid];
+      control.focus();
+      return;
+    }
+
+    successMsg.classList.add("visible");
+  });
+})();
+</script>
+</body>
+</html>
