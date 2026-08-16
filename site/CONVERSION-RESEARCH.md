@@ -2,8 +2,10 @@
 
 Research into offer design (Hormozi's Value Equation / Grand Slam Offer) and B2B/fintech landing
 page best practices, applied specifically to a page selling **custom software development for
-trading platforms and investment modules**. Each item is checked against [page-v3.html](page-v3.html)
-via [PAGE-COPY.md](PAGE-COPY.md) — ✅ present, ⚠️ partial, ❌ missing — so this doubles as a gap list.
+trading platforms and investment modules**. Each item is checked against page-v3.html (as shipped —
+see [PAGE-COPY-REVIEW.md](PAGE-COPY-REVIEW.md) for its copy; the file itself is archived locally, out
+of the repo) via [PAGE-COPY.md](PAGE-COPY.md) — ✅ present, ⚠️ partial, ❌ missing — so this doubles as
+a gap list.
 
 This buyer is not buying software off a shelf. They're hiring a team to own execution risk on
 their money-moving system. Every principle below gets filtered through that lens: the page has to

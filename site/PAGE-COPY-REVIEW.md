@@ -1,9 +1,10 @@
 # Trading Landing — Page Copy (v3, as shipped)
 
-Every string of visible copy currently in [page-v3.html](page-v3.html), pulled verbatim in page
-order. Each section is wrapped in a `<!-- SECTION:id:START -->` / `<!-- SECTION:id:END -->` tag
-pair — the `id` matches the section's HTML `id` attribute (or a short slug where the section has
-none), so edits here can be traced back to the exact block in the source file.
+Every string of visible copy that shipped in page-v3.html, pulled verbatim in page order (the file
+itself is superseded by page-v4.html and archived locally, out of the repo). Each section is wrapped
+in a `<!-- SECTION:id:START -->` / `<!-- SECTION:id:END -->` tag pair — the `id` matches the section's
+HTML `id` attribute (or a short slug where the section has none), so edits here can be traced back to
+the exact block in the source file as it existed in v3.
 
 Image `alt` text is listed under its own line where it carries real content (not decorative).
 Form field labels, button labels, and link text are included — CSS classes and markup are not.

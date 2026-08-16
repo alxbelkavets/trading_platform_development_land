@@ -26,12 +26,18 @@ stay as they are; scarcity is out and risk reversal is in (see [§8](#8--the-fir
 
 - **Logo:** Itexus
 - **Nav:** Services · Where to Start · Case Studies · Hire Developers · About Us
-- **Button:** Talk to a trading architect
+- **Button:** Tell us what you're building
 
 > The button said *Contact Us*, the hero said *Get a proposal*, the mid-page band said *Get a
-> proposal*, and the form button said *Send*. One wording now, in all four places. It names the
-> person on the other end, which is what the evaluator is actually shopping for, and it asks for
-> less than a proposal does.
+> proposal*, and the form button said *Send*. One wording now, in all four places. It asks for less
+> than a proposal does, and it can't be contradicted by who actually joins the call.
+>
+> **Update:** shipped as *"Talk to a trading architect"*, then changed again — the first call is
+> actually with a BD rep, not an architect. Architects are expensive and booked on real projects;
+> putting one on every inbound lead call isn't something we can staff yet, however good it would be.
+> A named-role CTA the process can't honour on contact 1 is worse than a generic one kept honestly,
+> so the specificity moved down into §8, where the two-step process is spelled out instead of implied
+> by the button.
 
 ---
 
@@ -46,7 +52,7 @@ stay as they are; scarcity is out and risk reversal is in (see [§8](#8--the-fir
 **Subhead:** FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and
 investing products for fintechs and investment managers, and this is the stack we work in.
 
-**Primary button:** Talk to a trading architect
+**Primary button:** Tell us what you're building
 **Secondary button:** See the platforms we've built →
 
 **Assurance line:** We reply within 24 hours and sign an NDA before you share the details.
@@ -335,7 +341,7 @@ down to what we can defend.]`
 | **Compliance work we've delivered** | PCI DSS-compliant ecosystem for Coinstar. KYC/AML onboarding, sanctions screening, and audit trails across the trading platforms above. |
 | **Data residency** | `[NEEDED: which regions we can host in]` |
 | **Secure development** | `[NEEDED: code review, dependency scanning, pen-test cadence and who runs it]` |
-| **Paperwork** | NDA and DPA signed before the first technical call. |
+| **Paperwork** | NDA and DPA signed before the first call. |
 | **Source code** | `[NEEDED: confirm with legal — who owns the repository during and after the engagement, and what the handover contains]` |
 | **If we part ways** | `[NEEDED: confirm with legal — handover scope, documentation, notice period, and whether the client's own team can take it over]` |
 
@@ -345,44 +351,60 @@ down to what we can defend.]`
 
 **Eyebrow:** What happens next
 
-**H2:** A call with an architect, and something in writing afterwards
+**H2:** A short call first, then a team on your problem
 
-**Lede:** An hour with the person who would design the system, rather than a discovery call with an
-account manager.
+**Lede:** The first conversation is short and it's about your project. What we do after it depends
+on what we hear.
 
-**What the call is**
-Forty-five to sixty minutes with a solution architect who has built trading systems. We sign the NDA
-first. The agenda is your requirements, an architecture sketch, the integration options in front of
-you, the risks we can see, and an indicative range.
+**The first call**
+Thirty to forty-five minutes. What you're building, where it starts, and the constraints you're
+working under: venues, asset classes, regulatory regime, timeline, and the shape of the budget. We
+sign the NDA before it. There are no slides.
 
-**What you get afterwards, in writing**
-A summary of what we discussed, a one-page architecture view, and an estimate with its assumptions
-listed. Yours to use however you like.
+**Then our engineers take it**
+If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a
+designer where design matters. You get an architecture and integration outline, and an indicative
+range with its assumptions written down. Where it would help you decide, that can extend to an
+interactive prototype you can click through, or look-and-feel screens of the real product.
 
-**Why it's shaped that way**
-Most people who contact us are not the person who signs. They have to take a recommendation to a
-board or a committee and defend it there, and a capabilities deck is no help for that. The write-up
-is what the call is for.
+**Why it's shaped this way**
+We don't put an architect on the first call. The good ones are on projects, and you get more from a
+real team on the second conversation than from a senior title on the first. Most people who contact
+us aren't the person who signs either, so what matters is what you can take into the room where the
+decision gets made.
 
-**Button:** Talk to a trading architect
+**Button:** Tell us what you're building
 
-**Risk-reversal line:** The call is free and carries no obligation, and the write-up is yours
-whether or not you hire us.
+**Risk-reversal line:** Both are free and carry no obligation. The write-up is yours to use whether
+or not you hire us.
 
-> **This is the "guarantee, not scarcity" decision, made concrete.**
+**Handoff line, into §9:** When the scope is big enough that guessing at it is the expensive option,
+the next step is a short fixed-price Discovery or System Design phase.
+
+> **Update:** this section originally described the first call itself as the architect
+> conversation — *"An hour with the person who would design the system, rather than a discovery call
+> with an account manager."* That's backwards from how the first call actually works: it's a BD rep,
+> not an architect, because architects are booked on real projects and can't be put in front of every
+> inbound lead. Rewritten around the real two-step process instead of the aspirational one-step
+> version. The second step is arguably the stronger claim anyway — an interactive prototype the buyer
+> can click through beats a one-page architecture diagram as something to carry into a board meeting,
+> which is the actual job this whole page is designed around (see BUYER-EVALUATION's "internal
+> advocate" framing in PAGE-PLAN.md §1).
+>
+> **This is still the "guarantee, not scarcity" decision, made concrete.**
 >
 > The research suggested two things. One was manufactured urgency ("2 discovery slots left this
 > month"). That's out. It would be invented, and inventing pressure in front of a buyer whose whole
 > job is assessing vendor risk costs more than it earns.
 >
 > The other was a guarantee, and the useful version of that is simply removing what he stands to
-> lose. He risks an hour and gets a document he can present either way. That's true today, costs
-> nothing, and no competitor on the list says it.
+> lose. He risks a short call and gets a written outline he can present either way. That's true
+> today, costs nothing, and no competitor on the list says it.
 >
-> A stronger conditional guarantee is available if you want it, and it only applies once discovery
-> is a paid engagement: *"if the discovery architecture and estimate aren't usable, we refund the
-> discovery fee."* That is a real commercial commitment. `[NEEDED: your call. Don't publish it
-> unless we would honour it without arguing.]`
+> A stronger conditional guarantee is available if you want it, and it only applies once Discovery
+> is a paid engagement (see §9): *"if the discovery architecture and estimate aren't usable, we
+> refund the discovery fee."* That is a real commercial commitment. `[NEEDED: your call. Don't
+> publish it unless we would honour it without arguing.]`
 
 ---
 
@@ -395,9 +417,14 @@ whether or not you hire us.
 **Lede:** Three ways to structure the work. Which one fits usually depends on what your board can
 approve.
 
-**01 — Efficient Hours** *(badge: Recommended)*
-*Agile with budget control.* Two-week sprints, a demo at the end of each one. You pay for efficient
-hours within an agreed estimate and can change requirements as you learn.
+**Discovery / System Design** *(fixed price, before any of the models below)*
+A bounded phase that ends in requirements, an architecture, and a plan the build can be priced
+against. This is where an interactive prototype or look-and-feel screens get produced when the
+project calls for them.
+
+**01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
+*Agile with budget control.* Two-week sprints, a demo at the end of each one. You pay for the actual
+work performed on your project, and can change direction as you learn.
 
 **02 — Fixed Price**
 Requirements, price, and timeline documented and signed before work starts. Suits a scope that's
@@ -411,6 +438,17 @@ management, and bill at a pre-agreed monthly rate.
 start at $X; full platforms run $Y to $Z depending on venues and asset classes." He has to open a
 board conversation with an order of magnitude. If we publish nothing, he anchors on whichever
 competitor did.]`
+
+> **Update:** *"Efficient Hours"* is our own coinage for what procurement knows as Time & Material —
+> a buyer comparing three vendors' engagement models shouldn't have to stop and decode ours, so the
+> recognised term now leads and the coinage survives in parentheses for continuity with contracts and
+> the `/how-we-work/` page. The body copy also drops "within an agreed estimate" (a cap the model
+> doesn't actually guarantee) in favour of "the actual work performed on your project."
+>
+> The Discovery / System Design phase is new — it's the one small, bounded, priced thing on the page
+> a visitor can say yes to without committing to a full build, and it's where §8's prototype and
+> design-screen offer actually gets delivered. It also makes the conditional guarantee parked at the
+> end of §8 coherent: a refund only makes sense once Discovery is something we've been paid for.
 
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
@@ -471,17 +509,17 @@ Software Developers · Top Rated Mobile App Companies · techreviewer.co
 
 **Side copy:** Cost, timeline, ownership, and compliance, answered here rather than on a call.
 
-**Button:** Talk to a trading architect
+**Button:** Tell us what you're building
 
 > Two questions come out: *"How do I hire trading platform developers?"* and *"I have an idea, where
 > should I start?"* Both are search-engine questions, not buying questions, and they belong in a
 > blog post. Three go in, covering what procurement actually asks.
 
 **1. How much does trading platform development cost?**
-It depends on the engagement model. Efficient Hours bills only efficient hours against an agreed
-estimate. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing
-bills a monthly rate per engineer. `[NEEDED: add the order-of-magnitude band here too, if §9
-publishes one.]`
+It depends on the engagement model. Time & Material bills the actual work performed on your project.
+Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a
+monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before
+committing to either. `[NEEDED: add the order-of-magnitude band here too, if §9 publishes one.]`
 
 **2. How long does it take to build a trading platform?**
 An MVP typically takes three to four months, and the range widens quickly with the number of venues,
@@ -489,17 +527,22 @@ asset classes, and regulatory regimes in scope. Tell us what you're building and
 figure for your case rather than an average.
 
 **3. Which brokers have you integrated, and what went wrong?**
+Shipped interim answer: *"We keep a running account of what we've integrated and what surprised us.
+Tell us which venues you're looking at and we'll walk through the ones closest to your build."*
 `[NEEDED: the honest list — shipped, not evaluated, not read about. Then one real gotcha each. The
 drafted examples in EXPERTISE-PROOF are IBKR's daily gateway restart and message pacing limits, and
 Alpaca's fractional-share order-type restrictions and overnight corporate-action processing.
 Confirm both before publishing, and link to the engineering notes page.]`
 
 **4. Who owns the source code?**
-`[NEEDED: legal. Say it plainly, including what the handover contains and what happens if we stop
-working together.]`
+Shipped interim answer: *"Ownership and handover terms are set out in the agreement. Ask us to walk
+through them before you sign anything."* `[NEEDED: legal. Say it plainly, including what the
+handover contains and what happens if we stop working together.]`
 
 **5. Which certifications do you hold, and which regulations have you worked under?**
-`[NEEDED: the real answer, including the parts that are "not certified". See §7.]`
+Shipped interim answer: *"We'll tell you plainly what we hold and what we don't, and name the
+regimes relevant to your case."* `[NEEDED: the real answer, including the parts that are "not
+certified". See §7.]`
 
 **6. Can you integrate with a third-party service?**
 Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and
@@ -509,7 +552,11 @@ whatever else your business case needs.
 Yes, either as an ongoing arrangement or on demand.
 
 **8. Do you sign an NDA?**
-Before the first technical call. We'll sign yours, or send you ours.
+Before the first call. We'll sign yours, or send you ours.
+
+> **Update:** answers 3, 5, and 8 said "on the call" / "the first technical call," which assumed the
+> first call is technical. It isn't — see the §0 and §8 update notes. Wording now promises the
+> answer, not the answer on call one.
 
 **9. Have you built a trading platform before?**
 Yes. Four are described above, three of them under NDA. The engineering notes cover the parts we
@@ -529,12 +576,16 @@ reply.
 ### Process steps
 
 1. **You write.** We reply within 24 hours to sign the NDA and set up the call.
-2. **You talk to an architect,** plus a fintech analyst and a designer where it helps. Your
-   requirements, an architecture sketch, integration options, risks, an indicative range.
-3. **You get it in writing:** a summary, a one-page architecture view, and an estimate with its
-   assumptions listed.
+2. **We talk it through:** a short call about what you're building — venues, asset classes,
+   regulatory regime, timeline, and budget.
+3. **Our team designs it:** a solution architect, a fintech analyst, and a designer where it helps —
+   an architecture and integration outline, and an indicative range in writing.
 4. **We start.** Contract signed and development underway within one to two weeks. MVP in three to
    four months.
+
+> **Update:** step 2 said *"You talk to an architect."* The first call is a scoping conversation, not
+> an architecture conversation — see the §8 update note. The architect and the written outline now
+> show up at step 3, once there's a project worth putting a team on.
 
 ### Form
 
@@ -549,7 +600,7 @@ reply.
   - Error: A sentence or two is enough.
 - **Checkbox — Privacy Policy** *(required):* I agree to the Privacy Policy
   - Error: Tick this so we're allowed to reply.
-- **Submit button:** Talk to a trading architect
+- **Submit button:** Tell us what you're building
 - **Under the button:** We reply within 24 hours.
 - **Success message:** Thanks. We'll reply within 24 hours.
 

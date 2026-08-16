@@ -2,7 +2,8 @@
 
 Research into who actually lands on a "trading platform development" page with budget behind them,
 what they are trying to accomplish in that visit, and how they judge what they see. Checked against
-[PAGE-COPY.md](PAGE-COPY.md) / [page-v3.html](page-v3.html) so it doubles as a gap list.
+[PAGE-COPY.md](PAGE-COPY.md) / page-v3.html (as shipped — see [PAGE-COPY-REVIEW.md](PAGE-COPY-REVIEW.md)
+for its copy; the file itself is archived locally, out of the repo) so it doubles as a gap list.
 
 Companion to [CONVERSION-RESEARCH.md](CONVERSION-RESEARCH.md), which covers offer mechanics. This
 document covers the person.
