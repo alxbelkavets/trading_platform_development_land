@@ -254,7 +254,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .testimonial-dots{display:flex;gap:8px;margin-top:20px}
 .testimonial-dots button{height:44px;padding:0 6px;border:0;background:none;cursor:pointer}
 .testimonial-dots span{display:block;width:34px;height:4px;border-radius:2px;background:rgba(0,0,0,.2);transition:background .15s ease}
-.testimonial-dots button[aria-current="true"] span{background:var(--color-brand-green)}
+.testimonial-dots button[aria-selected="true"] span{background:var(--color-brand-green)}
 .clutch-strip{margin-top:36px;padding:22px 28px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px}
 .clutch-strip p{font-size:18px;font-weight:600}
 .clutch-strip p span{font-weight:400;color:var(--muted)}
@@ -732,7 +732,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </div>
       </div>
 
-      <div class="card testimonial-card" aria-live="polite">
+      <div class="card testimonial-card" id="testimonial-panel" role="tabpanel" aria-live="polite">
         <img src="img/quotes-icon.svg" alt="" width="44" height="36">
         <div>
           <blockquote class="testimonial-quote" id="testimonial-quote"></blockquote>
@@ -837,24 +837,20 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <p role="status" class="form-success" id="form-success">Thanks. We'll reply within 24 hours.</p>
         <div class="field" id="field-email">
           <label for="cf-email">Work email <span class="req">*</span></label>
-          <input id="cf-email" name="email" type="email" autocomplete="email">
-          <p class="error">We need an email we can reply to.</p>
+          <input id="cf-email" name="email" type="email" autocomplete="email" aria-describedby="error-email">
+          <p class="error" id="error-email" role="alert">We need an email we can reply to.</p>
         </div>
         <div class="field" id="field-message">
           <label for="cf-message">What are you building? <span class="req">*</span></label>
-          <textarea id="cf-message" name="message" rows="4"></textarea>
-          <p class="error">A sentence or two is enough.</p>
+          <textarea id="cf-message" name="message" rows="4" aria-describedby="error-message"></textarea>
+          <p class="error" id="error-message" role="alert">A sentence or two is enough.</p>
         </div>
         <div class="consent-block" id="field-policy">
-          <label for="cf-nda">
-            <input id="cf-nda" name="nda" type="checkbox">
-            Sign an NDA before we talk
-          </label>
           <label for="cf-policy" class="policy-label">
-            <input id="cf-policy" name="policy" type="checkbox">
+            <input id="cf-policy" name="policy" type="checkbox" aria-describedby="error-policy">
             <span>I agree to the <a href="/privacy-policy/">Privacy Policy</a> <span class="req">*</span></span>
           </label>
-          <p class="error">Tick this so we're allowed to reply.</p>
+          <p class="error" id="error-policy" role="alert">Tick this so we're allowed to reply.</p>
         </div>
         <button type="submit" class="btn btn-primary submit-btn">Talk to a trading architect</button>
         <p class="submit-hint">We reply within 24 hours.</p>
@@ -913,9 +909,20 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     btn.type = "button";
     btn.setAttribute("aria-label", "Review " + (i + 1));
     btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-controls", "testimonial-panel");
+    btn.setAttribute("tabindex", i === current ? "0" : "-1");
     btn.innerHTML = "<span></span>";
-    btn.addEventListener("click", function () { go(i); });
+    btn.addEventListener("click", function () { go(i); dotsEl.children[i].focus(); });
     dotsEl.appendChild(btn);
+  });
+
+  dotsEl.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
+    else if (e.key === "Home") { e.preventDefault(); go(0); }
+    else if (e.key === "End") { e.preventDefault(); go(quotes.length - 1); }
+    else return;
+    dotsEl.children[current].focus();
   });
 
   function render() {
@@ -925,7 +932,8 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     roleEl.textContent = t.r;
     counterEl.textContent = (current + 1) + " / " + quotes.length;
     Array.prototype.forEach.call(dotsEl.children, function (btn, i) {
-      btn.setAttribute("aria-current", String(i === current));
+      btn.setAttribute("aria-selected", String(i === current));
+      btn.setAttribute("tabindex", i === current ? "0" : "-1");
     });
   }
 
@@ -959,6 +967,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     Object.keys(errors).forEach(function (key) {
       var fieldEl = document.getElementById(fields[key]);
       fieldEl.classList.toggle("has-error", errors[key]);
+      form.elements[key].setAttribute("aria-invalid", String(errors[key]));
       if (errors[key] && !firstInvalid) firstInvalid = key;
     });
 

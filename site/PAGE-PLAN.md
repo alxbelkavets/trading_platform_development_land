@@ -40,6 +40,11 @@ Recommendation: **go back to the locked "shipped them before" hero.** It answers
 first question; the v3 line describes an outcome the buyer hasn't asked for yet. Needs your call
 before section 1 copy is written.
 
+> **Update:** shipped as the locked hero, then replaced again after review — "Trading platforms
+> built by people who have shipped them before" read too much like AI-templated copy. The current
+> hero in page-v4.html and PAGE-COPY-V4.md is *"We've built trading platforms before. We can build
+> yours."*
+
 **B. Buyer Variant B is under-served.** BUYER-EVALUATION §1 identifies two distinct visitors — build-
 from-scratch, and *bolt an investing module onto an existing fintech app*. Variant B buys capacity +
 a missing domain skill, and the integration surface is his whole risk. The page's Integrate card is
