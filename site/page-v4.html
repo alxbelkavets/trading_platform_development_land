@@ -10,8 +10,10 @@
   page-v4.html — implements site/PAGE-PLAN.md and site/PAGE-COPY-V4.md.
   Built on top of page-v3.html's CSS/JS foundation. Changes from v3:
   - Reverted to the locked hero (site/PAGE-COPY.md) instead of v3's shipped H1.
-  - One CTA wording ("Talk to a trading architect") in header, hero, offer
-    section, FAQ, and the contact form — v3 had four different CTAs.
+  - One CTA wording ("Tell us what you're building") in header, hero, offer
+    section, FAQ, and the contact form — v3 had four different CTAs. Originally
+    "Talk to a trading architect"; changed because the first call is actually
+    with a BD rep, not an architect — see the §0/§8 update notes in PAGE-PLAN.md.
   - New facts strip under the hero (only fields we can currently back with a
     real value — team size, locations, and client logos are left out rather
     than filled with a placeholder; see PAGE-COPY-V4.md's "Open inputs" table).
@@ -22,8 +24,8 @@
     and who owns what" (a link to a dedicated engineering-notes page is
     deliberately omitted until that page exists).
   - v3's small mid-page CTA band replaced with a fuller "first step" offer
-    section that names what the call is, what the visitor gets afterwards,
-    and why.
+    section that names what the first call is, what happens after it, and why
+    it's shaped as two steps rather than one.
   - FAQ: two generic SEO questions cut, three buying-objection questions
     added (source ownership, certifications, brokers/gotchas) with honest
     "ask us" answers rather than invented specifics.
@@ -36,14 +38,14 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Efficient Hours bills only efficient hours against an agreed estimate. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer." } },
+    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Time & Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either." } },
     { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope." } },
-    { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Ask on the call and we'll walk through the ones closest to your build." } },
+    { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build." } },
     { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything." } },
-    { "@type": "Question", "name": "Which certifications do you hold, and which regulations have you worked under?", "acceptedAnswer": { "@type": "Answer", "text": "We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case, on the call." } },
+    { "@type": "Question", "name": "Which certifications do you hold, and which regulations have you worked under?", "acceptedAnswer": { "@type": "Answer", "text": "We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case." } },
     { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs." } },
     { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, either as an ongoing arrangement or on demand." } },
-    { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first technical call. We'll sign yours, or send you ours." } },
+    { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first call. We'll sign yours, or send you ours." } },
     { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Four are described above, three of them under NDA." } }
   ]
 }
@@ -223,8 +225,14 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .offer-block p{font-size:16px;line-height:1.6;color:rgba(255,255,255,.78)}
 .offer-actions{margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:20px}
 .offer-risk{font-size:15px;line-height:1.6;color:rgba(255,255,255,.68);max-width:50ch}
+.offer-handoff{margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);
+  font-size:15px;line-height:1.6;color:rgba(255,255,255,.68);max-width:60ch}
 
 /* ---------- engagement ---------- */
+.engagement-lead{padding:28px 32px;margin-bottom:24px;border-left:3px solid var(--color-brand-green)}
+.engagement-lead-tag{font-size:19px;line-height:1.3;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
+.engagement-lead-tag small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none}
+.engagement-lead p:last-child{font-size:16px;line-height:1.6;color:var(--copy)}
 .engagement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
 .engagement-card{padding:32px;display:flex;flex-direction:column;gap:16px}
 .engagement-card.recommended{border:2px solid var(--color-brand-green)}
@@ -409,7 +417,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       </ul>
     </nav>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle menu"><span></span></button>
-    <a href="#contact" class="btn btn-primary header-cta">Talk to a trading architect</a>
+    <a href="#contact" class="btn btn-primary header-cta">Tell us what you're building</a>
   </div>
 </header>
 
@@ -423,7 +431,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <h1>We've built trading platforms before. <span>We can build yours.</span></h1>
         <p class="hero-lede">FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and investing products for fintechs and investment managers, and this is the stack we work in.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary btn-lg">Talk to a trading architect</a>
+          <a href="#contact" class="btn btn-primary btn-lg">Tell us what you're building</a>
           <a href="#case-studies" class="btn-outline btn btn-lg">See the platforms we've built &#8594;</a>
         </div>
         <p class="hero-assurance">We reply within 24 hours and sign an NDA before you share the details.</p>
@@ -638,7 +646,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <dl class="card compliance-list">
         <div class="compliance-row">
           <dt>Paperwork</dt>
-          <dd>NDA and DPA, signed before the first technical call.</dd>
+          <dd>NDA and DPA, signed before the first call.</dd>
         </div>
         <div class="compliance-row">
           <dt>Compliance work delivered</dt>
@@ -663,28 +671,29 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   <section class="offer-section section" id="first-step">
     <div class="container">
       <p class="eyebrow-dark">What Happens Next</p>
-      <h2>A call with an architect, and something in writing afterward</h2>
-      <p class="offer-lede">An hour with the person who would design the system, rather than a discovery call with an account manager.</p>
+      <h2>A short call first, then a team on your problem</h2>
+      <p class="offer-lede">The first conversation is short and it's about your project. What we do after it depends on what we hear.</p>
 
       <div class="offer-grid">
         <div class="offer-block">
-          <h3>What the call is</h3>
-          <p>Forty-five to sixty minutes with a solution architect who has built trading systems. We sign the NDA first. The agenda is your requirements, an architecture sketch, the integration options in front of you, the risks we can see, and an indicative range.</p>
+          <h3>The first call</h3>
+          <p>Thirty to forty-five minutes. What you're building, where it starts, and the constraints you're working under: venues, asset classes, regulatory regime, timeline, and the shape of the budget. We sign the NDA before it. There are no slides.</p>
         </div>
         <div class="offer-block">
-          <h3>What you get afterward, in writing</h3>
-          <p>A summary of what we discussed, a one-page architecture view, and an estimate with its assumptions listed. Yours to use however you like.</p>
+          <h3>Then our engineers take it</h3>
+          <p>If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a designer where design matters. You get an architecture and integration outline, and an indicative range with its assumptions written down. Where it would help you decide, that can extend to an interactive prototype you can click through, or look-and-feel screens of the real product.</p>
         </div>
         <div class="offer-block">
-          <h3>Why it's shaped that way</h3>
-          <p>Most people who contact us are not the person who signs. They have to take a recommendation to a board or a committee and defend it there, and a capabilities deck is no help for that. The write-up is what the call is for.</p>
+          <h3>Why it's shaped this way</h3>
+          <p>We don't put an architect on the first call. The good ones are on projects, and you get more from a real team on the second conversation than from a senior title on the first. Most people who contact us aren't the person who signs either, so what matters is what you can take into the room where the decision gets made.</p>
         </div>
       </div>
 
       <div class="offer-actions">
-        <a href="#contact" class="btn btn-primary btn-lg">Talk to a trading architect</a>
-        <p class="offer-risk">The call is free and carries no obligation, and the write-up is yours whether or not you hire us.</p>
+        <a href="#contact" class="btn btn-primary btn-lg">Tell us what you're building</a>
+        <p class="offer-risk">Both are free and carry no obligation. The write-up is yours to use whether or not you hire us.</p>
       </div>
+      <p class="offer-handoff">When the scope is big enough that guessing at it is the expensive option, the next step is a short fixed-price Discovery or System Design phase.</p>
     </div>
   </section>
 
@@ -695,14 +704,18 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <h2>Engagement Models</h2>
         <p class="lede">Three real cooperation models, no invented figures.</p>
       </div>
+      <article class="card engagement-lead">
+        <p class="engagement-lead-tag">Discovery / System Design <small>fixed price, before any of the models below</small></p>
+        <p>A bounded phase that ends in requirements, an architecture, and a plan the build can be priced against. This is where an interactive prototype or look-and-feel screens get produced when the project calls for them.</p>
+      </article>
       <div class="engagement-grid">
         <article class="card engagement-card recommended">
           <div class="engagement-card-top">
             <span class="num">01</span>
             <span class="badge-recommended">Recommended</span>
           </div>
-          <h3>Efficient Hours <small>Agile with Budget Control</small></h3>
-          <p>Delivered in two-week sprints with a demo at the end of each one. You only pay for efficient hours within an agreed estimate, and can adjust requirements as new ideas come up.</p>
+          <h3>Time &amp; Material (Efficient Hours) <small>Agile with Budget Control</small></h3>
+          <p>Delivered in two-week sprints with a demo at the end of each one. You pay for the actual work performed on your project, and can change direction as you learn.</p>
         </article>
         <article class="card engagement-card">
           <span class="num">02</span>
@@ -789,17 +802,17 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <p class="eyebrow">08 &nbsp;/&nbsp; FAQ</p>
         <h2>Frequently asked questions</h2>
         <p>Cost, timeline, ownership, and compliance, answered here rather than on a call.</p>
-        <a href="#contact" class="btn btn-primary">Talk to a trading architect</a>
+        <a href="#contact" class="btn btn-primary">Tell us what you're building</a>
       </div>
       <div class="faq-list">
-        <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Efficient Hours bills only efficient hours against an agreed estimate. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
+        <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
         <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
-        <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Ask on the call and we'll walk through the ones closest to your build.</p></details>
+        <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
         <details><summary>Who owns the source code?</summary><p>Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything.</p></details>
-        <details><summary>Which certifications do you hold, and which regulations have you worked under?</summary><p>We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case, on the call. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
+        <details><summary>Which certifications do you hold, and which regulations have you worked under?</summary><p>We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
         <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
         <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand.</p></details>
-        <details><summary>Do you sign an NDA?</summary><p>Before the first technical call. We'll sign yours, or send you ours.</p></details>
+        <details><summary>Do you sign an NDA?</summary><p>Before the first call. We'll sign yours, or send you ours.</p></details>
         <details><summary>Have you built a trading platform before?</summary><p>Yes. Four are described above, three of them under NDA. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
       </div>
     </div>
@@ -820,11 +833,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </li>
           <li>
             <span class="step-num">2</span>
-            <div><p class="step-title">You talk to an architect</p><p class="step-copy">Plus a fintech analyst and a designer where it helps. Your requirements, an architecture sketch, integration options, risks, an indicative range.</p></div>
+            <div><p class="step-title">We talk it through</p><p class="step-copy">A short call about what you're building: venues, asset classes, regulatory regime, timeline, and budget.</p></div>
           </li>
           <li>
             <span class="step-num">3</span>
-            <div><p class="step-title">You get it in writing</p><p class="step-copy">A summary, a one-page architecture view, and an estimate with its assumptions listed.</p></div>
+            <div><p class="step-title">Our team designs it</p><p class="step-copy">A solution architect, a fintech analyst, and a designer where it helps: an architecture and integration outline, and an indicative range in writing.</p></div>
           </li>
           <li>
             <span class="step-num">4</span>
@@ -852,7 +865,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </label>
           <p class="error" id="error-policy" role="alert">Tick this so we're allowed to reply.</p>
         </div>
-        <button type="submit" class="btn btn-primary submit-btn">Talk to a trading architect</button>
+        <button type="submit" class="btn btn-primary submit-btn">Tell us what you're building</button>
         <p class="submit-hint">We reply within 24 hours.</p>
       </form>
     </div>

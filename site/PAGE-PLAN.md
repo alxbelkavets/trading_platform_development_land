@@ -88,9 +88,14 @@ Legend: ✅ keep as-is · ✍️ rewrite · 🆕 new · ✂️ cut down · ⛔ b
 one button.
 **Change:** the button, the hero CTA, the mid-page CTA and the form button currently say four
 different things (*Contact Us · Get a proposal · Get a proposal · Send*). Pick **one named
-deliverable** and repeat it verbatim in all four places. Working candidate: **"Talk to a trading
-architect"** — the docs agree this is the strongest existing line on the page and it's currently
-mid-page, in the weakest position.
+deliverable** and repeat it verbatim in all four places.
+
+> **Update:** shipped as **"Talk to a trading architect"**, then changed to **"Tell us what you're
+> building"**. The architect line named a specific person on the first call — but the first call is
+> actually with a BD rep, not an architect; architects are booked on real projects and aren't
+> available to staff every inbound lead. A promise the process can't keep on contact 1 costs more
+> credibility than a generic ask kept honestly, on a page whose whole strategy is "honest operator,
+> not vendor." The specificity moved down into §8, where the real two-step process is spelled out.
 
 ### 1 — Hero
 **Goal:** in five seconds, prove this is a trading specialist rather than a general agency with a
@@ -206,16 +211,46 @@ than it buys.
 document. A downloadable architecture/capability PDF — ungated, or email-only — travels into the
 buying committee with our framing intact. Worth building even before the engineering page.
 
+> **Update:** rewritten around the process we can actually staff. The first call is a BD rep, not an
+> architect — architects are booked on real projects, and we aren't big enough yet to put one on
+> every inbound lead call (though it'd be the ideal). Architecture work happens on a second
+> conversation, after the first call establishes there's a real project to invest a team in.
+>
+> The section now describes two steps: a short first call (what you're building, and the
+> constraints), then — if there's a fit — an architect, a fintech analyst, and a designer producing
+> a written architecture and integration outline, optionally extending to an interactive prototype
+> or look-and-feel design screens. Both stay free; the prototype and design work are what the paid
+> Discovery / System Design phase in §9 is for when the scope justifies it.
+>
+> Framed as a deliberate choice, not an apology: *"we don't put an architect on the first call — the
+> good ones are on projects, and a real team on the second conversation beats a senior title on the
+> first."* The risk to manage is re-creating the same over-promise one step later — "can extend to"
+> and "where it would help" keep the prototype/design offer from becoming something promised to
+> every visitor rather than something that shows up when the project earns it.
+
 ### 9 — How we work (engagement models)
 **Goal:** priority #6 — mapped directly onto what his procurement can approve. Fixed price is often
 the only model a board will sign for a first engagement.
-**Contains:** the three existing models (Efficient Hours · Fixed Price · Outstaffing), unchanged —
-both docs rate this section as already correct.
+**Contains:** the three existing models (Time & Material · Fixed Price · Outstaffing), plus a fixed-
+price Discovery / System Design phase ahead of them.
 **Add:** an order-of-magnitude cost band with its conditions attached. He cannot open a board
 conversation with "no idea," and absent a number from us he anchors on whichever competitor
 published one. *"Integrations typically start at $X; full platforms $Y–Z depending on venues and
 asset classes"* beats silence.
 **Needs from you:** whether we're willing to publish a band at all.
+
+> **Update:** model 01 renamed from **"Efficient Hours"** to **"Time & Material (Efficient Hours)"**
+> — the common term leads so a buyer comparing three vendors' models isn't stopping to decode ours,
+> and the coinage survives for continuity with contracts and the `/how-we-work/` page. Body copy
+> drops "within an agreed estimate" (a cap the model doesn't guarantee) for "the actual work
+> performed on your project."
+>
+> **Added: a fixed-price Discovery / System Design phase**, ahead of the three billing models rather
+> than as a fourth one — it's a phase, not a way to buy the build. This is the one small, bounded,
+> priced thing on the page a visitor can say yes to without committing to a full engagement, it's
+> where §8's prototype/design-screen offer is actually produced, and it makes §8's parked conditional
+> guarantee ("refund the discovery fee if it's not usable") coherent — that guarantee only makes
+> sense once Discovery is something we've been paid for.
 
 ### 10 — Testimonials and awards
 **Goal:** third-party validation.
@@ -312,5 +347,6 @@ From [PAGE-COPY.md](PAGE-COPY.md) and [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md):
 4. **Capability second lines** (§5) + **failure-mode strip** (§6) — one engineer interview covers both
 5. **Compliance/IP band** (§7) + FAQ surgery (§11)
 6. **Offer section** (§8) + shortened form (§12)
-7. **Real case-study metrics** (§3) whenever legal and the client relationships allow
-8. **Engineering notes page** — separate scope, phased per EXPERTISE-PROOF §4
+7. **Engagement models** (§9) — rename to Time & Material, add the Discovery / System Design band
+8. **Real case-study metrics** (§3) whenever legal and the client relationships allow
+9. **Engineering notes page** — separate scope, phased per EXPERTISE-PROOF §4
