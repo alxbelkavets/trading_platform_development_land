@@ -41,8 +41,7 @@
     { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Time & Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either." } },
     { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope." } },
     { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build." } },
-    { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything." } },
-    { "@type": "Question", "name": "Which certifications do you hold, and which regulations have you worked under?", "acceptedAnswer": { "@type": "Answer", "text": "We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case." } },
+    { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit." } },
     { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs." } },
     { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, either as an ongoing arrangement or on demand." } },
     { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first call. We'll sign yours, or send you ours." } },
@@ -600,7 +599,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two engines drift and the user discovers it with real money on the line.</p></li>
         <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimise strategies against historical data before risking anything. A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p></li>
         <li><p class="num">09</p><h3>Real-Time Alerts</h3><p>Asset alerts that reach the user within seconds of a target price move. The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p></li>
-        <li><p class="num">10</p><h3>Trade Log</h3><p>Trading histories that let users find their mistakes and adjust. Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires clocks within 50 ms of NIST. Retrofitting any of this later is a rewrite.</p></li>
+        <li><p class="num">10</p><h3>Trade Log</h3><p>Trading histories that let users find their mistakes and adjust. Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events. Retrofitting any of this later is a rewrite.</p></li>
         <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practise against one and then trade for real get results that don't match, and they tend to blame the platform.</p></li>
         <li><p class="num">12</p><h3>Other Features</h3><p>Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more trouble here than their profile suggests. A split, a spin-off, or a symbol change has to move positions, cost basis, open orders, historical charts, and the tax lot ledger together, and it is where a lot of platforms find out their data model was wrong.</p></li>
       </ul>
@@ -625,7 +624,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </article>
         <article class="card wrong-card">
           <h3>The affirmation cutoff on trade date</h3>
-          <p>US equities have settled T+1 since May 2024. Miss the affirmation window and the trade fails. What used to be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the same point in October 2027.</p>
+          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. Missing that window doesn't fail a trade by itself, but unaffirmed trades are the ones that fail to settle. What used to be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the same point in October 2027.</p>
         </article>
         <article class="card wrong-card">
           <h3>Average-price rounding breaks reconciliation</h3>
@@ -653,16 +652,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           <dd>PCI DSS-compliant ecosystem for Coinstar. KYC/AML onboarding, sanctions screening, and audit trails across the trading platforms above.</dd>
         </div>
         <div class="compliance-row">
-          <dt>Certifications held</dt>
-          <dd>Ask us. We'll tell you plainly what we hold and what we don't.</dd>
-        </div>
-        <div class="compliance-row">
           <dt>Regulatory regimes shipped under</dt>
           <dd>Ask us. We'll name the regimes relevant to your case rather than list every one we've heard of.</dd>
         </div>
         <div class="compliance-row">
           <dt>Source code and exit</dt>
-          <dd>Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything.</dd>
+          <dd>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit.</dd>
         </div>
       </dl>
     </div>
@@ -672,7 +667,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="container">
       <p class="eyebrow-dark">What Happens Next</p>
       <h2>A short call first, then a team on your problem</h2>
-      <p class="offer-lede">The first conversation is short and it's about your project. What we do after it depends on what we hear.</p>
+      <p class="offer-lede">The first conversation is short and it's about your project. If there's a fit, we return with an architecture outline, integration assumptions, and an indicative range.</p>
 
       <div class="offer-grid">
         <div class="offer-block">
@@ -705,7 +700,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <p class="lede">Three real cooperation models, no invented figures.</p>
       </div>
       <article class="card engagement-lead">
-        <p class="engagement-lead-tag">Discovery / System Design <small>fixed price, before any of the models below</small></p>
+        <h3 class="engagement-lead-tag">Discovery / System Design <small>fixed price, before any of the models below</small></h3>
         <p>A bounded phase that ends in requirements, an architecture, and a plan the build can be priced against. This is where an interactive prototype or look-and-feel screens get produced when the project calls for them.</p>
       </article>
       <div class="engagement-grid">
@@ -808,8 +803,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
         <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
         <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
-        <details><summary>Who owns the source code?</summary><p>Ownership and handover terms are set out in the agreement. Ask us to walk through them before you sign anything.</p></details>
-        <details><summary>Which certifications do you hold, and which regulations have you worked under?</summary><p>We'll tell you plainly what we hold and what we don't, and name the regimes relevant to your case. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
+        <details><summary>Who owns the source code?</summary><p>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
         <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
         <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand.</p></details>
         <details><summary>Do you sign an NDA?</summary><p>Before the first call. We'll sign yours, or send you ours.</p></details>

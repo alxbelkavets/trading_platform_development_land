@@ -262,8 +262,16 @@ traded at.
 **10. Trade Log**
 Trading histories that let users find their mistakes and adjust. Underneath it sits the audit
 trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and
-FINRA 4511 set the retention expectations, and CAT requires clocks within 50 ms of NIST. Retrofitting
-any of this later is a rewrite.
+FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks
+within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events.
+Retrofitting any of this later is a rewrite.
+
+> **Update:** the original line stated the 50 ms threshold as universal. Verified against the CAT
+> NMS Plan FAQ: 50 ms of NIST applies to Industry Members' business clocks specifically (with a
+> one-second allowance for clocks used solely on Manual Order Events); Participants — exchanges and
+> FINRA — are held to 100 microseconds. This page's readers are building as industry members, so the
+> 100 µs figure is left out as noise; "industry members" is the qualifier that keeps the sentence
+> from being falsely universal.
 
 **11. Paper Trading**
 Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic:
@@ -302,9 +310,18 @@ contractual, and none of them appear in an API doc. Scoping market data as an in
 misses the commercial negotiation underneath it, which is usually where the cost sits.
 
 **The affirmation cutoff on trade date**
-US equities have settled T+1 since May 2024. Miss the affirmation window and the trade fails. What
-used to be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland
-reach the same point in October 2027.
+US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and
+affirmations completed as soon as technologically practicable on trade date. Missing that window
+doesn't fail a trade by itself, but unaffirmed trades are the ones that fail to settle. What used to
+be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the
+same point in October 2027.
+
+> **Update:** "miss the window and the trade fails" overstated a policies-and-procedures standard as
+> a hard deadline. The SEC rule requires broker-dealers to have policies reasonably designed to
+> complete affirmations as soon as technologically practicable on trade date — missing it raises
+> settlement risk, it doesn't deterministically fail every trade. `[NEEDED: confirm the rule number
+> (believed to be Rule 15c6-2) against a fetchable primary source before naming it explicitly on the
+> page — sec.gov returned 403 to automated fetches this session.]`
 
 **Average-price rounding breaks reconciliation**
 Recompute `AvgPx` client-side from individual fills instead of trusting what the counterparty sent,
@@ -335,15 +352,20 @@ down to what we can defend.]`
 
 | | |
 |---|---|
-| **Certifications we hold** | `[NEEDED: the real list, or the honest empty answer]` |
 | **Standards we work to** | `[NEEDED: e.g. ISO 27001 practices, OWASP ASVS. Say "work to" where we're uncertified.]` |
 | **Regulatory regimes we've shipped under** | `[NEEDED: name them. MiFID II, FINRA, MiCA, FCA — whichever are true. This is the single most valuable line in the section and a competitor already leads with theirs.]` |
 | **Compliance work we've delivered** | PCI DSS-compliant ecosystem for Coinstar. KYC/AML onboarding, sanctions screening, and audit trails across the trading platforms above. |
 | **Data residency** | `[NEEDED: which regions we can host in]` |
 | **Secure development** | `[NEEDED: code review, dependency scanning, pen-test cadence and who runs it]` |
 | **Paperwork** | NDA and DPA signed before the first call. |
-| **Source code** | `[NEEDED: confirm with legal — who owns the repository during and after the engagement, and what the handover contains]` |
-| **If we part ways** | `[NEEDED: confirm with legal — handover scope, documentation, notice period, and whether the client's own team can take it over]` |
+| **Source code and exit** | You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit. |
+
+> **Update:** the **Certifications we hold** row is cut — it invited a question the page would
+> rather not open while unanswered, and nothing forced it to ship before the section did. If a real
+> certifications list becomes available, it can come back as its own row. **Source code** is answered
+> and no longer split from **If we part ways** — owning the IP and code from day one (or on payment)
+> largely *is* the exit answer; a separate notice-period/handover-scope line is a future addition, not
+> a blocker.
 
 ---
 
@@ -353,8 +375,12 @@ down to what we can defend.]`
 
 **H2:** A short call first, then a team on your problem
 
-**Lede:** The first conversation is short and it's about your project. What we do after it depends
-on what we hear.
+**Lede:** The first conversation is short and it's about your project. If there's a fit, we return
+with an architecture outline, integration assumptions, and an indicative range.
+
+> **Update:** the previous lede described the process without naming what comes back. This version
+> names the three things the visitor actually receives, which is a preview of the offer block that
+> follows it rather than a description of a process.
 
 **The first call**
 Thirty to forty-five minutes. What you're building, where it starts, and the constraints you're
@@ -535,30 +561,29 @@ Alpaca's fractional-share order-type restrictions and overnight corporate-action
 Confirm both before publishing, and link to the engineering notes page.]`
 
 **4. Who owns the source code?**
-Shipped interim answer: *"Ownership and handover terms are set out in the agreement. Ask us to walk
-through them before you sign anything."* `[NEEDED: legal. Say it plainly, including what the
-handover contains and what happens if we stop working together.]`
+You own the IP and the source code. Ownership transfers on payment, or from day one when the
+engagement starts with a deposit. See §7.
 
-**5. Which certifications do you hold, and which regulations have you worked under?**
-Shipped interim answer: *"We'll tell you plainly what we hold and what we don't, and name the
-regimes relevant to your case."* `[NEEDED: the real answer, including the parts that are "not
-certified". See §7.]`
-
-**6. Can you integrate with a third-party service?**
+**5. Can you integrate with a third-party service?**
 Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and
 whatever else your business case needs.
 
-**7. Do you offer support after launch?**
+**6. Do you offer support after launch?**
 Yes, either as an ongoing arrangement or on demand.
 
-**8. Do you sign an NDA?**
+**7. Do you sign an NDA?**
 Before the first call. We'll sign yours, or send you ours.
 
-> **Update:** answers 3, 5, and 8 said "on the call" / "the first technical call," which assumed the
+> **Update:** answers 3 and 7 said "on the call" / "the first technical call," which assumed the
 > first call is technical. It isn't — see the §0 and §8 update notes. Wording now promises the
 > answer, not the answer on call one.
+>
+> **Update:** the certifications question (formerly #5, *"Which certifications do you hold, and
+> which regulations have you worked under?"*) is cut along with its §7 row — see the §7 update note.
+> Question #4's answer is now the real one rather than a "shipped interim" placeholder, since §7's
+> source-code row is answered. It also carried the FAQ's only link into §7, now re-homed here.
 
-**9. Have you built a trading platform before?**
+**8. Have you built a trading platform before?**
 Yes. Four are described above, three of them under NDA. The engineering notes cover the parts we
 can talk about in more detail.
 
@@ -621,15 +646,18 @@ Everything marked `[NEEDED]` above, gathered in one place and ordered by how muc
 | # | Input | Who | Blocks |
 |---|---|---|---|
 | 1 | Real or anonymised case-study metrics | Delivery leads, legal | §3 — and the credibility of every other section |
-| 2 | Certifications held and not held; regulatory regimes shipped under | Management, legal | §7, FAQ 5 |
+| 2 | Regulatory regimes shipped under | Management, legal | §7 |
 | 3 | Engineer sign-off on the 12 capability second lines and the four failure modes | Engineering | §5, §6 |
 | 4 | Honest broker list: shipped, versus evaluated, versus read about | Engineering | §6, FAQ 3 |
-| 5 | Source-code ownership and exit terms | Legal | §7, FAQ 4 |
-| 6 | Headcount, locations, timezone overlap; cleared client logos | Ops, marketing | §2 |
-| 7 | Whether to publish a cost band, and what it is | Management | §9, FAQ 1 |
-| 8 | Whether to offer the paid-discovery refund | Management | §8 |
-| 9 | One testimonial about the platform working, not the team working | Account management | §10 |
-| 10 | Data residency options and pen-test practice | Engineering, ops | §7 |
+| 5 | Headcount, locations, timezone overlap; cleared client logos | Ops, marketing | §2 |
+| 6 | Whether to publish a cost band, and what it is | Management | §9, FAQ 1 |
+| 7 | Whether to offer the paid-discovery refund | Management | §8 |
+| 8 | One testimonial about the platform working, not the team working | Account management | §10 |
+| 9 | Data residency options and pen-test practice | Engineering, ops | §7 |
 
-**The rule that governs all ten:** no invented numbers, including the plausible ones. A single
+**The rule that governs all nine:** no invented numbers, including the plausible ones. A single
 fabricated metric, caught on the call, takes down everything real on the page with it.
+
+> **Update:** two rows resolved and came out — certifications held/not held (the §7 row and FAQ 5
+> both cut; see their update notes) and source-code ownership (§7 and FAQ 4 both now carry the real
+> answer). Row 2 narrowed from "certifications and regimes" to regimes only.
