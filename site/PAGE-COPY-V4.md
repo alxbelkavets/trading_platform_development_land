@@ -538,15 +538,15 @@ reply.
 
 ### Form
 
-> Five fields and two checkboxes go down to two fields and two checkboxes. Phone and company come
-> out; we can ask on the reply, where the cost of asking is zero. The privacy checkbox stays because
-> it has to.
+> Five fields and two checkboxes go down to two fields and one checkbox. Phone and company come
+> out; we can ask on the reply, where the cost of asking is zero. The NDA checkbox comes out too:
+> the hero, the contact steps, and the FAQ already promise an NDA before the call for everyone, so
+> a checkbox for it didn't gate anything real. The privacy checkbox stays because it has to.
 
 - **Field — Work email** *(required)*
   - Error: We need an email we can reply to.
 - **Field — What are you building?** *(required, textarea)*
   - Error: A sentence or two is enough.
-- **Checkbox:** Sign an NDA before we talk
 - **Checkbox — Privacy Policy** *(required):* I agree to the Privacy Policy
   - Error: Tick this so we're allowed to reply.
 - **Submit button:** Talk to a trading architect
