@@ -183,13 +183,21 @@ and standard for procurement. For Level-3 buyers (~20%, arriving with an RFP) th
 qualification gate — if it's missing they may still send the RFP, but we start behind vendors who
 published it.
 **Contains:** a short factual band —
-certifications held (and honestly, those not held) · regulatory regimes shipped under, named:
-MiFID II / FINRA / MiCA / FCA as applicable · data residency options · secure SDLC and pen-test
-practice · NDA/DPA readiness · **who owns the source code, and what happens if we part ways.**
+regulatory regimes shipped under, named: MiFID II / FINRA / MiCA / FCA as applicable · data
+residency options · secure SDLC and pen-test practice · NDA/DPA readiness · **who owns the source
+code, and what happens if we part ways.**
 **Tone rule:** an honest *"we work to X, we are not certified for Y"* outperforms silence. State
 only what's true.
-**Needs from you:** the actual certification and regime list. This is a management/legal input, not
-something the page can be written around.
+**Needs from you:** the actual regime list. This is a management/legal input, not something the page
+can be written around.
+
+> **Update:** the certifications row is cut rather than shipped hedged. "Ask us. We'll tell you
+> plainly what we hold and what we don't" invited exactly the question the section exists to answer,
+> and got dropped in favour of just not raising it until there's a real list. **The source-code
+> question is now answered**: ownership transfers on payment, or from day one when the engagement
+> starts with a deposit — a firm, public commitment rather than a deferral to "the agreement." Both
+> changes ship the same section shorter but stronger: everything remaining is a fact, not a promise
+> to eventually have one.
 
 ### 8 — The first step *(new)*
 **Goal:** the offer. Right now there is no single named thing to say yes to, and the ask ("get a
@@ -309,7 +317,7 @@ Ordered by how much they hold up.
 | # | Needed | Blocks |
 |---|---|---|
 | 1 | Real (or anonymised, ranged) case-study metrics | §3 — and by extension the credibility of everything else |
-| 2 | Certifications held / not held, regulatory regimes shipped under | §7, one FAQ |
+| 2 | Regulatory regimes shipped under (certifications and source-code ownership are now resolved — see §7's update note) | §7 |
 | 3 | Engineer review of the drafted failure modes | §6, capability second lines in §5 |
 | 4 | Honest broker integration list — shipped vs evaluated vs read about | §6, one FAQ |
 | 5 | Headcount, locations, timezone; cleared client logos | §2 |

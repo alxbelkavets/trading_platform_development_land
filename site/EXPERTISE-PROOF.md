@@ -118,7 +118,7 @@ permission:
 | # | Trigger | The bug |
 |---|---|---|
 | 21 | US equities settle **T+1** (since 28 May 2024); FX is T+2; crypto is instant; UK/EU/CH move to T+1 on **11 Oct 2027** | Multi-asset platforms with a single settlement assumption in the ledger |
-| 22 | Affirmation/allocation cutoff on trade date | Miss it and the trade goes to a fail. The compressed T+1 window turned a back-office nuisance into an engineering deadline |
+| 22 | Affirmation/allocation cutoff on trade date | SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date — a policies-and-procedures standard, not a hard deadline that automatically fails a trade. Missing it raises settlement risk: unaffirmed trades are the ones that go to a fail. The compressed T+1 window turned a back-office nuisance into an engineering deadline |
 | 23 | Cash-account settled-funds tracking | Good-faith violations and free-riding under Reg T §220.8, and the 90-day cash-only restriction after three violations. Buying power must distinguish *settled* from *unsettled* cash — most naive ledgers do not |
 | 24 | Pattern day trader: 4 day trades in 5 business days, \$25k minimum equity (FINRA 4210) | Enforced by the broker but experienced by the user in your UI. If you don't count day trades the same way the broker does, the user gets blocked with no warning |
 | 25 | Reg T initial margin, maintenance calls, and intraday buying power | Two ledgers (yours and the broker's) drifting apart during a volatile session |
@@ -126,7 +126,7 @@ permission:
 | 27 | Cost basis and wash sales (30-day window, across accounts) | 1099-B reporting that doesn't reconcile with the clearing firm's, discovered in January |
 | 28 | Fails to deliver / buy-ins | Rare, but the flow has to exist somewhere in the platform or someone handles it in a spreadsheet |
 | 29 | Reconciliation: positions, cash, and executions against the broker's end-of-day file | If the platform has no automated three-way reconciliation, it *has* a reconciliation process — it's a person, and they find breaks late |
-| 30 | Clock synchronization | CAT requires industry members within 50 ms of NIST; MiFID II RTS 25 is far tighter for algorithmic flow. Audit trails with sloppy clocks are not audit trails |
+| 30 | Clock synchronization | CAT requires Industry Members' business clocks within 50 ms of NIST (one second where a clock is used only for manual order events); Participants are held to 100 microseconds. MiFID II RTS 25 is far tighter for algorithmic flow. Audit trails with sloppy clocks are not audit trails |
 
 **Seed content — KYC / KYB / onboarding:**
 
