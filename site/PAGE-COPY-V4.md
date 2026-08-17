@@ -170,9 +170,9 @@ discovery and architecture through broker and market-data selection, order manag
 controls, web and mobile terminals, and KYC/AML.
 
 **02 — Modernize** *(An existing platform that caps what you can add)*
-It runs. Something is capping what you can ship next: a legacy vendor, an unsupported stack, or
-latency in the hot path. We audit the current system, replace the execution and market-data layers a
-slice at a time, and migrate data without taking trading offline.
+It runs, capped by a legacy vendor, an unsupported stack, or latency in the hot path. We audit the
+current system, replace the execution and market-data layers a slice at a time, and migrate data
+without taking trading offline.
 
 **03 — Integrate** *(One component into a stack you already run)*
 The platform exists; you need something wired into it. FIX and proprietary gateways, broker and
@@ -188,6 +188,12 @@ fits → (`#contact`)
 > to repeat across most of this page's numbered cards; see the update notes in §5 and §6 for the
 > full sweep. Fixed here by giving each card its own shape instead of the shared template: 01 splits
 > into two short declaratives, 02 moves its triad after a colon.
+
+> **Update:** a code-review of that fix (run after PR #8 merged) flagged that 02's "Something is
+> capping what you can ship next: [triad]" fix was itself a vague-subject-then-reveal construction —
+> the same category of problem, just relocated to the front of the sentence instead of the end.
+> Rewritten again as a single clause ("It runs, capped by...") that states the cause without a
+> placeholder subject or a colon-reveal.
 
 ---
 
@@ -234,18 +240,18 @@ machine: a cancel and a fill crossing on the wire, a replace that gets rejected 
 
 **4. Investor Interfaces**
 Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most
-are the ones showing an order whose state is uncertain. Show a cancelled order that actually filled,
-and a UI bug turns into a support escalation.
+are the ones showing an order whose state is uncertain. Showing a cancelled order that actually
+filled turns a UI bug into a support escalation.
 
 **5. Market Data Storage**
 A multi-source store with historical intraday data for equities, futures, FX, and options. Budget
 for entitlements early: per-user reporting to the exchange, redistribution licensing, and
-non-display fees are all contractual costs that don't show up in an API doc.
+non-display fees are easy to underestimate before the vendor contract puts a number on them.
 
 **6. Trading Algorithms**
 We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those
-checks do most of the work: skip the pre-trade guardrail, and a market order on an illiquid symbol
-at the open can fill well away from the last print.
+checks do most of the work. Without a pre-trade guardrail, a market order on an illiquid symbol at
+the open can fill well away from the last print.
 
 **7. Strategy Builder**
 A visual builder and a code editor for custom indicators and algorithms. One engine runs both the
@@ -278,14 +284,15 @@ Retrofitting any of this later is a rewrite.
 
 **11. Paper Trading**
 Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic:
-they fill at the touch, ignore queue position, and never partial-fill. Practice against one, then
-trade for real, and the results won't match. That gets blamed on the platform, not the simulator.
+they fill at the touch, ignore queue position, and never partial-fill. Traders who practice against
+one and then trade for real get results that don't match, and the platform takes the blame for a
+gap the simulator created.
 
 **12. Other Features**
 Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more
 trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions,
 cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models
-aren't built for that.
+aren't built to update all of those together.
 
 > **Update:** six of the twelve second lines (4, 5, 6, 7, 11, 12) shared the same closing move — a
 > setup clause followed by a short tail revealing that someone finds out, gets surprised, or gets
@@ -295,6 +302,21 @@ aren't built for that.
 > stage a reveal. Cards 1, 2, 3, 8, 9, 10 were checked against the same test and left alone — their
 > closing lines are specific technical claims (a named protocol quirk, a named bias, a named
 > statute), not a generic "and then everyone finds out" beat, so they don't read as templated.
+
+> **Update:** a code-review of that fix (run after PR #8 merged) found the replacements had their
+> own problems. Card 4's "Show a cancelled order..." read as an instruction to the reader on a fast
+> skim rather than a description of system behavior — rewritten as a gerund-subject sentence
+> ("Showing... turns...") to remove the imperative reading. Card 5 had drifted into near-duplicating
+> §6's "Market-data entitlements arrive as a bill" card almost word for word ("...are all
+> contractual... don't show up in an API doc" vs. "...are all contractual... don't appear in an API
+> doc") — reworded around a different idea (underestimating cost, not doc-coverage) to stop
+> duplicating that card. Card 6 had the same reader-imperative problem as card 4 ("skip the
+> pre-trade guardrail, and...") — rewritten as a conditional ("Without a pre-trade guardrail...").
+> Card 11 had both problems at once: the imperative "Practice against one, then trade for real,
+> and..." *and* a "[claim], not [noun]" tail duplicating card 6 of §6's "not a back-office SLA" —
+> rewritten as a single declarative sentence with a different closing shape. Card 12's "Most data
+> models aren't built for that" left "that" without a clear referent — changed to "built to update
+> all of those together" so the pronoun points at the five named items, not the whole prior clause.
 
 ---
 
@@ -313,8 +335,16 @@ cheaper to handle in the design than in production.
 
 **A cancel and a fill cross on the wire**
 The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival
-order show the user a cancelled order that actually executed, and the position and cash go wrong at
-the same moment.
+order show the user a cancelled order that actually executed, and the position and cash stay wrong
+until the next reconciliation run catches it.
+
+> **Update:** this card's original rewrite ("...stay wrong until somebody reconciles them" → "...go
+> wrong at the same moment") shipped without an Update note, unlike every other edit in that pass —
+> caught by a post-merge code review. The rewrite had also quietly dropped real information: "go
+> wrong at the same moment" only restates that the error and the race condition are simultaneous
+> (nearly tautological), losing the original's point that the wrong state *persists* until someone
+> runs a reconciliation. Restored that, worded differently from the pre-PR original ("the next
+> reconciliation run catches it" instead of "somebody reconciles them") so it isn't a plain revert.
 
 **Market-data entitlements arrive as a bill**
 Per-user reporting to the exchange, redistribution licensing, and non-display fees are all
@@ -323,10 +353,10 @@ misses the commercial negotiation underneath it, which is usually where the cost
 
 **The affirmation cutoff on trade date**
 US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and
-affirmations completed as soon as technologically practicable on trade date. That alone doesn't fail
-a trade. Missing same-day affirmation compresses exception resolution and increases
-settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and
-Switzerland reach the same point in October 2027.
+affirmations completed as soon as technologically practicable on trade date. Missing that window
+alone doesn't fail a trade. Missing same-day affirmation compresses exception resolution and
+increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU
+and Switzerland reach the same point in October 2027.
 
 > **Update:** "miss the window and the trade fails" overstated a policies-and-procedures standard as
 > a hard deadline. The SEC rule requires broker-dealers to have policies reasonably designed to
@@ -343,15 +373,27 @@ Switzerland reach the same point in October 2027.
 > contrast construction ("used to be X, now Y") that reads templated regardless of whether the claim
 > underneath it is accurate. Replaced with a direct statement of the same point.
 
+> **Update:** that rewrite deleted "Missing that window" and left "That alone doesn't fail a trade"
+> with a dangling antecedent — "That" read as pointing at the SEC expectation just stated, not at
+> missing it, which is nonsensical (an expectation can't fail a trade). Caught independently by two
+> passes of a post-merge code review. Restored "Missing that window alone doesn't fail a trade" so
+> the pronoun has something to point at.
+
 **Average-price rounding breaks reconciliation**
 Recomputing `AvgPx` client-side from individual fills, instead of using the value the counterparty
-sent, introduces rounding drift of a few hundredths of a cent per fill. Across a full day of fills,
-that's enough to break end-of-day reconciliation.
+sent, introduces rounding drift measured in fractions of a cent. Across a full day of fills, that's
+enough to break end-of-day reconciliation.
 
 > **Update:** rewritten — the original was a two-sentence "quietly-wrong-until-someone-notices" beat
 > (`the number drifts... Nobody notices until the end-of-day file doesn't match`), the same reveal
 > device flagged across §4, §5, and the other three cards in this section. States the mechanism and
 > the consequence directly instead.
+
+> **Update:** that rewrite introduced "a few hundredths of a cent per fill" — a specific figure with
+> no source, caught by a post-merge code review against this file's own rule (see "The rule that
+> governs all nine" near the Open Inputs table): "no invented numbers, including the plausible
+> ones." Reverted to "measured in fractions of a cent," which is vague but not fabricated — the
+> same honesty level as the pre-PR wording, kept alongside the non-reveal sentence structure.
 
 **Link:** The rest of the list, with what we do about each → `[NEEDED: engineering notes page. Scope
 it separately. Don't publish a count in this link until the page exists and an engineer has cut it
@@ -430,9 +472,8 @@ decision gets made.
 **Risk-reversal line:** Both are free and carry no obligation. The write-up is yours to use whether
 or not you hire us.
 
-**Handoff line, into §9:** When the idea is still high level, or the project is complex enough that
-guessing at scope is the expensive option, the next step is a fixed-price Discovery or System Design
-phase.
+**Handoff line, into §9:** When guessing at scope is the expensive option, the next step is a
+fixed-price Discovery or System Design phase.
 
 > **Update:** this section originally described the first call itself as the architect
 > conversation — *"An hour with the person who would design the system, rather than a discovery call
@@ -466,6 +507,12 @@ phase.
 > the Discovery/System Design phase is for when the client "has only a high-level idea or the project
 > is complex." Both details are folded in without changing the two-step framing above.
 
+> **Update:** that sync introduced a 12-word clause ("the idea is still high level, or the project
+> is complex enough that") duplicated verbatim in both the handoff line above and the §9 Discovery
+> card — caught by a post-merge code review. Trimmed from the handoff line, which now just states
+> the trigger ("guessing at scope is the expensive option") and lets the Discovery card below it
+> carry the full reasoning.
+
 ---
 
 ## 9 / How we work (`#engagement`)
@@ -480,8 +527,8 @@ want to be.
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
 scope has to be worked out before it can be priced. It ends in requirements at the user-story level,
-a worked-through architecture, and a scope split into sprints. Where the project calls for it, that
-also produces a clickable prototype and screen-by-screen UI design.
+a worked-through architecture, and a scope broken into a phased plan. Where the project calls for
+it, that also produces a clickable prototype and screen-by-screen UI design.
 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
@@ -495,10 +542,10 @@ a longer analysis phase up front, a risk buffer built into the price, and any ch
 contract addendum.
 
 **03 — Outstaffing**
-*Development team as a service.* You interview candidates we put forward and decide who joins. They
-work on your tasks under your own management, on a development environment we set up to fit your
-infrastructure. Billed at a pre-agreed monthly rate per engineer, and you can scale up or down as the
-workload moves.
+*Development team as a service.* We put forward candidates who match your requirements; you
+interview them and decide who joins. They work on your tasks under your own management, on a
+development environment we set up to fit your infrastructure. Billed at a pre-agreed monthly rate
+per engineer, and you can scale up or down as the workload moves.
 
 **Cost line:** `[NEEDED: a decision, then a number. Something like "integration projects typically
 start at $X; full platforms run $Y to $Z depending on venues and asset classes." He has to open a
@@ -540,6 +587,17 @@ competitor did.]`
 > "UI mockups" item (a clickable prototype already implies mockups were made) so the second list
 > isn't a full triad; Fixed Price is restructured conclusion-first with its three specifics after a
 > colon instead of building to a "so" tail.
+
+> **Update:** a post-merge code review found two more issues. First, the Discovery card's "a scope
+> split into sprints" only describes how Time & Material delivers — Fixed Price bills by milestone,
+> Outstaffing has no sprint structure at all — but Discovery sits above all three models and
+> shouldn't promise a delivery shape only one of them uses. Changed to "a scope broken into a phased
+> plan," which holds for any of the three. Second, Outstaffing's "You interview candidates we put
+> forward" (from the earlier /how-we-work/ sync) dropped any sense that Itexus screens candidates
+> before forwarding them — it now reads as "we forward CVs, you do all the filtering." Restored with
+> "candidates who match your requirements," which mirrors the source page's own wording ("Itexus
+> sends CVs of the candidates fitting the requirements") without re-adding the word "vetted" this
+> repo's PR #8 deliberately removed as overclaiming.
 
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
@@ -635,9 +693,10 @@ Yes: brokers, payment gateways, KYC providers, news and market data providers, c
 whatever else your business case needs.
 
 **6. Do you offer support after launch?**
-Yes. We handle second- and third-line support: monitoring production servers and logs, installing
-updates, fixing what can be fixed without touching code, and releasing patches for what can't.
-First-line user support is usually run by the client.
+Yes, either as an ongoing arrangement or on demand. We handle second- and third-line support:
+monitoring production servers and logs, installing updates, fixing what can be fixed without
+touching code, and releasing patches for what can't. First-line user support is usually run by the
+client.
 
 **7. Do you sign an NDA?**
 Before the first call. We'll sign yours, or send you ours.
@@ -655,6 +714,12 @@ Before the first call. We'll sign yours, or send you ours.
 > Fixed Price's stated risk buffer, and the support answer replaces the vague "ongoing or on demand"
 > with the source page's actual three-level model (Itexus runs 2nd/3rd-line; clients typically run
 > 1st-line call-center support themselves).
+
+> **Update:** replacing "ongoing or on demand" also silently narrowed the promise — the new answer
+> only describes a standing 2nd/3rd-line arrangement, with no mention that ad-hoc, non-contractual
+> support is available. Caught by a post-merge code review. Restored the opening "either as an
+> ongoing arrangement or on demand" line ahead of the 2nd/3rd-line detail, so the answer keeps both
+> the old promise and the new specificity instead of trading one for the other.
 
 **8. Have you built a trading platform before?**
 Yes. Four are described above, three of them under NDA. The engineering notes cover the parts we
@@ -677,9 +742,9 @@ reply.
 2. **We talk it through:** a short call about what you're building — venues, asset classes,
    regulatory regime, timeline, and budget.
 3. **Our team designs it:** one to two weeks of workshops with a solution architect, a fintech
-   analyst, and a designer where it helps — an architecture and integration outline, and an
+   analyst, and a designer where it helps. You get an architecture and integration outline and an
    indicative range in writing.
-4. **We start.** Once you've approved the budget, scope, and architecture and the contract is
+4. **We start.** Once you've approved the budget, scope, and architecture, and the contract is
    signed, development starts. MVP in three to four months.
 
 > **Update:** step 2 said *"You talk to an architect."* The first call is a scoping conversation, not
@@ -692,6 +757,13 @@ reply.
 > quietly repointed that same 1–2 week figure at time-to-contract — a claim the source page doesn't
 > make. It only says the project starts once budget, scope, and architecture are approved and the
 > contract is signed, so step 4 now says that instead.
+>
+> **Update:** two issues from that pass, caught by a post-merge code review. Step 3's rewrite here
+> and the HTML had drifted apart — the shipped page dropped the em dash/comma construction below in
+> favor of two shorter sentences, but this doc kept the old phrasing, so the two files disagreed
+> with no record of why. Synced to match the shipped page. Step 4 was also missing a comma before
+> "and the contract," letting "architecture and the contract" briefly misread as one list item
+> before "is signed" forces a re-parse — added.
 
 ### Form
 
