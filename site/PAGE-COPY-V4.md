@@ -165,14 +165,14 @@ one sitting in the carousel.]`
 yours.
 
 **01 — Build** *(New platform, from scratch)*
-You have a strategy, a licence, or a client base, and no platform yet. We take it from discovery and
-architecture through broker and market-data selection, order management, risk controls, web and
-mobile terminals, and KYC/AML.
+A strategy, a licence, or a client base already exists. The platform doesn't. We take it from
+discovery and architecture through broker and market-data selection, order management, risk
+controls, web and mobile terminals, and KYC/AML.
 
 **02 — Modernize** *(An existing platform that caps what you can add)*
-It runs, but a legacy vendor, an unsupported stack, or latency in the hot path limits what you can
-ship next. We audit the current system, replace the execution and market-data layers a slice at a
-time, and migrate data without taking trading offline.
+It runs. Something is capping what you can ship next: a legacy vendor, an unsupported stack, or
+latency in the hot path. We audit the current system, replace the execution and market-data layers a
+slice at a time, and migrate data without taking trading offline.
 
 **03 — Integrate** *(One component into a stack you already run)*
 The platform exists; you need something wired into it. FIX and proprietary gateways, broker and
@@ -182,7 +182,12 @@ scoped as a project or delivered by engineers embedded in your team.
 **Footer link:** Not sure which one you're in? Describe the situation and we'll tell you which path
 fits → (`#contact`)
 
-> Unchanged. This section already does its job.
+> **Update:** cards 01 and 02 both opened with the same "X, Y, or Z [verb]s a consequence" rhythm —
+> a list of three examples folded into one clause that ends on a tail (`and no platform yet` /
+> `limits what you can ship next`). That construction, and its short-punchy-tail cousin, turned out
+> to repeat across most of this page's numbered cards; see the update notes in §5 and §6 for the
+> full sweep. Fixed here by giving each card its own shape instead of the shared template: 01 splits
+> into two short declaratives, 02 moves its triad after a colon.
 
 ---
 
@@ -229,24 +234,22 @@ machine: a cancel and a fill crossing on the wire, a replace that gets rejected 
 
 **4. Investor Interfaces**
 Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most
-are the ones showing an order whose state is uncertain. Telling a user their order was cancelled
-when it actually filled is a support ticket that becomes a complaint.
+are the ones showing an order whose state is uncertain. Show a cancelled order that actually filled,
+and a UI bug turns into a support escalation.
 
 **5. Market Data Storage**
 A multi-source store with historical intraday data for equities, futures, FX, and options. Budget
 for entitlements early: per-user reporting to the exchange, redistribution licensing, and
-non-display fees are a cost line that surprises product teams, usually in the form of an audit that
-arrives with a bill.
+non-display fees are all contractual costs that don't show up in an API doc.
 
 **6. Trading Algorithms**
 We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those
-checks do most of the work. A market order on an illiquid symbol at the open, with no pre-trade
-guardrail, fills far from the last print, and the user only finds out once it has.
+checks do most of the work: skip the pre-trade guardrail, and a market order on an illiquid symbol
+at the open can fill well away from the last print.
 
 **7. Strategy Builder**
 A visual builder and a code editor for custom indicators and algorithms. One engine runs both the
-backtest and the live strategy, because two engines drift and the user discovers it with real money
-on the line.
+backtest and the live strategy, because two separate engines drift apart over time.
 
 **8. Backtesting**
 Test and optimise strategies against historical data before risking anything. A backtest is only
@@ -275,14 +278,23 @@ Retrofitting any of this later is a rewrite.
 
 **11. Paper Trading**
 Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic:
-they fill at the touch, ignore queue position, and never partial-fill. Traders who practise against
-one and then trade for real get results that don't match, and they tend to blame the platform.
+they fill at the touch, ignore queue position, and never partial-fill. Practice against one, then
+trade for real, and the results won't match. That gets blamed on the platform, not the simulator.
 
 **12. Other Features**
 Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more
-trouble here than their profile suggests. A split, a spin-off, or a symbol change has to move
-positions, cost basis, open orders, historical charts, and the tax lot ledger together, and it is
-where a lot of platforms find out their data model was wrong.
+trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions,
+cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models
+aren't built for that.
+
+> **Update:** six of the twelve second lines (4, 5, 6, 7, 11, 12) shared the same closing move — a
+> setup clause followed by a short tail revealing that someone finds out, gets surprised, or gets
+> blamed once it's too late (`the user only finds out once it has` / `Nobody notices until...` /
+> `is a support ticket that becomes a complaint`). That's the same device as the §4 path-card fix,
+> just running underneath most of this grid. Rewritten to state the mechanism and stop, rather than
+> stage a reveal. Cards 1, 2, 3, 8, 9, 10 were checked against the same test and left alone — their
+> closing lines are specific technical claims (a named protocol quirk, a named bias, a named
+> statute), not a generic "and then everyone finds out" beat, so they don't read as templated.
 
 ---
 
@@ -301,8 +313,8 @@ cheaper to handle in the design than in production.
 
 **A cancel and a fill cross on the wire**
 The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival
-order show the user a cancelled order that actually executed, and the position and cash stay wrong
-until somebody reconciles them.
+order show the user a cancelled order that actually executed, and the position and cash go wrong at
+the same moment.
 
 **Market-data entitlements arrive as a bill**
 Per-user reporting to the exchange, redistribution licensing, and non-display fees are all
@@ -311,10 +323,10 @@ misses the commercial negotiation underneath it, which is usually where the cost
 
 **The affirmation cutoff on trade date**
 US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and
-affirmations completed as soon as technologically practicable on trade date. Missing that window
-doesn't fail a trade by itself, but unaffirmed trades are the ones that fail to settle. What used to
-be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the
-same point in October 2027.
+affirmations completed as soon as technologically practicable on trade date. That alone doesn't fail
+a trade. Missing same-day affirmation compresses exception resolution and increases
+settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and
+Switzerland reach the same point in October 2027.
 
 > **Update:** "miss the window and the trade fails" overstated a policies-and-procedures standard as
 > a hard deadline. The SEC rule requires broker-dealers to have policies reasonably designed to
@@ -322,11 +334,24 @@ same point in October 2027.
 > settlement risk, it doesn't deterministically fail every trade. `[NEEDED: confirm the rule number
 > (believed to be Rule 15c6-2) against a fetchable primary source before naming it explicitly on the
 > page — sec.gov returned 403 to automated fetches this session.]`
+>
+> **Update:** "unaffirmed trades are the ones that fail to settle" still read as a direct,
+> near-universal causal claim — the same overstatement the update above already flagged for the
+> sentence before it, just restated. Replaced with the hedged version: affirmation failure
+> compresses the exception-resolution window and raises settlement-failure risk, not guarantees it.
+> "What used to be a back-office nuisance is now an engineering deadline" is cut too — a nostalgia/
+> contrast construction ("used to be X, now Y") that reads templated regardless of whether the claim
+> underneath it is accurate. Replaced with a direct statement of the same point.
 
 **Average-price rounding breaks reconciliation**
-Recompute `AvgPx` client-side from individual fills instead of trusting what the counterparty sent,
-and the number drifts by fractions of a cent. Nobody notices until the end-of-day file doesn't
-match.
+Recomputing `AvgPx` client-side from individual fills, instead of using the value the counterparty
+sent, introduces rounding drift of a few hundredths of a cent per fill. Across a full day of fills,
+that's enough to break end-of-day reconciliation.
+
+> **Update:** rewritten — the original was a two-sentence "quietly-wrong-until-someone-notices" beat
+> (`the number drifts... Nobody notices until the end-of-day file doesn't match`), the same reveal
+> device flagged across §4, §5, and the other three cards in this section. States the mechanism and
+> the consequence directly instead.
 
 **Link:** The rest of the list, with what we do about each → `[NEEDED: engineering notes page. Scope
 it separately. Don't publish a count in this link until the page exists and an engineer has cut it
@@ -455,8 +480,8 @@ want to be.
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
 scope has to be worked out before it can be priced. It ends in requirements at the user-story level,
-a worked-through architecture, and a scope split into sprints. UI mockups, a clickable prototype, and
-screen-by-screen design get produced here when the project calls for them.
+a worked-through architecture, and a scope split into sprints. Where the project calls for it, that
+also produces a clickable prototype and screen-by-screen UI design.
 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
@@ -465,9 +490,9 @@ and progress every week. You pay for the actual work performed on your project.
 
 **02 — Fixed Price**
 Requirements, price, and timeline are documented and signed before work starts, and you pay in
-stages against milestones. It needs a longer analysis phase up front, the price carries a risk
-buffer, and changes go through a contract addendum, so it suits a scope that's already well defined
-and unlikely to move.
+stages against milestones. It suits a scope that's already well defined and unlikely to move: expect
+a longer analysis phase up front, a risk buffer built into the price, and any change to go through a
+contract addendum.
 
 **03 — Outstaffing**
 *Development team as a service.* You interview candidates we put forward and decide who joins. They
@@ -507,6 +532,14 @@ competitor did.]`
 > The lede also changed from the earlier "no invented figures" framing (about our own copy process)
 > to one built from the source page's actual pitch — matching the model to requirements firmness and
 > desired involvement.
+
+> **Update:** the /how-we-work/ sync above introduced two instances of the same rhythmic pattern
+> flagged and fixed across §4, §5, and §6 — the Discovery card stacked two three-item lists back to
+> back (requirements/architecture/sprints, then mockups/prototype/design), and Fixed Price used the
+> "X, Y, and Z, so [consequence]" shape. Fixed the same way: the Discovery card drops the redundant
+> "UI mockups" item (a clickable prototype already implies mockups were made) so the second list
+> isn't a full triad; Fixed Price is restructured conclusion-first with its three specifics after a
+> colon instead of building to a "so" tail.
 
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
