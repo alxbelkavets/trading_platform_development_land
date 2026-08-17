@@ -38,12 +38,12 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Time & Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either." } },
+    { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Time & Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either." } },
     { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope." } },
     { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build." } },
     { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit." } },
     { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs." } },
-    { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, either as an ongoing arrangement or on demand." } },
+    { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We handle second- and third-line support: monitoring production servers and logs, installing updates, fixing what can be fixed without touching code, and releasing patches for what can't. First-line user support is usually run by the client." } },
     { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first call. We'll sign yours, or send you ours." } },
     { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Four are described above, three of them under NDA." } }
   ]
@@ -549,12 +549,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <article class="card path-card">
           <span class="num">01</span>
           <h3>Build <small>New platform, from scratch</small></h3>
-          <p>You have a strategy, a licence, or a client base, and no platform yet. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML.</p>
+          <p>A strategy, a licence, or a client base already exists. The platform doesn't. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML.</p>
         </article>
         <article class="card path-card">
           <span class="num">02</span>
           <h3>Modernize <small>An existing platform that caps what you can add</small></h3>
-          <p>It runs, but a legacy vendor, an unsupported stack, or latency in the hot path limits what you can ship next. We audit the current system, replace the execution and market-data layers a slice at a time, and migrate data without taking trading offline.</p>
+          <p>It runs. Something is capping what you can ship next: a legacy vendor, an unsupported stack, or latency in the hot path. We audit the current system, replace the execution and market-data layers a slice at a time, and migrate data without taking trading offline.</p>
         </article>
         <article class="card path-card">
           <span class="num">03</span>
@@ -593,15 +593,15 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <li><p class="num">01</p><h3>Integration With Brokers</h3><p>We help select and integrate brokers on market coverage, API quality, latency, and SLA. The SLA tells you about uptime and nothing about what your open orders look like after a gateway restart, so we test reconnection and state recovery before we recommend anyone.</p></li>
         <li><p class="num">02</p><h3>Trading Execution Middleware</h3><p>Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer. Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p></li>
         <li><p class="num">03</p><h3>Order Management</h3><p>Order types, time in force, leverage, stop-loss and take-profit. What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p></li>
-        <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most are the ones showing an order whose state is uncertain. Telling a user their order was cancelled when it actually filled is a support ticket that becomes a complaint.</p></li>
-        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: per-user reporting to the exchange, redistribution licensing, and non-display fees are a cost line that surprises product teams, usually in the form of an audit that arrives with a bill.</p></li>
-        <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those checks do most of the work. A market order on an illiquid symbol at the open, with no pre-trade guardrail, fills far from the last print, and the user only finds out once it has.</p></li>
-        <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two engines drift and the user discovers it with real money on the line.</p></li>
+        <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most are the ones showing an order whose state is uncertain. Show a cancelled order that actually filled, and a UI bug turns into a support escalation.</p></li>
+        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: per-user reporting to the exchange, redistribution licensing, and non-display fees are all contractual costs that don't show up in an API doc.</p></li>
+        <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those checks do most of the work: skip the pre-trade guardrail, and a market order on an illiquid symbol at the open can fill well away from the last print.</p></li>
+        <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two separate engines drift apart over time.</p></li>
         <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimise strategies against historical data before risking anything. A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p></li>
         <li><p class="num">09</p><h3>Real-Time Alerts</h3><p>Asset alerts that reach the user within seconds of a target price move. The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p></li>
         <li><p class="num">10</p><h3>Trade Log</h3><p>Trading histories that let users find their mistakes and adjust. Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events. Retrofitting any of this later is a rewrite.</p></li>
-        <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practise against one and then trade for real get results that don't match, and they tend to blame the platform.</p></li>
-        <li><p class="num">12</p><h3>Other Features</h3><p>Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more trouble here than their profile suggests. A split, a spin-off, or a symbol change has to move positions, cost basis, open orders, historical charts, and the tax lot ledger together, and it is where a lot of platforms find out their data model was wrong.</p></li>
+        <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Practice against one, then trade for real, and the results won't match. That gets blamed on the platform, not the simulator.</p></li>
+        <li><p class="num">12</p><h3>Other Features</h3><p>Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions, cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models aren't built for that.</p></li>
       </ul>
     </div>
   </section>
@@ -616,7 +616,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="wrong-grid">
         <article class="card wrong-card">
           <h3>A cancel and a fill cross on the wire</h3>
-          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash stay wrong until somebody reconciles them.</p>
+          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash go wrong at the same moment.</p>
         </article>
         <article class="card wrong-card">
           <h3>Market-data entitlements arrive as a bill</h3>
@@ -624,11 +624,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </article>
         <article class="card wrong-card">
           <h3>The affirmation cutoff on trade date</h3>
-          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. Missing that window doesn't fail a trade by itself, but unaffirmed trades are the ones that fail to settle. What used to be a back-office nuisance is now an engineering deadline, and the UK, EU and Switzerland reach the same point in October 2027.</p>
+          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. That alone doesn't fail a trade. Missing same-day affirmation compresses exception resolution and increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and Switzerland reach the same point in October 2027.</p>
         </article>
         <article class="card wrong-card">
           <h3>Average-price rounding breaks reconciliation</h3>
-          <p>Recompute AvgPx client-side from individual fills instead of trusting what the counterparty sent, and the number drifts by fractions of a cent. Nobody notices until the end-of-day file doesn't match.</p>
+          <p>Recomputing AvgPx client-side from individual fills, instead of using the value the counterparty sent, introduces rounding drift of a few hundredths of a cent per fill. Across a full day of fills, that's enough to break end-of-day reconciliation.</p>
         </article>
       </div>
       <!-- Link to a dedicated engineering-notes page (site/EXPERTISE-PROOF.md §1) intentionally omitted until that page exists and the remaining failure modes have engineer sign-off. -->
@@ -676,7 +676,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </div>
         <div class="offer-block">
           <h3>Then our engineers take it</h3>
-          <p>If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a designer where design matters. You get an architecture and integration outline, and an indicative range with its assumptions written down. Where it would help you decide, that can extend to an interactive prototype you can click through, or look-and-feel screens of the real product.</p>
+          <p>If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a designer where design matters. Over one to two weeks of workshops they work through feasibility, the integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You get that back in writing with its assumptions stated, and where it would help you decide, an interactive prototype you can click through or look-and-feel screens of the real product.</p>
         </div>
         <div class="offer-block">
           <h3>Why it's shaped this way</h3>
@@ -688,7 +688,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <a href="#contact" class="btn btn-primary btn-lg">Tell us what you're building</a>
         <p class="offer-risk">Both are free and carry no obligation. The write-up is yours to use whether or not you hire us.</p>
       </div>
-      <p class="offer-handoff">When the scope is big enough that guessing at it is the expensive option, the next step is a short fixed-price Discovery or System Design phase.</p>
+      <p class="offer-handoff">When the idea is still high level, or the project is complex enough that guessing at scope is the expensive option, the next step is a fixed-price Discovery or System Design phase.</p>
     </div>
   </section>
 
@@ -697,11 +697,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="section-head-simple">
         <p class="eyebrow">06 &nbsp;/&nbsp; How We Work</p>
         <h2>Engagement Models</h2>
-        <p class="lede">Three real cooperation models, no invented figures.</p>
+        <p class="lede">Which one fits usually comes down to how firm your requirements are and how involved you want to be.</p>
       </div>
       <article class="card engagement-lead">
         <h3 class="engagement-lead-tag">Discovery / System Design <small>fixed price, before any of the models below</small></h3>
-        <p>A bounded phase that ends in requirements, an architecture, and a plan the build can be priced against. This is where an interactive prototype or look-and-feel screens get produced when the project calls for them.</p>
+        <p>We recommend this when the idea is still high level, or the project is complex enough that the scope has to be worked out before it can be priced. It ends in requirements at the user-story level, a worked-through architecture, and a scope split into sprints. Where the project calls for it, that also produces a clickable prototype and screen-by-screen UI design.</p>
       </article>
       <div class="engagement-grid">
         <article class="card engagement-card recommended">
@@ -710,17 +710,17 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-recommended">Recommended</span>
           </div>
           <h3>Time &amp; Material (Efficient Hours) <small>Agile with Budget Control</small></h3>
-          <p>Delivered in two-week sprints with a demo at the end of each one. You pay for the actual work performed on your project, and can change direction as you learn.</p>
+          <p>Delivered in two-week sprints with a demo at the end of each one, so you can change direction as you learn. A project manager holds scope, risk, and budget, and reports cost and progress every week. You pay for the actual work performed on your project.</p>
         </article>
         <article class="card engagement-card">
           <span class="num">02</span>
           <h3>Fixed Price</h3>
-          <p>Requirements, price, and timeline are documented and signed before work starts. Suits projects with a scope that's already well defined and unlikely to change.</p>
+          <p>Requirements, price, and timeline are documented and signed before work starts, and you pay in stages against milestones. It suits a scope that's already well defined and unlikely to move: expect a longer analysis phase up front, a risk buffer built into the price, and any change to go through a contract addendum.</p>
         </article>
         <article class="card engagement-card">
           <span class="num">03</span>
           <h3>Outstaffing <small>Development Team as a Service</small></h3>
-          <p>Vetted engineers join your team directly and work under your own project management, billed at a pre-agreed monthly rate.</p>
+          <p>You interview candidates we put forward and decide who joins. They work on your tasks under your own management, on a development environment we set up to fit your infrastructure. Billed at a pre-agreed monthly rate per engineer, and you can scale up or down as the workload moves.</p>
         </article>
       </div>
       <p class="engagement-link"><a href="/how-we-work/">See the full breakdown of each model on our Cooperation Models page &#8594;</a></p>
@@ -800,12 +800,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <a href="#contact" class="btn btn-primary">Tell us what you're building</a>
       </div>
       <div class="faq-list">
-        <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
+        <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
         <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
         <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
         <details><summary>Who owns the source code?</summary><p>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
         <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
-        <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand.</p></details>
+        <details><summary>Do you offer support after launch?</summary><p>Yes. We handle second- and third-line support: monitoring production servers and logs, installing updates, fixing what can be fixed without touching code, and releasing patches for what can't. First-line user support is usually run by the client.</p></details>
         <details><summary>Do you sign an NDA?</summary><p>Before the first call. We'll sign yours, or send you ours.</p></details>
         <details><summary>Have you built a trading platform before?</summary><p>Yes. Four are described above, three of them under NDA. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
       </div>
@@ -831,11 +831,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </li>
           <li>
             <span class="step-num">3</span>
-            <div><p class="step-title">Our team designs it</p><p class="step-copy">A solution architect, a fintech analyst, and a designer where it helps: an architecture and integration outline, and an indicative range in writing.</p></div>
+            <div><p class="step-title">Our team designs it</p><p class="step-copy">One to two weeks of workshops with a solution architect, a fintech analyst, and a designer where it helps. You get an architecture and integration outline and an indicative range in writing.</p></div>
           </li>
           <li>
             <span class="step-num">4</span>
-            <div><p class="step-title">We start</p><p class="step-copy">Contract signed and development underway within one to two weeks. MVP in three to four months.</p></div>
+            <div><p class="step-title">We start</p><p class="step-copy">Once you've approved the budget, scope, and architecture and the contract is signed, development starts. MVP in three to four months.</p></div>
           </li>
         </ol>
       </div>

@@ -260,6 +260,16 @@ asset classes"* beats silence.
 > guarantee ("refund the discovery fee if it's not usable") coherent — that guarantee only makes
 > sense once Discovery is something we've been paid for.
 
+> **Update:** all three model descriptions, the Discovery card, and the lede were checked line by
+> line against `stage.itexus.com/how-we-work/` (Itexus's own published Cooperation Models page,
+> which §9's footer links to) and corrected where they'd drifted — most notably Outstaffing, which
+> said "vetted engineers join your team" when the source page is explicit that Itexus sends CVs and
+> the *client* interviews and decides who joins. Fixed Price and Time & Material each picked up a
+> detail the source treats as central (milestone payments and a risk buffer; a project manager with
+> weekly cost/progress reporting) that the shorter card copy had dropped. See PAGE-COPY-V4.md §9 for
+> the full text and the one deliberate non-adoption: the source's stronger T&M billing claim ("only
+> efficient hours … are billed") was considered and left out again, per the earlier update above.
+
 ### 10 — Testimonials and awards
 **Goal:** third-party validation.
 **Contains:** the 5 quotes as a real carousel (a static grid was explicitly rejected before), the
