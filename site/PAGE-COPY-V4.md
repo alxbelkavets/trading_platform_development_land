@@ -389,9 +389,10 @@ sign the NDA before it. There are no slides.
 
 **Then our engineers take it**
 If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a
-designer where design matters. You get an architecture and integration outline, and an indicative
-range with its assumptions written down. Where it would help you decide, that can extend to an
-interactive prototype you can click through, or look-and-feel screens of the real product.
+designer where design matters. Over one to two weeks of workshops they work through feasibility, the
+integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You
+get that back in writing with its assumptions stated, and where it would help you decide, an
+interactive prototype you can click through or look-and-feel screens of the real product.
 
 **Why it's shaped this way**
 We don't put an architect on the first call. The good ones are on projects, and you get more from a
@@ -404,8 +405,9 @@ decision gets made.
 **Risk-reversal line:** Both are free and carry no obligation. The write-up is yours to use whether
 or not you hire us.
 
-**Handoff line, into §9:** When the scope is big enough that guessing at it is the expensive option,
-the next step is a short fixed-price Discovery or System Design phase.
+**Handoff line, into §9:** When the idea is still high level, or the project is complex enough that
+guessing at scope is the expensive option, the next step is a fixed-price Discovery or System Design
+phase.
 
 > **Update:** this section originally described the first call itself as the architect
 > conversation — *"An hour with the person who would design the system, rather than a discovery call
@@ -432,6 +434,13 @@ the next step is a short fixed-price Discovery or System Design phase.
 > refund the discovery fee."* That is a real commercial commitment. `[NEEDED: your call. Don't
 > publish it unless we would honour it without arguing.]`
 
+> **Update:** "Then our engineers take it" and the handoff line now match
+> `stage.itexus.com/how-we-work/`, which describes this exact step as a free initial consultation:
+> one to two weeks of workshops (feasibility, integration analysis, high-level architecture and
+> stack, workload/cost estimate) ending in written project documentation and a proposal, and states
+> the Discovery/System Design phase is for when the client "has only a high-level idea or the project
+> is complex." Both details are folded in without changing the two-step framing above.
+
 ---
 
 ## 9 / How we work (`#engagement`)
@@ -440,25 +449,31 @@ the next step is a short fixed-price Discovery or System Design phase.
 
 **H2:** Engagement models
 
-**Lede:** Three ways to structure the work. Which one fits usually depends on what your board can
-approve.
+**Lede:** Which one fits usually comes down to how firm your requirements are and how involved you
+want to be.
 
 **Discovery / System Design** *(fixed price, before any of the models below)*
-A bounded phase that ends in requirements, an architecture, and a plan the build can be priced
-against. This is where an interactive prototype or look-and-feel screens get produced when the
-project calls for them.
+We recommend this when the idea is still high level, or the project is complex enough that the
+scope has to be worked out before it can be priced. It ends in requirements at the user-story level,
+a worked-through architecture, and a scope split into sprints. UI mockups, a clickable prototype, and
+screen-by-screen design get produced here when the project calls for them.
 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
-*Agile with budget control.* Two-week sprints, a demo at the end of each one. You pay for the actual
-work performed on your project, and can change direction as you learn.
+*Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
+can change direction as you learn. A project manager holds scope, risk, and budget, and reports cost
+and progress every week. You pay for the actual work performed on your project.
 
 **02 — Fixed Price**
-Requirements, price, and timeline documented and signed before work starts. Suits a scope that's
-already well defined and unlikely to move.
+Requirements, price, and timeline are documented and signed before work starts, and you pay in
+stages against milestones. It needs a longer analysis phase up front, the price carries a risk
+buffer, and changes go through a contract addendum, so it suits a scope that's already well defined
+and unlikely to move.
 
 **03 — Outstaffing**
-*Development team as a service.* Vetted engineers join your team, work under your project
-management, and bill at a pre-agreed monthly rate.
+*Development team as a service.* You interview candidates we put forward and decide who joins. They
+work on your tasks under your own management, on a development environment we set up to fit your
+infrastructure. Billed at a pre-agreed monthly rate per engineer, and you can scale up or down as the
+workload moves.
 
 **Cost line:** `[NEEDED: a decision, then a number. Something like "integration projects typically
 start at $X; full platforms run $Y to $Z depending on venues and asset classes." He has to open a
@@ -475,6 +490,23 @@ competitor did.]`
 > a visitor can say yes to without committing to a full build, and it's where §8's prototype and
 > design-screen offer actually gets delivered. It also makes the conditional guarantee parked at the
 > end of §8 coherent: a refund only makes sense once Discovery is something we've been paid for.
+
+> **Update:** all three model descriptions and the Discovery card now match
+> `stage.itexus.com/how-we-work/` — Time & Material gets the weekly-reporting PM the source page
+> makes central to the model; Fixed Price gets milestone payments plus the source's own stated
+> tradeoffs (longer analysis phase, risk buffer in the price, changes go through an addendum);
+> Outstaffing is corrected from "vetted engineers join your team" to what the source actually
+> describes — Itexus sends CVs, the client interviews and decides who joins.
+>
+> **The billing sentence in model 01 was deliberately left as "the actual work performed on your
+> project."** The source page states a stronger claim — "only efficient hours within the agreed
+> estimates are billed, inefficient work is not billed" — but that's the same cap the previous update
+> above removed on the grounds that it isn't one we actually guarantee. Re-litigated this round;
+> the call stands.
+>
+> The lede also changed from the earlier "no invented figures" framing (about our own copy process)
+> to one built from the source page's actual pitch — matching the model to requirements firmness and
+> desired involvement.
 
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
@@ -543,9 +575,10 @@ Software Developers · Top Rated Mobile App Companies · techreviewer.co
 
 **1. How much does trading platform development cost?**
 It depends on the engagement model. Time & Material bills the actual work performed on your project.
-Fixed Price sets the whole cost upfront once requirements are documented. Outstaffing bills a
-monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before
-committing to either. `[NEEDED: add the order-of-magnitude band here too, if §9 publishes one.]`
+Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built
+into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or
+System Design phase is also available before committing to either. `[NEEDED: add the
+order-of-magnitude band here too, if §9 publishes one.]`
 
 **2. How long does it take to build a trading platform?**
 An MVP typically takes three to four months, and the range widens quickly with the number of venues,
@@ -569,7 +602,9 @@ Yes: brokers, payment gateways, KYC providers, news and market data providers, c
 whatever else your business case needs.
 
 **6. Do you offer support after launch?**
-Yes, either as an ongoing arrangement or on demand.
+Yes. We handle second- and third-line support: monitoring production servers and logs, installing
+updates, fixing what can be fixed without touching code, and releasing patches for what can't.
+First-line user support is usually run by the client.
 
 **7. Do you sign an NDA?**
 Before the first call. We'll sign yours, or send you ours.
@@ -582,6 +617,11 @@ Before the first call. We'll sign yours, or send you ours.
 > which regulations have you worked under?"*) is cut along with its §7 row — see the §7 update note.
 > Question #4's answer is now the real one rather than a "shipped interim" placeholder, since §7's
 > source-code row is answered. It also carried the FAQ's only link into §7, now re-homed here.
+>
+> **Update:** answers 1 and 6 now match `stage.itexus.com/how-we-work/` — the cost answer picks up
+> Fixed Price's stated risk buffer, and the support answer replaces the vague "ongoing or on demand"
+> with the source page's actual three-level model (Itexus runs 2nd/3rd-line; clients typically run
+> 1st-line call-center support themselves).
 
 **8. Have you built a trading platform before?**
 Yes. Four are described above, three of them under NDA. The engineering notes cover the parts we
@@ -603,14 +643,22 @@ reply.
 1. **You write.** We reply within 24 hours to sign the NDA and set up the call.
 2. **We talk it through:** a short call about what you're building — venues, asset classes,
    regulatory regime, timeline, and budget.
-3. **Our team designs it:** a solution architect, a fintech analyst, and a designer where it helps —
-   an architecture and integration outline, and an indicative range in writing.
-4. **We start.** Contract signed and development underway within one to two weeks. MVP in three to
-   four months.
+3. **Our team designs it:** one to two weeks of workshops with a solution architect, a fintech
+   analyst, and a designer where it helps — an architecture and integration outline, and an
+   indicative range in writing.
+4. **We start.** Once you've approved the budget, scope, and architecture and the contract is
+   signed, development starts. MVP in three to four months.
 
 > **Update:** step 2 said *"You talk to an architect."* The first call is a scoping conversation, not
 > an architecture conversation — see the §8 update note. The architect and the written outline now
 > show up at step 3, once there's a project worth putting a team on.
+>
+> **Update:** step 3 now carries the one-to-two-week workshop figure from
+> `stage.itexus.com/how-we-work/`'s free-consultation description (see the §8 update note). Step 4
+> previously read "Contract signed and development underway within one to two weeks," which had
+> quietly repointed that same 1–2 week figure at time-to-contract — a claim the source page doesn't
+> make. It only says the project starts once budget, scope, and architecture are approved and the
+> contract is signed, so step 4 now says that instead.
 
 ### Form
 
