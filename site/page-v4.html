@@ -594,7 +594,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <li><p class="num">02</p><h3>Trading Execution Middleware</h3><p>Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer. Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p></li>
         <li><p class="num">03</p><h3>Order Management</h3><p>Order types, time in force, leverage, stop-loss and take-profit. What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p></li>
         <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most are the ones showing an order whose state is uncertain. Showing a cancelled order that actually filled turns a UI bug into a support escalation.</p></li>
-        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: per-user reporting to the exchange, redistribution licensing, and non-display fees are easy to underestimate before the vendor contract puts a number on them.</p></li>
+        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: exchange and redistribution fees are easy to underestimate before the vendor contract puts a number on them.</p></li>
         <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those checks do most of the work. Without a pre-trade guardrail, a market order on an illiquid symbol at the open can fill well away from the last print.</p></li>
         <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two separate engines drift apart over time.</p></li>
         <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimise strategies against historical data before risking anything. A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p></li>
@@ -616,7 +616,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="wrong-grid">
         <article class="card wrong-card">
           <h3>A cancel and a fill cross on the wire</h3>
-          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash stay wrong until the next reconciliation run catches it.</p>
+          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash stay wrong until the next reconciliation run catches them.</p>
         </article>
         <article class="card wrong-card">
           <h3>Market-data entitlements arrive as a bill</h3>
@@ -624,7 +624,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </article>
         <article class="card wrong-card">
           <h3>The affirmation cutoff on trade date</h3>
-          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. Missing that window alone doesn't fail a trade. Missing same-day affirmation compresses exception resolution and increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and Switzerland reach the same point in October 2027.</p>
+          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. Missing that window alone doesn't fail a trade, but missing same-day affirmation compresses exception resolution and increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and Switzerland reach the same point in October 2027.</p>
         </article>
         <article class="card wrong-card">
           <h3>Average-price rounding breaks reconciliation</h3>
@@ -831,7 +831,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </li>
           <li>
             <span class="step-num">3</span>
-            <div><p class="step-title">Our team designs it</p><p class="step-copy">One to two weeks of workshops with a solution architect, a fintech analyst, and a designer where it helps. You get an architecture and integration outline and an indicative range in writing.</p></div>
+            <div><p class="step-title">Our team designs it</p><p class="step-copy">One to two weeks of workshops with a solution architect, a fintech analyst, and a designer where it helps. You get an architecture and integration outline, and an indicative range in writing.</p></div>
           </li>
           <li>
             <span class="step-num">4</span>
