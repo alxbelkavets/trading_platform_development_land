@@ -245,8 +245,8 @@ filled turns a UI bug into a support escalation.
 
 **5. Market Data Storage**
 A multi-source store with historical intraday data for equities, futures, FX, and options. Budget
-for entitlements early: per-user reporting to the exchange, redistribution licensing, and
-non-display fees are easy to underestimate before the vendor contract puts a number on them.
+for entitlements early: exchange and redistribution fees are easy to underestimate before the
+vendor contract puts a number on them.
 
 **6. Trading Algorithms**
 We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those
@@ -313,10 +313,19 @@ aren't built to update all of those together.
 > duplicating that card. Card 6 had the same reader-imperative problem as card 4 ("skip the
 > pre-trade guardrail, and...") — rewritten as a conditional ("Without a pre-trade guardrail...").
 > Card 11 had both problems at once: the imperative "Practice against one, then trade for real,
-> and..." *and* a "[claim], not [noun]" tail duplicating card 6 of §6's "not a back-office SLA" —
-> rewritten as a single declarative sentence with a different closing shape. Card 12's "Most data
-> models aren't built for that" left "that" without a clear referent — changed to "built to update
-> all of those together" so the pronoun points at the five named items, not the whole prior clause.
+> and..." *and* a "[claim], not [noun]" tail duplicating the affirmation-cutoff card's "not a
+> back-office SLA" further down in §6 — rewritten as a single declarative sentence with a different
+> closing shape. Card 12's "Most data models aren't built for that" left "that" without a clear
+> referent — changed to "built to update all of those together" so the pronoun points at the five
+> named items, not the whole prior clause.
+
+> **Update:** a second-round code review found this fix's own problems. Card 5's rewrite reworded
+> only the tail of its sentence — the shared subject clause ("per-user reporting to the exchange,
+> redistribution licensing, and non-display fees are...") was still verbatim identical to §6's
+> "Market-data entitlements arrive as a bill" card, so the duplication it was meant to fix wasn't
+> actually gone. Shortened to "exchange and redistribution fees," which drops the exact fee-type
+> enumeration from this card (it stays precise, unchanged, in the §6 engineering note) so the two
+> cards no longer share a repeated clause.
 
 ---
 
@@ -336,7 +345,7 @@ cheaper to handle in the design than in production.
 **A cancel and a fill cross on the wire**
 The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival
 order show the user a cancelled order that actually executed, and the position and cash stay wrong
-until the next reconciliation run catches it.
+until the next reconciliation run catches them.
 
 > **Update:** this card's original rewrite ("...stay wrong until somebody reconciles them" → "...go
 > wrong at the same moment") shipped without an Update note, unlike every other edit in that pass —
@@ -346,6 +355,9 @@ until the next reconciliation run catches it.
 > runs a reconciliation. Restored that, worded differently from the pre-PR original ("the next
 > reconciliation run catches it" instead of "somebody reconciles them") so it isn't a plain revert.
 
+> **Update:** "catches it" didn't agree with the plural "the position and cash" — a second-round
+> code review caught the mismatch. Changed to "catches them."
+
 **Market-data entitlements arrive as a bill**
 Per-user reporting to the exchange, redistribution licensing, and non-display fees are all
 contractual, and none of them appear in an API doc. Scoping market data as an integration task
@@ -354,7 +366,7 @@ misses the commercial negotiation underneath it, which is usually where the cost
 **The affirmation cutoff on trade date**
 US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and
 affirmations completed as soon as technologically practicable on trade date. Missing that window
-alone doesn't fail a trade. Missing same-day affirmation compresses exception resolution and
+alone doesn't fail a trade, but missing same-day affirmation compresses exception resolution and
 increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU
 and Switzerland reach the same point in October 2027.
 
@@ -378,6 +390,10 @@ and Switzerland reach the same point in October 2027.
 > missing it, which is nonsensical (an expectation can't fail a trade). Caught independently by two
 > passes of a post-merge code review. Restored "Missing that window alone doesn't fail a trade" so
 > the pronoun has something to point at.
+
+> **Update:** restoring that antecedent left two consecutive sentences both starting with "Missing"
+> — an accidental stutter, caught in a second review round. Joined with "but" into one sentence
+> instead of two, keeping the exact wording of both clauses.
 
 **Average-price rounding breaks reconciliation**
 Recomputing `AvgPx` client-side from individual fills, instead of using the value the counterparty
@@ -507,7 +523,7 @@ fixed-price Discovery or System Design phase.
 > the Discovery/System Design phase is for when the client "has only a high-level idea or the project
 > is complex." Both details are folded in without changing the two-step framing above.
 
-> **Update:** that sync introduced a 12-word clause ("the idea is still high level, or the project
+> **Update:** that sync introduced a 13-word clause ("the idea is still high level, or the project
 > is complex enough that") duplicated verbatim in both the handoff line above and the §9 Discovery
 > card — caught by a post-merge code review. Trimmed from the handoff line, which now just states
 > the trigger ("guessing at scope is the expensive option") and lets the Discovery card below it
@@ -742,7 +758,7 @@ reply.
 2. **We talk it through:** a short call about what you're building — venues, asset classes,
    regulatory regime, timeline, and budget.
 3. **Our team designs it:** one to two weeks of workshops with a solution architect, a fintech
-   analyst, and a designer where it helps. You get an architecture and integration outline and an
+   analyst, and a designer where it helps. You get an architecture and integration outline, and an
    indicative range in writing.
 4. **We start.** Once you've approved the budget, scope, and architecture, and the contract is
    signed, development starts. MVP in three to four months.
@@ -764,6 +780,10 @@ reply.
 > with no record of why. Synced to match the shipped page. Step 4 was also missing a comma before
 > "and the contract," letting "architecture and the contract" briefly misread as one list item
 > before "is signed" forces a re-parse — added.
+
+> **Update:** step 3's new sentence had the same missing-comma problem step 4 was just fixed for —
+> "an architecture and integration outline and an indicative range" briefly misreads as a run-on
+> list. Caught in a second review round. Added the comma.
 
 ### Form
 
