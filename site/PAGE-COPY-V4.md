@@ -245,8 +245,8 @@ filled turns a UI bug into a support escalation.
 
 **5. Market Data Storage**
 A multi-source store with historical intraday data for equities, futures, FX, and options. Budget
-for entitlements early: exchange and redistribution fees are easy to underestimate before the
-vendor contract puts a number on them.
+for entitlements early: per-user reporting, redistribution licensing, and non-display charges add
+up before the vendor contract puts a number on them.
 
 **6. Trading Algorithms**
 We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those
@@ -326,6 +326,14 @@ aren't built to update all of those together.
 > actually gone. Shortened to "exchange and redistribution fees," which drops the exact fee-type
 > enumeration from this card (it stays precise, unchanged, in the §6 engineering note) so the two
 > cards no longer share a repeated clause.
+
+> **Update:** a third-round review caught that the previous fix went too far — dropping to "exchange
+> and redistribution fees" lost a real, distinct cost category (non-display fees) rather than just
+> the duplicated phrasing, and recast "per-user reporting to the exchange" as generic "exchange
+> fees," understating what a prospect should actually budget for. Restored all three fee categories
+> with different wording and a different sentence tail than §6's card ("add up before the vendor
+> contract puts a number on them" vs. "are all contractual, and none of them appear in an API doc"),
+> so the two cards stay factually consistent without sharing a repeated clause.
 
 ---
 
