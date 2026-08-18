@@ -49,8 +49,9 @@ stay as they are; scarcity is out and risk reversal is in (see [§8](#8--the-fir
 
 > Bold part in brand green, as before.
 
-**Subhead:** FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and
-investing products for fintechs and investment managers, and this is the stack we work in.
+**Subhead:** Low-latency trading systems for brokers, hedge funds, exchanges and fintech
+companies—from FIX connectivity and market data infrastructure to risk controls, KYC/AML and
+web and mobile trading terminals.
 
 **Primary button:** Tell us what you're building
 **Secondary button:** See the platforms we've built →
@@ -94,9 +95,6 @@ current page. If nothing else clears, run the strip without logos rather than wi
 **Eyebrow:** Case Studies
 
 **H2:** Trading platforms we've built
-
-**Lede:** Four production systems: three anonymised trading platforms, and a crypto wallet ecosystem
-for a fintech with $2.2 billion in annual revenue.
 
 > **The placeholder digits come out of the build before anything else ships.** `00.0 ms` and
 > `000 k/day` are visible to visitors right now with no disclaimer, and this is the one section
@@ -160,9 +158,6 @@ one sitting in the carousel.]`
 **Eyebrow:** Where You're Starting
 
 **H2:** Build, modernize or integrate
-
-**Lede:** The four platforms above started in three different places. Find the one that matches
-yours.
 
 **01 — Build** *(New platform, from scratch)*
 A strategy, a licence, or a client base already exists. The platform doesn't. We take it from
@@ -479,17 +474,17 @@ working under: venues, asset classes, regulatory regime, timeline, and the shape
 sign the NDA before it. There are no slides.
 
 **Then our engineers take it**
-If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a
+We put a team on it: a solution architect, a fintech analyst, and a
 designer where design matters. Over one to two weeks of workshops they work through feasibility, the
 integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You
 get that back in writing with its assumptions stated, and where it would help you decide, an
 interactive prototype you can click through or look-and-feel screens of the real product.
 
 **Why it's shaped this way**
-We don't put an architect on the first call. The good ones are on projects, and you get more from a
-real team on the second conversation than from a senior title on the first. Most people who contact
-us aren't the person who signs either, so what matters is what you can take into the room where the
-decision gets made.
+The first call is about your project. Once there's a fit, the people who'd actually
+build it — architect, analyst, designer — do the deeper work together, so what comes back reflects
+real project experience. And since the person we're speaking with often isn't the one who signs off,
+what matters most is giving you something solid to bring into that next conversation.
 
 **Button:** Tell us what you're building
 
@@ -544,9 +539,6 @@ fixed-price Discovery or System Design phase.
 **Eyebrow:** How We Work
 
 **H2:** Engagement models
-
-**Lede:** Which one fits usually comes down to how firm your requirements are and how involved you
-want to be.
 
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
