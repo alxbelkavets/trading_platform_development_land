@@ -474,14 +474,14 @@ working under: venues, asset classes, regulatory regime, timeline, and the shape
 sign the NDA before it. There are no slides.
 
 **Then our engineers take it**
-If there's a project here, we put a team on it: a solution architect, a fintech analyst, and a
+We put a team on it: a solution architect, a fintech analyst, and a
 designer where design matters. Over one to two weeks of workshops they work through feasibility, the
 integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You
 get that back in writing with its assumptions stated, and where it would help you decide, an
 interactive prototype you can click through or look-and-feel screens of the real product.
 
 **Why it's shaped this way**
-The first call is about your project, not our roster. Once there's a fit, the people who'd actually
+The first call is about your project. Once there's a fit, the people who'd actually
 build it — architect, analyst, designer — do the deeper work together, so what comes back reflects
 real project experience. And since the person we're speaking with often isn't the one who signs off,
 what matters most is giving you something solid to bring into that next conversation.
