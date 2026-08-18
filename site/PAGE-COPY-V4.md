@@ -167,11 +167,18 @@ one sitting in the carousel.]`
 > (`/portfolio/retail-brokerage-platform-with-mobile-trading-kyc-and-operations-console/`) but
 > wasn't one of the four case studies already on this page, and it carries the only real performance
 > numbers we have — see §6. `.case-grid` moves from 3 columns to 2 (2×2 under the featured card).
-> Image is `img/case5-retail-brokerage.png`, a mobile mockup downloaded from that portfolio page
+> Image is `img/case5-retail-brokerage.webp`, a mobile mockup downloaded from that portfolio page
 > (`/wp-content/uploads/2026/05/Frame-1948757163.png`) — a phone shot rather than the laptop-style
 > shots on the other three cards, because this build's own hero image is a phone, matching the
 > project's actual client surface. The FAQ's "Four are described above, three of them under NDA"
 > becomes "Five... four of them under NDA."
+>
+> **Update:** a post-merge code review flagged the source PNG at 394KB, 2.7-8x heavier than the
+> other three case images (47-146KB) despite smaller pixel dimensions. Re-encoded as WebP at quality
+> 90 — 64KB, mean pixel difference of 1.6/255 against the original, visually indistinguishable —
+> matching the `.webp` convention this page already uses for its other weight-sensitive images
+> (`hero-bg.webp`, `trading-app-main-image.webp`, `trading-cta-bg.webp`). The PNG source is removed;
+> `img/case5-retail-brokerage.webp` is now the only copy.
 
 ---
 
