@@ -18,10 +18,16 @@
     real value — team size, locations, and client logos are left out rather
     than filled with a placeholder; see PAGE-COPY-V4.md's "Open inputs" table).
   - Case-study stat grids (00.0 ms placeholders in v3) removed rather than
-    replaced with more placeholders. Real anonymised metrics go in the
-    CASE-METRICS comment spots in each card when they exist.
-  - New section: "What usually goes wrong" (a link to a dedicated
-    engineering-notes page is deliberately omitted until that page exists).
+    replaced with more placeholders. Real, sourced metrics (from each case
+    study's public page) now sit inline in every case card as a
+    `.case-stat` line; see the update notes below for when these were filled.
+  - New section, originally "What usually goes wrong" (four generic failure
+    modes) plus a short integrations ledger. The failure-mode cards were
+    later cut and the section rebuilt as "What we've actually built and
+    integrated" — own-build incidents plus a much larger integrations
+    ledger — see PAGE-PLAN.md §6 and PAGE-COPY-V4.md §6 for the current
+    copy this section implements. A link to a dedicated engineering-notes
+    page is still deliberately omitted until that page exists.
     A second new section, "Security, compliance and who owns what", shipped
     and was later removed — most of its rows duplicated content already on
     the page (paperwork, PCI DSS/Coinstar, source-code ownership) and the
@@ -170,12 +176,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .case-featured .case-stat{font-size:15px}
 .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
 .tag-pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text)}
-.case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px}
+.case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px;overflow:hidden}
 .case-featured-media img{width:100%;max-width:578px;object-fit:contain;border-radius:10px}
 
 .case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px}
 .case-card{overflow:hidden;display:flex;flex-direction:column}
-.case-card-media{aspect-ratio:12/5;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;min-height:0}
+.case-card-media{aspect-ratio:2/1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden}
 .case-card-media.dark{background:var(--dark-card)}
 .case-card-media.light{background:var(--color-gray-50)}
 .case-card-media img{max-width:100%;max-height:100%;object-fit:contain}
@@ -503,7 +509,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Automated Stock Trading Platform</h3>
             <p class="case-card-copy">An automated, real-time trading system that lets administrators configure and run trading strategies.</p>
-            <p class="case-stat">MVP delivered 14 months after project start</p>
+            <p class="case-stat">MVP delivered in 14 months, spanning multiple exchanges and broker integrations from day one</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -710,7 +716,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </div>
       </dl>
 
-      <!-- Link to a dedicated engineering-notes page (site/EXPERTISE-PROOF.md §1) intentionally omitted until that page exists and the remaining failure modes have engineer sign-off. -->
+      <!-- Link to a dedicated engineering-notes page (site/EXPERTISE-PROOF.md §1) intentionally omitted until that page exists. -->
     </div>
   </section>
 

@@ -167,6 +167,32 @@ one sitting in the carousel.]`
 > (`/portfolio/retail-brokerage-platform-with-mobile-trading-kyc-and-operations-console/`) but
 > wasn't one of the four case studies already on this page, and it carries the only real performance
 > numbers we have — see §6. `.case-grid` moves from 3 columns to 2 (2×2 under the featured card).
+
+> **Update:** all five `[NEEDED]`/comment-only metric slots above are now filled with real figures
+> sourced from each case study's own public page (quote-checked against the live page, not a search
+> summary — one AI-search-summarized stat was caught as fabricated and discarded in the process).
+> Shipped as visible `.case-stat` copy on every card:
+> - **Coinstar:** "Live in 4 months · 6,500+ app downloads in the first two months" — source:
+>   `itexus.com/portfolio/application-ecosystem-for-cryptocurrency-e-wallet-for-a-global-fintech-
+>   enterprise` ("extended the MVP timeline from three to four months," "Just two months after
+>   launch, over 6,500 users had downloaded the mobile app").
+> - **Automated Stock Trading Platform:** "MVP delivered in 14 months, spanning multiple exchanges
+>   and broker integrations from day one" — source:
+>   `itexus.com/portfolio/automated-stock-trading-platform-for-an-international-investment-
+>   management-company/` ("Fourteen months after the start of the project, the MVP version...was up
+>   and running"; "trade on different exchanges using different broker integrations" ties the longer
+>   timeline to the FAQ's own "the range widens quickly with the number of venues...in scope"
+>   caveat rather than leaving it as a bare, uncaveated 14 vs. the facts-strip's "3–4 months").
+> - **Stock Trading Signals Platform:** "5,000+ stocks tracked in real time across 20+ exchanges ·
+>   live in 6 months" — source: `itexus.com/portfolio/stock-trading-signals-platform/`.
+> - **Algorithmic Intraday Stock Trading System:** "Live on NYSE and NASDAQ in 3 months · built to
+>   scale to thousands of clients" — source:
+>   `itexus.com/portfolio/system-for-algorithmic-robo-intraday-stock-trading/`. This replaces the
+>   `[NEEDED: broker integrations, accounts connected, uptime during market hours]` slot above —
+>   none of those three figures are published anywhere in the source case study.
+> - **Retail Brokerage Platform:** now shipped as visible copy (previously kept as an HTML comment
+>   per the note above) — "120,000+ market-data messages/minute in production · 100 TPS at <2%
+>   errors, 157ms avg."
 > Image is `img/case5-retail-brokerage.webp`, a mobile mockup downloaded from that portfolio page
 > (`/wp-content/uploads/2026/05/Frame-1948757163.png`) — a phone shot rather than the laptop-style
 > shots on the other three cards, because this build's own hero image is a phone, matching the
@@ -364,14 +390,15 @@ aren't built to update all of those together.
 
 ---
 
-## 6 / What usually goes wrong (new)
+## 6 / What we've actually built and integrated (new, revised)
 
 **Eyebrow:** Engineering notes
 
-**H2:** The parts of this that usually go wrong
+**H2:** What we've actually built and integrated
 
-**Lede:** Four failure modes we design around, and four we hit on our own builds. None of them are
-exotic, and each one is far cheaper to handle in the design than in production.
+**Lede:** Four incidents from our own builds, and the full list of brokers, data feeds, custody,
+and infrastructure providers we've shipped with. Nothing on this page is a capability we're
+claiming secondhand.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
@@ -384,6 +411,18 @@ exotic, and each one is far cheaper to handle in the design than in production.
 > unedited third-person domain knowledge; nothing on the page showed we'd been on the wrong end of
 > any of it. The lede now says "four ... and four we hit," and the count in the `**Link:**` line
 > below still needs updating once the engineering-notes page ships.
+>
+> **Update 2:** the four-card failure-mode band (below) was cut entirely — the update above already
+> flagged it as the section's weak point (unedited third-person domain knowledge, no evidence we'd
+> shipped any of it), and the own-build notes band did the credibility job better on its own. H2 and
+> lede above are rewritten to describe what's actually left: the own-build notes plus the
+> integration ledger, promoted to a full second band with its own heading ("Every integration
+> we've shipped") directly under the notes band. The failure-mode card copy below is kept as a
+> historical record of what shipped and why each line was worded that way — it is **not live** on
+> the page anymore. The `**Link:**` line's still-unresolved count question is moot until the
+> engineering-notes page exists, regardless of which cards are live.
+
+### Band 1 — four failure modes (cut — see Update 2 above; kept below for record only)
 
 **A cancel and a fill cross on the wire**
 The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival
@@ -456,8 +495,9 @@ enough to break end-of-day reconciliation.
 
 ### Band 2 — Four from our own builds (new)
 
-> Sits below the `.wrong-grid`, same section, visually lighter (no card border/shadow) so it reads
-> as a second register within one section rather than eight equal cards. Every fact below was
+> Originally sat below the `.wrong-grid` (Band 1, cut — see Update 2 above); now sits directly
+> below the section H2/lede as the first band, visually lighter (no card border/shadow) so it reads
+> as a second register against the ledger band below it rather than as equal cards. Every fact below was
 > grepped out of the production HTML at the cited URL this session — nothing here is inferred or
 > reconstructed from memory. Source label on each note uses the same client-anonymisation the
 > portfolio pages themselves use; nothing is disclosed here that isn't already public.
@@ -518,7 +558,7 @@ that way.
 > elsewhere on this page, so no new client disclosure; publishing a schedule slip we owned is the
 > trust move `EXPERTISE-PROOF.md §2G` argues for.
 
-**Integration ledger** (closes the section, labelled rows, no prose):
+**Integration ledger, original spec** (closes the section, labelled rows, no prose):
 
 | Label | Value |
 |---|---|
@@ -533,6 +573,14 @@ that way.
 > No FIX version number here — none of the four case studies states one for a live counterparty
 > connection, and capability card 2 (§5) already handles version reality honestly ("still on FIX
 > 4.2"). Don't add a version to this row without a source.
+
+> **Update:** the ledger has since grown well past this table — new rows (Order matching, Research
+> and news feeds, Treasury and settlement, Crypto custody, Analytics) and many new vendors within
+> the existing rows, sourced from later case-study research and an internal Confluence audit of
+> third-party providers (each addition traces to a verified public case study or an `INTEGRATED`
+> row in that doc). Re-transcribing the full table here every time it grows is a sync point that
+> will keep drifting; `site/page-v4.html`'s `dl.ledger` is the authoritative, current list — treat
+> the table above as the original spec/snapshot, not the live content.
 
 **Link:** The rest of the list, with what we do about each → `[NEEDED: engineering notes page. Scope
 it separately. Don't publish a count in this link until the page exists and an engineer has cut it
