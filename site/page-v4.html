@@ -188,7 +188,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .case-card-body{padding:26px;display:flex;flex-direction:column;gap:14px;flex:1}
 .badge-nda{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   padding:5px 11px;border-radius:999px;background:var(--color-brand-green);color:var(--color-ink)}
-.case-card h3{font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+.case-card h3,.cap-panel h3{font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
 .case-card-copy{font-size:16px;line-height:1.55;color:var(--copy)}
 .tag-pill-light{font-size:13px;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--color-gray-50);color:var(--copy)}
 
@@ -220,10 +220,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .cap-tab[aria-selected="true"]{background:var(--color-brand-green);border-color:var(--color-brand-green);color:var(--color-ink)}
 .cap-tab[aria-selected="true"] .num{color:var(--color-ink)}
 
-.cap-panels{border:1px solid var(--color-border);border-radius:var(--radius-2xl);
-  background:#fff;padding:28px 32px;min-height:259px}
-.cap-panel h3{margin-bottom:8px;font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
-.cap-panel p{font-size:16px;line-height:1.6;color:var(--copy);max-width:74ch}
+.cap-panels{display:grid;border:1px solid var(--color-border);border-radius:var(--radius-2xl);
+  background:#fff;padding:28px 32px}
+.cap-panel{grid-area:1/1}
+.cap-panel[hidden]{display:block;visibility:hidden}
+.cap-panel h3{margin-bottom:8px}
+.cap-panel p{max-width:74ch}
 .cap-panel .cap-lede{margin-bottom:12px;color:var(--color-ink)}
 
 .notes-band-title{margin-top:44px;margin-bottom:24px;font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
@@ -254,7 +256,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .engagement-lead{padding:28px 32px;margin-bottom:24px;border-left:3px solid var(--color-brand-green)}
 .engagement-lead-tag{font-size:19px;line-height:1.3;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
 .engagement-lead-tag small{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none}
-.engagement-lead p:last-child{font-size:16px;line-height:1.6;color:var(--copy)}
+.engagement-lead p:last-child,.cap-panel p{font-size:16px;line-height:1.6;color:var(--copy)}
 .engagement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:start}
 .engagement-card{padding:32px;display:flex;flex-direction:column;gap:16px}
 .engagement-card.recommended{border:2px solid var(--color-brand-green)}
@@ -381,7 +383,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   .case-featured-media{order:-1}
   .case-grid{grid-template-columns:1fr}
   .figure-grid{grid-template-columns:1fr}
-  .cap-panels{min-height:0;padding:24px 22px}
+  .cap-panels{padding:24px 22px}
 
   .ledger-row{grid-template-columns:1fr;gap:6px}
 
@@ -1025,40 +1027,52 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     }
   });
 
-  // ---------- capabilities tabs ----------
-  var capTabs = document.getElementById("cap-tabs");
-  if (capTabs) {
-    var tabs = capTabs.querySelectorAll(".cap-tab");
-    var panels = document.querySelectorAll(".cap-panel");
-    var capCurrent = 0;
-
-    var showCap = function (n) {
-      capCurrent = (n + tabs.length) % tabs.length;
-      for (var i = 0; i < tabs.length; i++) {
-        var on = i === capCurrent;
-        tabs[i].setAttribute("aria-selected", String(on));
-        tabs[i].setAttribute("tabindex", on ? "0" : "-1");
-        panels[i].hidden = !on;
-      }
-    };
-
-    for (var t = 0; t < tabs.length; t++) {
-      (function (i) {
-        tabs[i].addEventListener("click", function () { showCap(i); });
-      })(t);
-    }
-
-    capTabs.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") { e.preventDefault(); showCap(capCurrent + 1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); showCap(capCurrent - 1); }
-      else if (e.key === "Home") { e.preventDefault(); showCap(0); }
-      else if (e.key === "End") { e.preventDefault(); showCap(tabs.length - 1); }
+  // ---------- shared: roving-tabindex arrow-key nav for a tablist ----------
+  function bindArrowKeyNav(container, opts) {
+    container.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); opts.go(opts.current() + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); opts.go(opts.current() - 1); }
+      else if (e.key === "Home") { e.preventDefault(); opts.go(0); }
+      else if (e.key === "End") { e.preventDefault(); opts.go(opts.length() - 1); }
       else return;
-      tabs[capCurrent].focus();
+      opts.focusCurrent();
     });
-
-    showCap(0);
   }
+
+  // ---------- capabilities tabs ----------
+  try {
+    var capTabs = document.getElementById("cap-tabs");
+    if (capTabs) {
+      var capItems = Array.prototype.map.call(capTabs.querySelectorAll(".cap-tab"), function (tab) {
+        return { tab: tab, panel: document.getElementById(tab.getAttribute("aria-controls")) };
+      });
+      var capCurrent = 0;
+
+      var setCapItem = function (item, on) {
+        item.tab.setAttribute("aria-selected", String(on));
+        item.tab.setAttribute("tabindex", on ? "0" : "-1");
+        if (item.panel) item.panel.hidden = !on;
+      };
+
+      var showCap = function (n) {
+        var next = (n + capItems.length) % capItems.length;
+        setCapItem(capItems[capCurrent], false);
+        setCapItem(capItems[next], true);
+        capCurrent = next;
+      };
+
+      capItems.forEach(function (item, i) {
+        item.tab.addEventListener("click", function () { showCap(i); item.tab.focus(); });
+      });
+
+      bindArrowKeyNav(capTabs, {
+        length: function () { return capItems.length; },
+        current: function () { return capCurrent; },
+        go: showCap,
+        focusCurrent: function () { capItems[capCurrent].tab.focus(); }
+      });
+    }
+  } catch (e) { /* a capabilities-tabs failure should not break the rest of the page */ }
 
   // ---------- testimonials carousel ----------
   var quotes = [
@@ -1088,13 +1102,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     dotsEl.appendChild(btn);
   });
 
-  dotsEl.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight") { e.preventDefault(); go(current + 1); }
-    else if (e.key === "ArrowLeft") { e.preventDefault(); go(current - 1); }
-    else if (e.key === "Home") { e.preventDefault(); go(0); }
-    else if (e.key === "End") { e.preventDefault(); go(quotes.length - 1); }
-    else return;
-    dotsEl.children[current].focus();
+  bindArrowKeyNav(dotsEl, {
+    length: function () { return quotes.length; },
+    current: function () { return current; },
+    go: go,
+    focusCurrent: function () { dotsEl.children[current].focus(); }
   });
 
   function render() {
