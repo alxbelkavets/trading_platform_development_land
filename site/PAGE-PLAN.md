@@ -67,7 +67,7 @@ Your call — noted in section 9 below.
 | 3 | Case studies | ⛔ blocked | Answer "have you built this before" |
 | 4 | Where you're starting | ✅ keep | Fork the buyer by situation |
 | 5 | Capabilities | ✍️ | Vocabulary check + name the hard part |
-| 6 | What usually goes wrong | 🆕 | Operator, not vendor — the differentiator |
+| 6 | What we've actually built and integrated | 🆕 | Operator, not vendor — the differentiator |
 | 7 | ~~Security, compliance, IP~~ | 🗑️ removed | Shipped, then cut — see §7 update note below |
 | 8 | The first step (offer) | 🆕 | Give him something small he can say yes to |
 | 9 | How we work | ✅ keep | Map to his procurement process |
@@ -166,7 +166,7 @@ Middleware, Market Data Storage, Backtesting, Paper Trading.
 **Layout note:** if the second lines make 12 cards too heavy, move the tail into an accordion —
 but don't cut any.
 
-### 6 — What usually goes wrong *(new)*
+### 6 — What we've actually built and integrated *(new, revised — see update below)*
 **Goal:** priority #4 — *can they name the hard parts before I do?* This is the operator-vs-vendor
 tell, it requires no client permission and no invented metrics, and EXPERTISE-PROOF's governing test
 applies cleanly: a generalist agency cannot fake it in an afternoon.
@@ -193,6 +193,17 @@ Marketing edits for clarity and **cuts only** — nothing gets added downstream 
 > doesn't replace that scope, it fills the landing page's evidence gap ahead of it. Also added a
 > fifth case-study card (§3) for the retail brokerage build, which carries the only published
 > performance figures across all four sources and needed a card of its own to cite from.
+
+> **Update 2:** the four-card failure-mode strip described above was cut entirely — it never
+> carried first-person evidence and duplicated the credibility job the own-build notes band
+> already does better. The section was rebuilt as "What we've actually built and integrated":
+> the H2/lede now describe the own-build notes plus the integration ledger directly, and the
+> ledger itself was promoted to a full second band with its own heading and roughly tripled in
+> row count (added Order matching, Research and news feeds, Treasury and settlement, Crypto
+> custody, and Analytics rows, plus new vendors in the existing rows) — see the ledger's own
+> entries in page-v4.html for the current, sourced list. EXPERTISE-PROOF §1 hook 1 (the
+> failure-mode strip) is no longer covered by this section; that hook still awaits the dedicated
+> engineering-notes page.
 
 ### 7 — Security, compliance and ownership *(new)*
 **Goal:** priority #3, plus the IP/exit question that BUYER-EVALUATION flags as *absent entirely*
