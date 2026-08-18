@@ -210,6 +210,20 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .feature-grid .num{margin-bottom:10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--link);font-variant-numeric:tabular-nums}
 .feature-grid h3{margin-bottom:8px;font-size:19px;line-height:1.3;font-weight:600}
 .feature-grid p{font-size:15px;line-height:1.55;color:var(--copy)}
+.feature-grid li{display:flex;flex-direction:column}
+.feature-more{margin-top:auto;padding-top:8px}
+.feature-more summary{display:inline-flex;align-items:center;gap:8px;padding:11px 0;cursor:pointer;
+  list-style:none;font-size:13px;font-weight:600;color:var(--link)}
+.feature-more summary::-webkit-details-marker{display:none}
+.feature-more summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text);
+  font-size:14px;line-height:1}
+.feature-more[open] summary::before{content:"\2212"}
+
+.feature-toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}
+.feature-toggle-all{min-height:44px;padding:0 4px;background:none;border:0;cursor:pointer;
+  font:inherit;font-size:14px;font-weight:600;color:var(--link)}
+.feature-toggle-all:hover{text-decoration:underline}
 
 .notes-band-title{margin-top:44px;margin-bottom:24px;font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
 .notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--color-border)}
@@ -609,19 +623,120 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </figure>
       </div>
 
-      <ul class="feature-grid">
-        <li><p class="num">01</p><h3>Integration With Brokers</h3><p>We help select and integrate brokers on market coverage, API quality, latency, and SLA. The SLA tells you about uptime and nothing about what your open orders look like after a gateway restart, so we test reconnection and state recovery before we recommend anyone.</p></li>
-        <li><p class="num">02</p><h3>Trading Execution Middleware</h3><p>Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer. Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p></li>
-        <li><p class="num">03</p><h3>Order Management</h3><p>Order types, time in force, leverage, stop-loss and take-profit. What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p></li>
-        <li><p class="num">04</p><h3>Investor Interfaces</h3><p>Web, mobile, and desktop with fast presets, hotkeys, and watchlists. The screens that matter most are the ones showing an order whose state is uncertain. Showing a cancelled order that actually filled turns a UI bug into a support escalation.</p></li>
-        <li><p class="num">05</p><h3>Market Data Storage</h3><p>A multi-source store with historical intraday data for equities, futures, FX, and options. Budget for entitlements early: per-user reporting, redistribution licensing, and non-display charges add up before the vendor contract puts a number on them.</p></li>
-        <li><p class="num">06</p><h3>Trading Algorithms</h3><p>We implement your strategy and can add a no-code builder with parameter checks and safeguards. Those checks do most of the work. Without a pre-trade guardrail, a market order on an illiquid symbol at the open can fill well away from the last print.</p></li>
-        <li><p class="num">07</p><h3>Strategy Builder</h3><p>A visual builder and a code editor for custom indicators and algorithms. One engine runs both the backtest and the live strategy, because two separate engines drift apart over time.</p></li>
-        <li><p class="num">08</p><h3>Backtesting</h3><p>Test and optimise strategies against historical data before risking anything. A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p></li>
-        <li><p class="num">09</p><h3>Real-Time Alerts</h3><p>Asset alerts that reach the user within seconds of a target price move. The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p></li>
-        <li><p class="num">10</p><h3>Trade Log</h3><p>Trading histories that let users find their mistakes and adjust. Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events. Retrofitting any of this later is a rewrite.</p></li>
-        <li><p class="num">11</p><h3>Paper Trading</h3><p>Simulated trades under live market conditions with no money at risk. Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practice against one and then trade for real get results that don't match, and the platform takes the blame for a gap the simulator created.</p></li>
-        <li><p class="num">12</p><h3>Other Features</h3><p>Portfolio management, FIX gateways, and scalable matching components. Corporate actions cause more trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions, cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models aren't built to update all of those together.</p></li>
+      <div class="feature-toolbar">
+        <button type="button" class="feature-toggle-all" id="features-toggle-all"
+                aria-controls="feature-grid" aria-expanded="false" hidden>Expand all</button>
+      </div>
+
+      <ul class="feature-grid" id="feature-grid">
+        <li>
+          <p class="num">01</p>
+          <h3>Integration With Brokers</h3>
+          <p class="feature-lede">We help select and integrate brokers on market coverage, API quality, latency, and SLA.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>The SLA tells you about uptime and nothing about what your open orders look like after a gateway restart, so we test reconnection and state recovery before we recommend anyone.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">02</p>
+          <h3>Trading Execution Middleware</h3>
+          <p class="feature-lede">Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">03</p>
+          <h3>Order Management</h3>
+          <p class="feature-lede">Order types, time in force, leverage, stop-loss and take-profit.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">04</p>
+          <h3>Investor Interfaces</h3>
+          <p class="feature-lede">Web, mobile, and desktop with fast presets, hotkeys, and watchlists.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>The screens that matter most are the ones showing an order whose state is uncertain. Showing a cancelled order that actually filled turns a UI bug into a support escalation.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">05</p>
+          <h3>Market Data Storage</h3>
+          <p class="feature-lede">A multi-source store with historical intraday data for equities, futures, FX, and options.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Budget for entitlements early: per-user reporting, redistribution licensing, and non-display charges add up before the vendor contract puts a number on them.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">06</p>
+          <h3>Trading Algorithms</h3>
+          <p class="feature-lede">We implement your strategy and can add a no-code builder with parameter checks and safeguards.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Those checks do most of the work. Without a pre-trade guardrail, a market order on an illiquid symbol at the open can fill well away from the last print.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">07</p>
+          <h3>Strategy Builder</h3>
+          <p class="feature-lede">A visual builder and a code editor for custom indicators and algorithms.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>One engine runs both the backtest and the live strategy, because two separate engines drift apart over time.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">08</p>
+          <h3>Backtesting</h3>
+          <p class="feature-lede">Test and optimise strategies against historical data before risking anything.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">09</p>
+          <h3>Real-Time Alerts</h3>
+          <p class="feature-lede">Asset alerts that reach the user within seconds of a target price move.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">10</p>
+          <h3>Trade Log</h3>
+          <p class="feature-lede">Trading histories that let users find their mistakes and adjust.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events. Retrofitting any of this later is a rewrite.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">11</p>
+          <h3>Paper Trading</h3>
+          <p class="feature-lede">Simulated trades under live market conditions with no money at risk.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practice against one and then trade for real get results that don't match, and the platform takes the blame for a gap the simulator created.</p>
+          </details>
+        </li>
+        <li>
+          <p class="num">12</p>
+          <h3>Other Features</h3>
+          <p class="feature-lede">Portfolio management, FIX gateways, and scalable matching components.</p>
+          <details class="feature-more">
+            <summary>The hard part</summary>
+            <p>Corporate actions cause more trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions, cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models aren't built to update all of those together.</p>
+          </details>
+        </li>
       </ul>
     </div>
   </section>
@@ -945,6 +1060,33 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       navToggle.setAttribute("aria-expanded", "false");
     }
   });
+
+  // ---------- capabilities accordion ----------
+  var featureToggleAll = document.getElementById("features-toggle-all");
+  var featureGrid = document.getElementById("feature-grid");
+  if (featureToggleAll && featureGrid) {
+    var featureItems = featureGrid.querySelectorAll("details");
+    featureToggleAll.hidden = false;
+
+    var syncFeatureToggle = function () {
+      var allOpen = true;
+      for (var i = 0; i < featureItems.length; i++) {
+        if (!featureItems[i].open) { allOpen = false; break; }
+      }
+      featureToggleAll.setAttribute("aria-expanded", String(allOpen));
+      featureToggleAll.textContent = allOpen ? "Collapse all" : "Expand all";
+    };
+
+    featureToggleAll.addEventListener("click", function () {
+      var open = featureToggleAll.getAttribute("aria-expanded") !== "true";
+      for (var i = 0; i < featureItems.length; i++) featureItems[i].open = open;
+      syncFeatureToggle();
+    });
+
+    for (var fi = 0; fi < featureItems.length; fi++) {
+      featureItems[fi].addEventListener("toggle", syncFeatureToggle);
+    }
+  }
 
   // ---------- testimonials carousel ----------
   var quotes = [
