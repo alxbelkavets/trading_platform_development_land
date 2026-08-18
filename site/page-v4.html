@@ -210,26 +210,21 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .figure-card .num{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
 .figure-card .name{font-size:16px;font-weight:600}
 
-.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
-  background:var(--color-border);border:1px solid var(--color-border);border-radius:var(--radius-2xl);overflow:hidden}
-.feature-grid li{background:#fff;padding:26px 24px}
-.feature-grid .num{margin-bottom:10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--link);font-variant-numeric:tabular-nums}
-.feature-grid h3{margin-bottom:8px;font-size:19px;line-height:1.3;font-weight:600}
-.feature-grid p{font-size:15px;line-height:1.55;color:var(--copy)}
-.feature-grid li{display:flex;flex-direction:column}
-.feature-more{margin-top:auto;padding-top:8px}
-.feature-more summary{display:inline-flex;align-items:center;gap:8px;padding:11px 0;cursor:pointer;
-  list-style:none;font-size:13px;font-weight:600;color:var(--link)}
-.feature-more summary::-webkit-details-marker{display:none}
-.feature-more summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;
-  width:18px;height:18px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text);
-  font-size:14px;line-height:1}
-.feature-more[open] summary::before{content:"\2212"}
+.cap-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.cap-tab{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;cursor:pointer;
+  border:1px solid var(--color-border);border-radius:999px;background:#fff;
+  font:inherit;font-size:14px;font-weight:600;color:var(--copy);
+  transition:background .15s ease,border-color .15s ease,color .15s ease}
+.cap-tab .num{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--link)}
+.cap-tab:hover{border-color:var(--color-brand-green)}
+.cap-tab[aria-selected="true"]{background:var(--color-brand-green);border-color:var(--color-brand-green);color:var(--color-ink)}
+.cap-tab[aria-selected="true"] .num{color:var(--color-ink)}
 
-.feature-toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}
-.feature-toggle-all{min-height:44px;padding:0 4px;background:none;border:0;cursor:pointer;
-  font:inherit;font-size:14px;font-weight:600;color:var(--link)}
-.feature-toggle-all:hover{text-decoration:underline}
+.cap-panels{border:1px solid var(--color-border);border-radius:var(--radius-2xl);
+  background:#fff;padding:28px 32px;min-height:259px}
+.cap-panel h3{margin-bottom:8px;font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+.cap-panel p{font-size:16px;line-height:1.6;color:var(--copy);max-width:74ch}
+.cap-panel .cap-lede{margin-bottom:12px;color:var(--color-ink)}
 
 .notes-band-title{margin-top:44px;margin-bottom:24px;font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
 .notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--color-border)}
@@ -358,7 +353,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 /* ================= responsive ================= */
 @media (max-width:1080px){
   .figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .notes-grid{grid-template-columns:1fr}
   .offer-grid{grid-template-columns:1fr;gap:28px}
 
@@ -387,7 +381,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   .case-featured-media{order:-1}
   .case-grid{grid-template-columns:1fr}
   .figure-grid{grid-template-columns:1fr}
-  .feature-grid{grid-template-columns:1fr}
+  .cap-panels{min-height:0;padding:24px 22px}
 
   .ledger-row{grid-template-columns:1fr;gap:6px}
 
@@ -629,121 +623,85 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </figure>
       </div>
 
-      <div class="feature-toolbar">
-        <button type="button" class="feature-toggle-all" id="features-toggle-all"
-                aria-controls="feature-grid" aria-expanded="false" hidden>Expand all</button>
+      <div class="cap-tabs" id="cap-tabs" role="tablist" aria-label="Trading platform capabilities">
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-1" aria-controls="cap-panel-1" aria-selected="true" tabindex="0"><span class="num">01</span>Integration With Brokers</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-2" aria-controls="cap-panel-2" aria-selected="false" tabindex="-1"><span class="num">02</span>Trading Execution Middleware</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-3" aria-controls="cap-panel-3" aria-selected="false" tabindex="-1"><span class="num">03</span>Order Management</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-4" aria-controls="cap-panel-4" aria-selected="false" tabindex="-1"><span class="num">04</span>Investor Interfaces</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-5" aria-controls="cap-panel-5" aria-selected="false" tabindex="-1"><span class="num">05</span>Market Data Storage</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-6" aria-controls="cap-panel-6" aria-selected="false" tabindex="-1"><span class="num">06</span>Trading Algorithms</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-7" aria-controls="cap-panel-7" aria-selected="false" tabindex="-1"><span class="num">07</span>Strategy Builder</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-8" aria-controls="cap-panel-8" aria-selected="false" tabindex="-1"><span class="num">08</span>Backtesting</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-9" aria-controls="cap-panel-9" aria-selected="false" tabindex="-1"><span class="num">09</span>Real-Time Alerts</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-10" aria-controls="cap-panel-10" aria-selected="false" tabindex="-1"><span class="num">10</span>Trade Log</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-11" aria-controls="cap-panel-11" aria-selected="false" tabindex="-1"><span class="num">11</span>Paper Trading</button>
+          <button type="button" role="tab" class="cap-tab" id="cap-tab-12" aria-controls="cap-panel-12" aria-selected="false" tabindex="-1"><span class="num">12</span>Other Features</button>
       </div>
 
-      <ul class="feature-grid" id="feature-grid">
-        <li>
-          <p class="num">01</p>
-          <h3>Integration With Brokers</h3>
-          <p class="feature-lede">We help select and integrate brokers on market coverage, API quality, latency, and SLA.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+      <div class="cap-panels" id="cap-panels">
+          <div class="cap-panel" id="cap-panel-1" role="tabpanel" aria-labelledby="cap-tab-1" tabindex="0">
+            <h3>Integration With Brokers</h3>
+            <p class="cap-lede">We help select and integrate brokers on market coverage, API quality, latency, and SLA.</p>
             <p>The SLA tells you about uptime and nothing about what your open orders look like after a gateway restart, so we test reconnection and state recovery before we recommend anyone.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">02</p>
-          <h3>Trading Execution Middleware</h3>
-          <p class="feature-lede">Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-2" role="tabpanel" aria-labelledby="cap-tab-2" tabindex="0" hidden>
+            <h3>Trading Execution Middleware</h3>
+            <p class="cap-lede">Messaging, market-data fan-out, FIX and proprietary protocols in one low-latency layer.</p>
             <p>Most of the work is at the session layer: sequence gaps, resend requests, gap fill, and suppressing the duplicate execution that arrives with PossDupFlag=Y after a recovery. Plenty of counterparties are still on FIX 4.2, and the version you get is rarely the version you wanted.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">03</p>
-          <h3>Order Management</h3>
-          <p class="feature-lede">Order types, time in force, leverage, stop-loss and take-profit.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-3" role="tabpanel" aria-labelledby="cap-tab-3" tabindex="0" hidden>
+            <h3>Order Management</h3>
+            <p class="cap-lede">Order types, time in force, leverage, stop-loss and take-profit.</p>
             <p>What makes it hard is the state machine: a cancel and a fill crossing on the wire, a replace that gets rejected and forks the ClOrdID chain, and a session that drops with an order still unacknowledged.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">04</p>
-          <h3>Investor Interfaces</h3>
-          <p class="feature-lede">Web, mobile, and desktop with fast presets, hotkeys, and watchlists.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-4" role="tabpanel" aria-labelledby="cap-tab-4" tabindex="0" hidden>
+            <h3>Investor Interfaces</h3>
+            <p class="cap-lede">Web, mobile, and desktop with fast presets, hotkeys, and watchlists.</p>
             <p>The screens that matter most are the ones showing an order whose state is uncertain. Showing a cancelled order that actually filled turns a UI bug into a support escalation.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">05</p>
-          <h3>Market Data Storage</h3>
-          <p class="feature-lede">A multi-source store with historical intraday data for equities, futures, FX, and options.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-5" role="tabpanel" aria-labelledby="cap-tab-5" tabindex="0" hidden>
+            <h3>Market Data Storage</h3>
+            <p class="cap-lede">A multi-source store with historical intraday data for equities, futures, FX, and options.</p>
             <p>Budget for entitlements early: per-user reporting, redistribution licensing, and non-display charges add up before the vendor contract puts a number on them.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">06</p>
-          <h3>Trading Algorithms</h3>
-          <p class="feature-lede">We implement your strategy and can add a no-code builder with parameter checks and safeguards.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-6" role="tabpanel" aria-labelledby="cap-tab-6" tabindex="0" hidden>
+            <h3>Trading Algorithms</h3>
+            <p class="cap-lede">We implement your strategy and can add a no-code builder with parameter checks and safeguards.</p>
             <p>Those checks do most of the work. Without a pre-trade guardrail, a market order on an illiquid symbol at the open can fill well away from the last print.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">07</p>
-          <h3>Strategy Builder</h3>
-          <p class="feature-lede">A visual builder and a code editor for custom indicators and algorithms.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-7" role="tabpanel" aria-labelledby="cap-tab-7" tabindex="0" hidden>
+            <h3>Strategy Builder</h3>
+            <p class="cap-lede">A visual builder and a code editor for custom indicators and algorithms.</p>
             <p>One engine runs both the backtest and the live strategy, because two separate engines drift apart over time.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">08</p>
-          <h3>Backtesting</h3>
-          <p class="feature-lede">Test and optimise strategies against historical data before risking anything.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-8" role="tabpanel" aria-labelledby="cap-tab-8" tabindex="0" hidden>
+            <h3>Backtesting</h3>
+            <p class="cap-lede">Test and optimise strategies against historical data before risking anything.</p>
             <p>A backtest is only worth the assumptions underneath it: survivorship bias in the instrument universe, look-ahead bias in the data, and fill assumptions that ignore queue position will all flatter a strategy that loses money live.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">09</p>
-          <h3>Real-Time Alerts</h3>
-          <p class="feature-lede">Asset alerts that reach the user within seconds of a target price move.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-9" role="tabpanel" aria-labelledby="cap-tab-9" tabindex="0" hidden>
+            <h3>Real-Time Alerts</h3>
+            <p class="cap-lede">Asset alerts that reach the user within seconds of a target price move.</p>
             <p>The rules need to know what to do about prints inside a halt or an auction, or the alert fires on a price nobody could have traded at.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">10</p>
-          <h3>Trade Log</h3>
-          <p class="feature-lede">Trading histories that let users find their mistakes and adjust.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-10" role="tabpanel" aria-labelledby="cap-tab-10" tabindex="0" hidden>
+            <h3>Trade Log</h3>
+            <p class="cap-lede">Trading histories that let users find their mistakes and adjust.</p>
             <p>Underneath it sits the audit trail: every state change, every override, every manual approval, stored immutably. SEC 17a-4 and FINRA 4511 set the retention expectations, and CAT requires industry members to keep business clocks within 50 ms of NIST, with a one-second allowance where a clock is used only for manual order events. Retrofitting any of this later is a rewrite.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">11</p>
-          <h3>Paper Trading</h3>
-          <p class="feature-lede">Simulated trades under live market conditions with no money at risk.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-11" role="tabpanel" aria-labelledby="cap-tab-11" tabindex="0" hidden>
+            <h3>Paper Trading</h3>
+            <p class="cap-lede">Simulated trades under live market conditions with no money at risk.</p>
             <p>Naive simulators are optimistic: they fill at the touch, ignore queue position, and never partial-fill. Traders who practice against one and then trade for real get results that don't match, and the platform takes the blame for a gap the simulator created.</p>
-          </details>
-        </li>
-        <li>
-          <p class="num">12</p>
-          <h3>Other Features</h3>
-          <p class="feature-lede">Portfolio management, FIX gateways, and scalable matching components.</p>
-          <details class="feature-more">
-            <summary>The hard part</summary>
+          </div>
+          <div class="cap-panel" id="cap-panel-12" role="tabpanel" aria-labelledby="cap-tab-12" tabindex="0" hidden>
+            <h3>Other Features</h3>
+            <p class="cap-lede">Portfolio management, FIX gateways, and scalable matching components.</p>
             <p>Corporate actions cause more trouble here than their profile suggests: a split, a spin-off, or a symbol change touches positions, cost basis, open orders, historical charts, and the tax lot ledger all at once. Most data models aren't built to update all of those together.</p>
-          </details>
-        </li>
-      </ul>
+          </div>
+      </div>
+
+      <noscript><style>.cap-panel[hidden]{display:block!important}.cap-tabs{display:none}</style></noscript>
     </div>
   </section>
 
@@ -752,7 +710,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="section-head-simple">
         <p class="eyebrow">04 &nbsp;/&nbsp; Engineering Notes</p>
         <h2>What we've actually built and integrated</h2>
-        <p class="lede">Four incidents from our own builds, and the full list of brokers, data feeds, custody, and infrastructure providers we've shipped with. Nothing on this page is a capability we're claiming secondhand.</p>
+        <p class="lede">Four lessons from our own builds, and the full list of brokers, data feeds, custody, and infrastructure providers we've shipped with. Nothing on this page is a capability we're claiming secondhand.</p>
       </div>
 
       <h3 class="notes-band-title">Four from our own builds</h3>
@@ -1067,31 +1025,39 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     }
   });
 
-  // ---------- capabilities accordion ----------
-  var featureToggleAll = document.getElementById("features-toggle-all");
-  var featureGrid = document.getElementById("feature-grid");
-  if (featureToggleAll && featureGrid) {
-    var featureItems = featureGrid.querySelectorAll("details");
-    featureToggleAll.hidden = false;
+  // ---------- capabilities tabs ----------
+  var capTabs = document.getElementById("cap-tabs");
+  if (capTabs) {
+    var tabs = capTabs.querySelectorAll(".cap-tab");
+    var panels = document.querySelectorAll(".cap-panel");
+    var capCurrent = 0;
 
-    var syncFeatureToggle = function () {
-      var allOpen = true;
-      for (var i = 0; i < featureItems.length; i++) {
-        if (!featureItems[i].open) { allOpen = false; break; }
+    var showCap = function (n) {
+      capCurrent = (n + tabs.length) % tabs.length;
+      for (var i = 0; i < tabs.length; i++) {
+        var on = i === capCurrent;
+        tabs[i].setAttribute("aria-selected", String(on));
+        tabs[i].setAttribute("tabindex", on ? "0" : "-1");
+        panels[i].hidden = !on;
       }
-      featureToggleAll.setAttribute("aria-expanded", String(allOpen));
-      featureToggleAll.textContent = allOpen ? "Collapse all" : "Expand all";
     };
 
-    featureToggleAll.addEventListener("click", function () {
-      var open = featureToggleAll.getAttribute("aria-expanded") !== "true";
-      for (var i = 0; i < featureItems.length; i++) featureItems[i].open = open;
-      syncFeatureToggle();
+    for (var t = 0; t < tabs.length; t++) {
+      (function (i) {
+        tabs[i].addEventListener("click", function () { showCap(i); });
+      })(t);
+    }
+
+    capTabs.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); showCap(capCurrent + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); showCap(capCurrent - 1); }
+      else if (e.key === "Home") { e.preventDefault(); showCap(0); }
+      else if (e.key === "End") { e.preventDefault(); showCap(tabs.length - 1); }
+      else return;
+      tabs[capCurrent].focus();
     });
 
-    for (var fi = 0; fi < featureItems.length; fi++) {
-      featureItems[fi].addEventListener("toggle", syncFeatureToggle);
-    }
+    showCap(0);
   }
 
   // ---------- testimonials carousel ----------
