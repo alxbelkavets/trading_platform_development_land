@@ -151,6 +151,28 @@ one sitting in the carousel.]`
 - **Tags:** Fintech · Trading
 - **Image alt:** Algorithmic intraday trading dashboard showing recent trades and account statistics
 
+### Retail Brokerage Platform
+
+- **Badge:** Under NDA
+- **Body:** A mobile brokerage for African markets with guided KYC, mobile-money funding,
+  fractional share trading, and an operations console for compliance.
+- **Metrics:** `120,000+ market-data messages/minute sustained in production; 50 TPS at 0% errors,
+  130ms avg; 100 TPS at <2% errors, 157ms avg` — real, sourced figures (see §6 update note), kept
+  as an HTML comment on the card rather than shown, matching the other three cards' unfilled-metric
+  treatment until someone decides these should be visible copy.
+- **Tags:** Fintech · Trading
+- **Image alt:** Retail brokerage mobile app screens showing a stock quote and a portfolio watchlist
+
+> **Update:** added a fifth card. This build is public on itexus.com
+> (`/portfolio/retail-brokerage-platform-with-mobile-trading-kyc-and-operations-console/`) but
+> wasn't one of the four case studies already on this page, and it carries the only real performance
+> numbers we have — see §6. `.case-grid` moves from 3 columns to 2 (2×2 under the featured card).
+> Image is `img/case5-retail-brokerage.png`, a mobile mockup downloaded from that portfolio page
+> (`/wp-content/uploads/2026/05/Frame-1948757163.png`) — a phone shot rather than the laptop-style
+> shots on the other three cards, because this build's own hero image is a phone, matching the
+> project's actual client surface. The FAQ's "Four are described above, three of them under NDA"
+> becomes "Five... four of them under NDA."
+
 ---
 
 ## 4 / Where you're starting (`#where-to-start`)
@@ -338,12 +360,20 @@ aren't built to update all of those together.
 
 **H2:** The parts of this that usually go wrong
 
-**Lede:** Four of the failure modes we design around. None of them are exotic, and each one is far
-cheaper to handle in the design than in production.
+**Lede:** Four failure modes we design around, and four we hit on our own builds. None of them are
+exotic, and each one is far cheaper to handle in the design than in production.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
 > Four items on the page, the rest on a separate engineering page.
+>
+> **Update:** a second band was added below the four cards — four short notes, each sourced from a
+> published Itexus case study, each in first person about something we actually built. Per
+> `EXPERTISE-PROOF.md`'s rule ("write in the first person plural about things we actually did, and
+> in the third person about general domain facts — don't blur the two"), the original four cards are
+> unedited third-person domain knowledge; nothing on the page showed we'd been on the wrong end of
+> any of it. The lede now says "four ... and four we hit," and the count in the `**Link:**` line
+> below still needs updating once the engineering-notes page ships.
 
 **A cancel and a fill cross on the wire**
 The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival
@@ -413,6 +443,86 @@ enough to break end-of-day reconciliation.
 > governs all nine" near the Open Inputs table): "no invented numbers, including the plausible
 > ones." Reverted to "measured in fractions of a cent," which is vague but not fabricated — the
 > same honesty level as the pre-PR wording, kept alongside the non-reveal sentence structure.
+
+### Band 2 — Four from our own builds (new)
+
+> Sits below the `.wrong-grid`, same section, visually lighter (no card border/shadow) so it reads
+> as a second register within one section rather than eight equal cards. Every fact below was
+> grepped out of the production HTML at the cited URL this session — nothing here is inferred or
+> reconstructed from memory. Source label on each note uses the same client-anonymisation the
+> portfolio pages themselves use; nothing is disclosed here that isn't already public.
+
+**Algorithmic intraday system · NYSE and NASDAQ**
+**A broker's paper account is not a test environment**
+Interactive Brokers' paper trading account allowed one application test a day, running in parallel
+with the real trading session, and several of its behaviours differed from the live account. We
+built a broker API emulator that records a live session for selected securities and plays it back
+on demand, so a change could be tested against the same market conditions as often as it needed.
+
+> Source: `itexus.com/portfolio/system-for-algorithmic-robo-intraday-stock-trading/` — "Interactive
+> Brokers' paper trading account limitations only allow app tests once a day in parallel with the
+> real trading session... our team created a Broker API emulator that allowed us to record and play
+> back the trading session for selected securities." Also supplies first-hand evidence for
+> capability card 11 (§5), which already claims naive simulators mislead traders but had no case
+> behind it.
+
+**Automated strategy platform**
+**Brokers get an adapter, never a direct dependency**
+An abstraction layer sits between the platform and the broker, with one adapter per counterparty
+handling the connection and the data formatting, so adding or replacing a broker leaves the rest of
+the system alone. The code is the quick part. We compare the broker's data against other sources,
+stress-test the connection under load, and run at least two to three weeks of stability testing
+before it carries real money.
+
+> Source: `itexus.com/portfolio/automated-stock-trading-platform-for-an-international-investment-
+> management-company/` — "The integration with the Broker is achieved through an abstraction
+> layer... an adapter to connect a Broker to the system, without requiring any changes to the rest
+> of the system," and "we suggest conducting stability testing on the integration for at least 2-3
+> weeks." The two-to-three-week figure is the one line in this band a buyer can lift straight into a
+> project plan.
+
+**Retail brokerage · mobile, KYC, operations console**
+**More than 120,000 market-data messages a minute**
+The retail brokerage sustains that in production while trading, portfolio, and notification flows
+stay responsive, with Kafka, Kafka Streams, Redis and WebFlux behind a WebSocket fan-out. Load tests
+held 50 transactions a second at 130ms average with no errors, and 100 a second at 157ms with under
+2%.
+
+> Source: `itexus.com/portfolio/retail-brokerage-platform-with-mobile-trading-kyc-and-operations-
+> console/` — "handling more than 120,000 real-market data messages per minute," and "the platform
+> sustained 50 TPS with 0% errors at an average response time of 130 ms, and 100 TPS with less than
+> 2% errors at an average response time of 157 ms." The only published performance figures we have;
+> partly fills the metric gap flagged across §3.
+
+**Coinstar wallet ecosystem**
+**A counterparty's API can move under you mid-build**
+ZeroHash runs custody and the KYC checks behind the Coinstar wallet, including OFAC and FinCEN
+screening. During our build it was changing those APIs to meet Coinstar's own requirements, with the
+documentation trailing behind, and the MVP took four months instead of three. An integration date
+against a counterparty still shipping its own changes is a risk line in the plan, and we scope it
+that way.
+
+> Source: `itexus.com/portfolio/digital-wallet-and-app-ecosystem-for-coinstar-a-2-2b-global-fintech-
+> firm/` — "Itexus worked with evolving APIs and incomplete documentation, which introduced temporary
+> blockers and extended the MVP timeline from three to four months." Coinstar is already named
+> elsewhere on this page, so no new client disclosure; publishing a schedule slip we owned is the
+> trust move `EXPERTISE-PROOF.md §2G` argues for.
+
+**Integration ledger** (closes the section, labelled rows, no prose):
+
+| Label | Value |
+|---|---|
+| Brokers and execution | Interactive Brokers (their API, then FIX via QuickFIX/n) · Alpaca · Blackwell Global |
+| Market data | Polygon.io · Nasdaq Information Interface Service · broker feeds |
+| KYC, AML and custody | SumSub · ZeroHash (OFAC and FinCEN screening) |
+| Payments and funding | Plaid · M-Pesa · Cashia · PelicanPay |
+| Identity and access | Auth0 · Keycloak · Azure AD B2C |
+| Strategy and backtesting | QuantConnect / Lean |
+| Transport | FIX · WebSockets · SignalR |
+
+> No FIX version number here — none of the four case studies states one for a live counterparty
+> connection, and capability card 2 (§5) already handles version reality honestly ("still on FIX
+> 4.2"). Don't add a version to this row without a source.
 
 **Link:** The rest of the list, with what we do about each → `[NEEDED: engineering notes page. Scope
 it separately. Don't publish a count in this link until the page exists and an engineer has cut it
@@ -693,12 +803,18 @@ asset classes, and regulatory regimes in scope. Tell us what you're building and
 figure for your case rather than an average.
 
 **3. Which brokers have you integrated, and what went wrong?**
-Shipped interim answer: *"We keep a running account of what we've integrated and what surprised us.
-Tell us which venues you're looking at and we'll walk through the ones closest to your build."*
-`[NEEDED: the honest list — shipped, not evaluated, not read about. Then one real gotcha each. The
-drafted examples in EXPERTISE-PROOF are IBKR's daily gateway restart and message pacing limits, and
-Alpaca's fractional-share order-type restrictions and overnight corporate-action processing.
-Confirm both before publishing, and link to the engineering notes page.]`
+Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the
+market-data, KYC and payment providers listed in the engineering notes above. Each one has its own
+quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get
+around it. Tell us which venues you're looking at and we'll walk through the ones closest to your
+build.
+
+> **Update:** the interim answer above dodged the question it names in its own title. The §6
+> integration ledger and band-2 notes now name the vendors, so the answer does too, and points at
+> the emulator story as the one real gotcha it can back with a source in the same session. The
+> drafted IBKR gateway-restart/pacing-limit and Alpaca fractional-share examples from
+> `EXPERTISE-PROOF.md` weren't independently confirmed against a primary source this session, so
+> they're left out rather than asserted.
 
 **4. Who owns the source code?**
 You own the IP and the source code. Ownership transfers on payment, or from day one when the
@@ -738,8 +854,12 @@ Before the first call. We'll sign yours, or send you ours.
 > the old promise and the new specificity instead of trading one for the other.
 
 **8. Have you built a trading platform before?**
-Yes. Four are described above, three of them under NDA. The engineering notes cover the parts we
-can talk about in more detail.
+Yes. Five are described above, four of them under NDA. See our trading platform case studies above.
+
+> **Update:** count moved from four/three to five/four when the retail brokerage card was added to
+> §3. Also corrected this doc's copy to match what's actually shipped in `page-v4.html` — it had
+> drifted to a different closing sentence ("The engineering notes cover...") that was never on the
+> page; the FAQ links to `#case-studies`, not to a notes page that doesn't exist yet.
 
 ---
 

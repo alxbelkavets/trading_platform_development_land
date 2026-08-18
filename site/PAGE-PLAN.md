@@ -177,6 +177,19 @@ somewhere deeper. Scope that page separately.
 **Needs from you:** an engineer to correct the drafted list and cut anything we can't stand behind.
 Marketing edits for clarity and **cuts only** — nothing gets added downstream of the engineer.
 
+> **Update:** the four-card strip above stayed as third-person domain knowledge with no evidence
+> we'd shipped any of it, which is exactly the gap EXPERTISE-PROOF §0 calls out as the page's
+> biggest hole. Added a second band directly under it — four first-person notes, each sourced from a
+> published Itexus case study, plus a compact integration ledger naming every broker, market-data,
+> KYC and payment vendor across those four builds. This absorbs EXPERTISE-PROOF §1's landing-page
+> hooks 1 (failure-mode strip) and 2 (broker logo row → what each gets wrong) directly into this
+> section instead of routing through separate surfaces; hook 3, the FAQ question, is answered too
+> (see PAGE-COPY-V4.md §12). The dedicated engineering-notes page from EXPERTISE-PROOF §1 is still
+> unbuilt and still the right home for the other ~36 edge cases in EXPERTISE-PROOF §2A; this update
+> doesn't replace that scope, it fills the landing page's evidence gap ahead of it. Also added a
+> fifth case-study card (§3) for the retail brokerage build, which carries the only published
+> performance figures across all four sources and needed a card of its own to cite from.
+
 ### 7 — Security, compliance and ownership *(new)*
 **Goal:** priority #3, plus the IP/exit question that BUYER-EVALUATION flags as *absent entirely*
 and standard for procurement. For Level-3 buyers (~20%, arriving with an RFP) this section is a hard

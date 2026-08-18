@@ -40,12 +40,12 @@
   "mainEntity": [
     { "@type": "Question", "name": "How much does trading platform development cost?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the engagement model. Time & Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either." } },
     { "@type": "Question", "name": "How long does it take to build a trading platform?", "acceptedAnswer": { "@type": "Answer", "text": "An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope." } },
-    { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build." } },
+    { "@type": "Question", "name": "Which brokers have you integrated, and what went wrong?", "acceptedAnswer": { "@type": "Answer", "text": "Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the market-data, KYC and payment providers listed in the engineering notes above. Each one has its own quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get around it. Tell us which venues you're looking at and we'll walk through the ones closest to your build." } },
     { "@type": "Question", "name": "Who owns the source code?", "acceptedAnswer": { "@type": "Answer", "text": "You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit." } },
     { "@type": "Question", "name": "Can you integrate with a third-party service?", "acceptedAnswer": { "@type": "Answer", "text": "Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs." } },
     { "@type": "Question", "name": "Do you offer support after launch?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, either as an ongoing arrangement or on demand. We handle second- and third-line support: monitoring production servers and logs, installing updates, fixing what can be fixed without touching code, and releasing patches for what can't. First-line user support is usually run by the client." } },
     { "@type": "Question", "name": "Do you sign an NDA?", "acceptedAnswer": { "@type": "Answer", "text": "Before the first call. We'll sign yours, or send you ours." } },
-    { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Four are described above, three of them under NDA." } }
+    { "@type": "Question", "name": "Have you built a trading platform before?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Five are described above, four of them under NDA." } }
   ]
 }
 </script>
@@ -164,7 +164,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px}
 .case-featured-media img{width:100%;max-width:578px;object-fit:contain;border-radius:10px}
 
-.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:24px}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px}
 .case-card{overflow:hidden;display:flex;flex-direction:column}
 .case-card-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;padding:18px}
 .case-card-media.dark{background:var(--dark-card)}
@@ -207,6 +207,18 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .wrong-card{padding:28px}
 .wrong-card h3{font-size:19px;line-height:1.3;font-weight:600;margin-bottom:10px}
 .wrong-card p{font-size:16px;line-height:1.6;color:var(--copy)}
+
+.notes-band-title{margin-top:44px;margin-bottom:24px;font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
+.notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--color-border)}
+.notes-item{padding:0}
+.notes-source{margin-bottom:8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.notes-item h4{font-size:18px;line-height:1.3;font-weight:600;margin-bottom:8px}
+.notes-item p:last-child{font-size:16px;line-height:1.6;color:var(--copy)}
+.ledger{padding:0;overflow:hidden}
+.ledger-row{display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,.68fr);gap:24px;padding:20px 28px;border-bottom:1px solid var(--color-border)}
+.ledger-row:last-child{border-bottom:0}
+.ledger-row dt{font-size:15px;font-weight:600;color:var(--color-ink)}
+.ledger-row dd{font-size:16px;line-height:1.6;color:var(--copy)}
 
 /* ---------- security / compliance ---------- */
 .compliance-list{padding:0;overflow:hidden}
@@ -329,10 +341,10 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 
 /* ================= responsive ================= */
 @media (max-width:1080px){
-  .case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wrong-grid{grid-template-columns:1fr}
+  .notes-grid{grid-template-columns:1fr}
   .offer-grid{grid-template-columns:1fr;gap:28px}
 
   .facts-row{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -363,6 +375,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   .feature-grid{grid-template-columns:1fr}
 
   .compliance-row{grid-template-columns:1fr;gap:6px}
+  .ledger-row{grid-template-columns:1fr;gap:6px}
 
   .engagement-grid,.path-grid{grid-template-columns:1fr}
 
@@ -533,6 +546,21 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             </div>
           </div>
         </article>
+        <article class="card case-card">
+          <div class="case-card-media dark">
+            <img src="img/case5-retail-brokerage.png" alt="Retail brokerage mobile app screens showing a stock quote and a portfolio watchlist">
+          </div>
+          <div class="case-card-body">
+            <span class="badge-nda">Under NDA</span>
+            <h3>Retail Brokerage Platform</h3>
+            <p class="case-card-copy">A mobile brokerage for African markets with guided KYC, mobile-money funding, fractional share trading, and an operations console for compliance.</p>
+            <!-- CASE-METRICS: 120,000+ market-data messages/minute sustained in production; 50 TPS at 0% errors, 130ms avg; 100 TPS at <2% errors, 157ms avg -->
+            <div class="tag-row">
+              <span class="tag-pill-light">Fintech</span>
+              <span class="tag-pill-light">Trading</span>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -609,7 +637,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="section-head-simple">
         <p class="eyebrow">04 &nbsp;/&nbsp; Engineering Notes</p>
         <h2>The parts of this that usually go wrong</h2>
-        <p class="lede">Four of the failure modes we design around. None of them are exotic, and each one is far cheaper to handle in the design than in production.</p>
+        <p class="lede">Four failure modes we design around, and four we hit on our own builds. None of them are exotic, and each one is far cheaper to handle in the design than in production.</p>
       </div>
       <div class="wrong-grid">
         <article class="card wrong-card">
@@ -629,6 +657,62 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           <p>Recomputing AvgPx client-side from individual fills, instead of using the value the counterparty sent, introduces rounding drift measured in fractions of a cent. Across a full day of fills, that's enough to break end-of-day reconciliation.</p>
         </article>
       </div>
+
+      <h3 class="notes-band-title">Four from our own builds</h3>
+      <div class="notes-grid">
+        <article class="notes-item">
+          <p class="notes-source">Algorithmic intraday system &middot; NYSE and NASDAQ</p>
+          <h4>A broker's paper account is not a test environment</h4>
+          <p>Interactive Brokers' paper trading account allowed one application test a day, running in parallel with the real trading session, and several of its behaviours differed from the live account. We built a broker API emulator that records a live session for selected securities and plays it back on demand, so a change could be tested against the same market conditions as often as it needed.</p>
+        </article>
+        <article class="notes-item">
+          <p class="notes-source">Automated strategy platform</p>
+          <h4>Brokers get an adapter, never a direct dependency</h4>
+          <p>An abstraction layer sits between the platform and the broker, with one adapter per counterparty handling the connection and the data formatting, so adding or replacing a broker leaves the rest of the system alone. The code is the quick part. We compare the broker's data against other sources, stress-test the connection under load, and run at least two to three weeks of stability testing before it carries real money.</p>
+        </article>
+        <article class="notes-item">
+          <p class="notes-source">Retail brokerage &middot; mobile, KYC, operations console</p>
+          <h4>More than 120,000 market-data messages a minute</h4>
+          <p>The retail brokerage sustains that in production while trading, portfolio, and notification flows stay responsive, with Kafka, Kafka Streams, Redis and WebFlux behind a WebSocket fan-out. Load tests held 50 transactions a second at 130ms average with no errors, and 100 a second at 157ms with under 2%.</p>
+        </article>
+        <article class="notes-item">
+          <p class="notes-source">Coinstar wallet ecosystem</p>
+          <h4>A counterparty's API can move under you mid-build</h4>
+          <p>ZeroHash runs custody and the KYC checks behind the Coinstar wallet, including OFAC and FinCEN screening. During our build it was changing those APIs to meet Coinstar's own requirements, with the documentation trailing behind, and the MVP took four months instead of three. An integration date against a counterparty still shipping its own changes is a risk line in the plan, and we scope it that way.</p>
+        </article>
+      </div>
+
+      <dl class="card ledger">
+        <div class="ledger-row">
+          <dt>Brokers and execution</dt>
+          <dd>Interactive Brokers (their API, then FIX via QuickFIX/n) &middot; Alpaca &middot; Blackwell Global</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Market data</dt>
+          <dd>Polygon.io &middot; Nasdaq Information Interface Service &middot; broker feeds</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>KYC, AML and custody</dt>
+          <dd>SumSub &middot; ZeroHash (OFAC and FinCEN screening)</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Payments and funding</dt>
+          <dd>Plaid &middot; M-Pesa &middot; Cashia &middot; PelicanPay</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Identity and access</dt>
+          <dd>Auth0 &middot; Keycloak &middot; Azure AD B2C</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Strategy and backtesting</dt>
+          <dd>QuantConnect / Lean</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Transport</dt>
+          <dd>FIX &middot; WebSockets &middot; SignalR</dd>
+        </div>
+      </dl>
+
       <!-- Link to a dedicated engineering-notes page (site/EXPERTISE-PROOF.md §1) intentionally omitted until that page exists and the remaining failure modes have engineer sign-off. -->
     </div>
   </section>
@@ -799,12 +883,12 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="faq-list">
         <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
         <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
-        <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>We keep a running account of what we've integrated and what surprised us. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
+        <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the market-data, KYC and payment providers listed in the engineering notes above. Each one has its own quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get around it. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
         <details><summary>Who owns the source code?</summary><p>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
         <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
         <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand. We handle second- and third-line support: monitoring production servers and logs, installing updates, fixing what can be fixed without touching code, and releasing patches for what can't. First-line user support is usually run by the client.</p></details>
         <details><summary>Do you sign an NDA?</summary><p>Before the first call. We'll sign yours, or send you ours.</p></details>
-        <details><summary>Have you built a trading platform before?</summary><p>Yes. Four are described above, three of them under NDA. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
+        <details><summary>Have you built a trading platform before?</summary><p>Yes. Five are described above, four of them under NDA. See our <a href="#case-studies">trading platform case studies</a> above.</p></details>
       </div>
     </div>
   </section>
