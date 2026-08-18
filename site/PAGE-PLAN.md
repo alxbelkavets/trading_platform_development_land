@@ -68,7 +68,7 @@ Your call — noted in section 9 below.
 | 4 | Where you're starting | ✅ keep | Fork the buyer by situation |
 | 5 | Capabilities | ✍️ | Vocabulary check + name the hard part |
 | 6 | What usually goes wrong | 🆕 | Operator, not vendor — the differentiator |
-| 7 | Security, compliance, IP | 🆕 | Clear the qualification gate |
+| 7 | ~~Security, compliance, IP~~ | 🗑️ removed | Shipped, then cut — see §7 update note below |
 | 8 | The first step (offer) | 🆕 | Give him something small he can say yes to |
 | 9 | How we work | ✅ keep | Map to his procurement process |
 | 10 | Testimonials + awards | ✍️ | Third-party validation |
@@ -76,7 +76,7 @@ Your call — noted in section 9 below.
 | 12 | Contact | ✍️ | Convert, at low friction |
 | 13 | Footer | ✅ keep | — |
 
-Legend: ✅ keep as-is · ✍️ rewrite · 🆕 new · ✂️ cut down · ⛔ blocked on missing data
+Legend: ✅ keep as-is · ✍️ rewrite · 🆕 new · ✂️ cut down · ⛔ blocked on missing data · 🗑️ removed after shipping
 
 ---
 
@@ -211,6 +211,17 @@ can be written around.
 > starts with a deposit — a firm, public commitment rather than a deferral to "the agreement." Both
 > changes ship the same section shorter but stronger: everything remaining is a fact, not a promise
 > to eventually have one.
+
+> **Update — section removed.** It shipped short, at four rows, and stayed short: the regime list
+> (**"the actual regime list"** asked for above) never arrived, and neither did data residency or
+> secure-SDLC detail, so three of its planned rows never existed and the fourth (standards worked
+> to) was never drafted either. What did ship mostly duplicated the rest of the page — paperwork,
+> PCI DSS/Coinstar, and source-code ownership all appear elsewhere verbatim or near-verbatim — so
+> the qualification-gate section this plan called for was never actually built; what shipped under
+> its name was closer to a recap. Removed rather than left as a recap. Source-code ownership moved
+> into §9/How We Work, where it now applies across all three engagement models instead of sitting
+> alone. This entry and the §7 spec in PAGE-COPY-V4.md stay as the brief for whoever eventually
+> gets the regime list.
 
 ### 8 — The first step *(new)*
 **Goal:** the offer. Right now there is no single named thing to say yes to, and the ask ("get a

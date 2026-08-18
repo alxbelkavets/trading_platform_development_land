@@ -563,6 +563,21 @@ down to what we can defend.]`
 > largely *is* the exit answer; a separate notice-period/handover-scope line is a future addition, not
 > a blocker.
 
+> **Update:** the section shipped, then was removed. An audit of the four rows that made it live
+> found almost no content unique to this section: **Paperwork** repeated the facts strip, the §8
+> offer block, the FAQ, and contact step 1; **Compliance work we've delivered** opened with a
+> sentence already in the §1 featured case card; **Regulatory regimes we've shipped under**
+> shipped as "Ask us," a hedge in the row this doc calls the section's single most valuable line;
+> and **Source code and exit** was reproduced verbatim in the FAQ, which linked back here. The
+> four rows that would have made this a real section — **Standards we work to**, **Regulatory
+> regimes we've shipped under**, **Data residency**, **Secure development** — are all still
+> `[NEEDED]` and the inputs never arrived. Rather than ship a section that's almost entirely a
+> restatement of the rest of the page, it was cut: **Source code and exit** moved into the "How
+> We Work" section as a shared term across all engagement models, and "sanctions screening" (the
+> one phrase with no other home) was folded into the "Where You're Starting → Build" card. This
+> table stays in place as the spec — if the four blocked rows get real answers, the section is a
+> straightforward re-add, not a rewrite.
+
 ---
 
 ## 8 / The first step (new)

@@ -20,9 +20,14 @@
   - Case-study stat grids (00.0 ms placeholders in v3) removed rather than
     replaced with more placeholders. Real anonymised metrics go in the
     CASE-METRICS comment spots in each card when they exist.
-  - Two new sections: "What usually goes wrong" and "Security, compliance
-    and who owns what" (a link to a dedicated engineering-notes page is
-    deliberately omitted until that page exists).
+  - New section: "What usually goes wrong" (a link to a dedicated
+    engineering-notes page is deliberately omitted until that page exists).
+    A second new section, "Security, compliance and who owns what", shipped
+    and was later removed — most of its rows duplicated content already on
+    the page (paperwork, PCI DSS/Coinstar, source-code ownership) and the
+    remaining rows were blocked on inputs (regimes, standards, data
+    residency, secure SDLC) that never arrived. Source-code ownership moved
+    into §How We Work; see the update note in PAGE-COPY-V4.md §7.
   - v3's small mid-page CTA band replaced with a fuller "first step" offer
     section that names what the first call is, what happens after it, and why
     it's shaped as two steps rather than one.
@@ -220,13 +225,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .ledger-row dt{font-size:15px;font-weight:600;color:var(--color-ink)}
 .ledger-row dd{font-size:16px;line-height:1.6;color:var(--copy)}
 
-/* ---------- security / compliance ---------- */
-.compliance-list{padding:0;overflow:hidden}
-.compliance-row{display:grid;grid-template-columns:minmax(0,.32fr) minmax(0,.68fr);gap:24px;padding:22px 28px;border-bottom:1px solid var(--color-border)}
-.compliance-row:last-child{border-bottom:0}
-.compliance-row dt{font-size:15px;font-weight:600;color:var(--color-ink)}
-.compliance-row dd{font-size:16px;line-height:1.6;color:var(--copy)}
-
 /* ---------- offer section (the first step) ---------- */
 .offer-section{position:relative;background:var(--color-ink)}
 .offer-section h2{color:#fff;max-width:34ch}
@@ -374,7 +372,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   .figure-grid{grid-template-columns:1fr}
   .feature-grid{grid-template-columns:1fr}
 
-  .compliance-row{grid-template-columns:1fr;gap:6px}
   .ledger-row{grid-template-columns:1fr;gap:6px}
 
   .engagement-grid,.path-grid{grid-template-columns:1fr}
@@ -575,7 +572,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <article class="card path-card">
           <span class="num">01</span>
           <h3>Build <small>New platform, from scratch</small></h3>
-          <p>A strategy, a licence, or a client base already exists. The platform doesn't. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML.</p>
+          <p>A strategy, a licence, or a client base already exists. The platform doesn't. We take it from discovery and architecture through broker and market-data selection, order management, risk controls, web and mobile terminals, and KYC/AML with sanctions screening.</p>
         </article>
         <article class="card path-card">
           <span class="num">02</span>
@@ -717,34 +714,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     </div>
   </section>
 
-  <section id="compliance" class="section">
-    <div class="container">
-      <div class="section-head-simple">
-        <p class="eyebrow">05 &nbsp;/&nbsp; How We Handle Risk</p>
-        <h2>Security, compliance, and who owns what</h2>
-        <p class="lede">The questions procurement sends us, answered up front.</p>
-      </div>
-      <dl class="card compliance-list">
-        <div class="compliance-row">
-          <dt>Paperwork</dt>
-          <dd>NDA and DPA, signed before the first call.</dd>
-        </div>
-        <div class="compliance-row">
-          <dt>Compliance work delivered</dt>
-          <dd>PCI DSS-compliant ecosystem for Coinstar. KYC/AML onboarding, sanctions screening, and audit trails across the trading platforms above.</dd>
-        </div>
-        <div class="compliance-row">
-          <dt>Regulatory regimes shipped under</dt>
-          <dd>Ask us. We'll name the regimes relevant to your case rather than list every one we've heard of.</dd>
-        </div>
-        <div class="compliance-row">
-          <dt>Source code and exit</dt>
-          <dd>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit.</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
   <section class="offer-section section" id="first-step">
     <div class="container">
       <p class="eyebrow-dark">What Happens Next</p>
@@ -777,7 +746,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   <section id="engagement" class="section">
     <div class="container">
       <div class="section-head-simple">
-        <p class="eyebrow">06 &nbsp;/&nbsp; How We Work</p>
+        <p class="eyebrow">05 &nbsp;/&nbsp; How We Work</p>
         <h2>Engagement Models</h2>
       </div>
       <article class="card engagement-lead">
@@ -804,6 +773,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           <p>We put forward candidates who match your requirements; you interview them and decide who joins. They work on your tasks under your own management, on a development environment we set up to fit your infrastructure. Billed at a pre-agreed monthly rate per engineer, and you can scale up or down as the workload moves.</p>
         </article>
       </div>
+      <p class="engagement-link">Whichever model you choose, you own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit.</p>
       <p class="engagement-link"><a href="/how-we-work/">See the full breakdown of each model on our Cooperation Models page &#8594;</a></p>
     </div>
   </section>
@@ -812,7 +782,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="container">
       <div class="section-head">
         <div style="max-width:62ch">
-          <p class="eyebrow">07 &nbsp;/&nbsp; What Clients Say</p>
+          <p class="eyebrow">06 &nbsp;/&nbsp; What Clients Say</p>
           <h2>What our clients say about us</h2>
         </div>
         <div class="testimonial-controls">
@@ -875,16 +845,16 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   <section id="faq" class="section">
     <div class="container faq-layout">
       <div class="faq-side">
-        <p class="eyebrow">08 &nbsp;/&nbsp; FAQ</p>
+        <p class="eyebrow">07 &nbsp;/&nbsp; FAQ</p>
         <h2>Frequently asked questions</h2>
-        <p>Cost, timeline, ownership, and compliance, answered here rather than on a call.</p>
+        <p>Cost, timeline, ownership, and paperwork, answered here rather than on a call.</p>
         <a href="#contact" class="btn btn-primary">Tell us what you're building</a>
       </div>
       <div class="faq-list">
         <details><summary>How much does trading platform development cost?</summary><p>It depends on the engagement model. Time &amp; Material bills the actual work performed on your project. Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or System Design phase is also available before committing to either. See the <a href="#engagement">Engagement Models</a> section above.</p></details>
         <details><summary>How long does it take to build a trading platform?</summary><p>An MVP typically takes three to four months, and the range widens quickly with the number of venues, asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a figure for your case rather than an average.</p></details>
         <details><summary>Which brokers have you integrated, and what went wrong?</summary><p>Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the market-data, KYC and payment providers listed in the engineering notes above. Each one has its own quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get around it. Tell us which venues you're looking at and we'll walk through the ones closest to your build.</p></details>
-        <details><summary>Who owns the source code?</summary><p>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit. See the <a href="#compliance">Security and compliance</a> section above.</p></details>
+        <details><summary>Who owns the source code?</summary><p>You own the IP and the source code. Ownership transfers on payment, or from day one when the engagement starts with a deposit.</p></details>
         <details><summary>Can you integrate with a third-party service?</summary><p>Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and whatever else your business case needs.</p></details>
         <details><summary>Do you offer support after launch?</summary><p>Yes, either as an ongoing arrangement or on demand. We handle second- and third-line support: monitoring production servers and logs, installing updates, fixing what can be fixed without touching code, and releasing patches for what can't. First-line user support is usually run by the client.</p></details>
         <details><summary>Do you sign an NDA?</summary><p>Before the first call. We'll sign yours, or send you ours.</p></details>
@@ -898,7 +868,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="contact-scrim"></div>
     <div class="container">
       <div>
-        <p class="eyebrow eyebrow-light">09 &nbsp;/&nbsp; Contact</p>
+        <p class="eyebrow eyebrow-light">08 &nbsp;/&nbsp; Contact</p>
         <h3>Tell us what you're building</h3>
         <p class="lede-dark">A work email and a couple of sentences is enough to start. We'll ask for the rest when we reply.</p>
         <ol class="contact-steps">
