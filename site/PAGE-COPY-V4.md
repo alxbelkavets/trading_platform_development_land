@@ -751,17 +751,24 @@ competitor did.]`
 > repo's PR #8 deliberately removed as overclaiming.
 
 **Ownership line** *(new, above the footer link)*
-Whichever model you choose, you own the IP and the source code. Ownership transfers on payment, or
-from day one when the engagement starts with a deposit.
+Whichever model you choose, you own the IP and the source code. **See when ownership transfers →**
+(links to `#faq`)
 
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
 
 > **Update:** added the ownership line when §7 (Security, compliance and ownership) was removed —
 > it's the one fact from that section with a clear home, since ownership is itself a term of
-> engagement shared across all three models here. The same sentence is still the FAQ's "Who owns the
-> source code?" answer; see that entry's update note for the open question of whether one of the two
-> should cross-reference the other instead of repeating it.
+> engagement shared across all three models here.
+
+> **Update:** the line originally repeated the FAQ's "Who owns the source code?" answer verbatim —
+> the exact duplication §7's own removal rationale had just finished calling out as a reason to cut
+> that section. Shortened to state the one fact this section needs (ownership is universal across
+> models) and link to the FAQ for the payment/deposit timing, rather than restate it. This also
+> fixes the `.engagement-link` class doing double duty on a link-less paragraph next to a linked
+> one — both instances of the class now wrap a real link, matching how `.path-link` (the same CSS
+> rule, used in §4) pairs lead-in text with a single inline link rather than stacking a plain
+> statement next to a separate CTA.
 
 ---
 
@@ -856,10 +863,12 @@ You own the IP and the source code. Ownership transfers on payment, or from day 
 engagement starts with a deposit.
 
 > **Update:** dropped the trailing "See §7" — §7 (Security, compliance and ownership) was removed;
-> see its own update note. This answer is now also repeated verbatim in §9/How We Work, which
-> carries the same open question this doc's §7 note already raised about the FAQ duplicating that
-> section. Left as-is here rather than resolved unilaterally — a call on whether one of the two
-> should cross-reference the other instead of repeating the sentence.
+> see its own update note.
+
+> **Update:** §9/How We Work briefly repeated this answer verbatim, then was shortened to a lead-in
+> line plus a link back here instead. This answer stays the complete, unlinked version — it also
+> backs the FAQPage JSON-LD entry in the page `<head>`, which needs its own self-contained text
+> regardless of what the visible page links to.
 
 **5. Can you integrate with a third-party service?**
 Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and
