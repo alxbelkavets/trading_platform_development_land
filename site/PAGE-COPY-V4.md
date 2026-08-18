@@ -184,7 +184,10 @@ one sitting in the carousel.]`
 **01 — Build** *(New platform, from scratch)*
 A strategy, a licence, or a client base already exists. The platform doesn't. We take it from
 discovery and architecture through broker and market-data selection, order management, risk
-controls, web and mobile terminals, and KYC/AML.
+controls, web and mobile terminals, and KYC/AML with sanctions screening.
+
+> **Update:** added "with sanctions screening" — the one fact worth keeping from the removed §7
+> section that had no other home on the page. See §7's update note.
 
 **02 — Modernize** *(An existing platform that caps what you can add)*
 It runs, capped by a legacy vendor, an unsupported stack, or latency in the hot path. We audit the
@@ -740,8 +743,18 @@ competitor did.]`
 > sends CVs of the candidates fitting the requirements") without re-adding the word "vetted" this
 > repo's PR #8 deliberately removed as overclaiming.
 
+**Ownership line** *(new, above the footer link)*
+Whichever model you choose, you own the IP and the source code. Ownership transfers on payment, or
+from day one when the engagement starts with a deposit.
+
 **Footer link:** See the full breakdown of each model on our Cooperation Models page →
 (`/how-we-work/`)
+
+> **Update:** added the ownership line when §7 (Security, compliance and ownership) was removed —
+> it's the one fact from that section with a clear home, since ownership is itself a term of
+> engagement shared across all three models here. The same sentence is still the FAQ's "Who owns the
+> source code?" answer; see that entry's update note for the open question of whether one of the two
+> should cross-reference the other instead of repeating it.
 
 ---
 
@@ -797,7 +810,7 @@ Software Developers · Top Rated Mobile App Companies · techreviewer.co
 
 **H2:** Frequently asked questions
 
-**Side copy:** Cost, timeline, ownership, and compliance, answered here rather than on a call.
+**Side copy:** Cost, timeline, ownership, and paperwork, answered here rather than on a call.
 
 **Button:** Tell us what you're building
 
@@ -833,7 +846,13 @@ build.
 
 **4. Who owns the source code?**
 You own the IP and the source code. Ownership transfers on payment, or from day one when the
-engagement starts with a deposit. See §7.
+engagement starts with a deposit.
+
+> **Update:** dropped the trailing "See §7" — §7 (Security, compliance and ownership) was removed;
+> see its own update note. This answer is now also repeated verbatim in §9/How We Work, which
+> carries the same open question this doc's §7 note already raised about the FAQ duplicating that
+> section. Left as-is here rather than resolved unilaterally — a call on whether one of the two
+> should cross-reference the other instead of repeating the sentence.
 
 **5. Can you integrate with a third-party service?**
 Yes: brokers, payment gateways, KYC providers, news and market data providers, crypto exchanges, and
