@@ -49,8 +49,9 @@ stay as they are; scarcity is out and risk reversal is in (see [§8](#8--the-fir
 
 > Bold part in brand green, as before.
 
-**Subhead:** FIX gateways, market-data fan-out, KYC/AML, audit trails. We build trading and
-investing products for fintechs and investment managers, and this is the stack we work in.
+**Subhead:** Low-latency trading systems for brokers, hedge funds, exchanges and fintech
+companies—from FIX connectivity and market data infrastructure to risk controls, KYC/AML and
+web and mobile trading terminals.
 
 **Primary button:** Tell us what you're building
 **Secondary button:** See the platforms we've built →
