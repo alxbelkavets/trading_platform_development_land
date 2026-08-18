@@ -166,6 +166,8 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .case-featured-brand .tag{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .case-featured h3{font-size:27px;line-height:1.25;letter-spacing:-.02em;font-weight:600;max-width:32ch}
 .case-featured-copy{font-size:17px;line-height:1.6;color:var(--copy);max-width:60ch}
+.case-stat{font-size:14px;font-weight:600;color:var(--color-ink)}
+.case-featured .case-stat{font-size:15px}
 .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
 .tag-pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--badge-bg);color:var(--badge-text)}
 .case-featured-media{background:var(--mint-tint-bg);display:flex;align-items:center;justify-content:center;padding:28px}
@@ -173,7 +175,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 
 .case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px}
 .case-card{overflow:hidden;display:flex;flex-direction:column}
-.case-card-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;padding:18px}
+.case-card-media{aspect-ratio:12/5;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;min-height:0}
 .case-card-media.dark{background:var(--dark-card)}
 .case-card-media.light{background:var(--color-gray-50)}
 .case-card-media img{max-width:100%;max-height:100%;object-fit:contain}
@@ -208,12 +210,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .feature-grid .num{margin-bottom:10px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--link);font-variant-numeric:tabular-nums}
 .feature-grid h3{margin-bottom:8px;font-size:19px;line-height:1.3;font-weight:600}
 .feature-grid p{font-size:15px;line-height:1.55;color:var(--copy)}
-
-/* ---------- what usually goes wrong ---------- */
-.wrong-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.wrong-card{padding:28px}
-.wrong-card h3{font-size:19px;line-height:1.3;font-weight:600;margin-bottom:10px}
-.wrong-card p{font-size:16px;line-height:1.6;color:var(--copy)}
 
 .notes-band-title{margin-top:44px;margin-bottom:24px;font-size:22px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
 .notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px;padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--color-border)}
@@ -343,7 +339,6 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 @media (max-width:1080px){
   .figure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .wrong-grid{grid-template-columns:1fr}
   .notes-grid{grid-template-columns:1fr}
   .offer-grid{grid-template-columns:1fr;gap:28px}
 
@@ -488,7 +483,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </div>
           <h3>Cryptocurrency e-Wallet Ecosystem for a Global FinTech Enterprise</h3>
           <p class="case-featured-copy">PCI DSS-compliant application ecosystem for Coinstar, an international fintech company with $2.2 billion in annual revenue: web and mobile crypto wallets, embedded kiosk software, and a cloud-based API server.</p>
-          <!-- CASE-METRICS: real anonymised figures go here (e.g. transactions/day, time to first release, uptime) when supplied. Do not fill with placeholder digits. -->
+          <p class="case-stat">Live in 4 months &middot; 6,500+ app downloads in the first two months</p>
           <div class="tag-row">
             <span class="tag-pill">Enterprise</span>
             <span class="tag-pill">Fintech</span>
@@ -508,7 +503,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Automated Stock Trading Platform</h3>
             <p class="case-card-copy">An automated, real-time trading system that lets administrators configure and run trading strategies.</p>
-            <!-- CASE-METRICS: order latency, peak message rate, strategies running concurrently -->
+            <p class="case-stat">MVP delivered 14 months after project start</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -523,7 +518,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Stock Trading Signals Platform</h3>
             <p class="case-card-copy">An investment assistant that runs technical analysis across a universe of stocks and delivers signals to subscribers.</p>
-            <!-- CASE-METRICS: instruments covered, signal delivery time, subscribers -->
+            <p class="case-stat">5,000+ stocks tracked in real time across 20+ exchanges &middot; live in 6 months</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -538,7 +533,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Algorithmic Intraday Stock Trading System</h3>
             <p class="case-card-copy">A SaaS system for automated intraday trading that connects to investors' own brokerage accounts.</p>
-            <!-- CASE-METRICS: broker integrations, accounts connected, uptime during market hours -->
+            <p class="case-stat">Live on NYSE and NASDAQ in 3 months &middot; built to scale to thousands of clients</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -553,7 +548,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Retail Brokerage Platform</h3>
             <p class="case-card-copy">A mobile brokerage for African markets with guided KYC, mobile-money funding, fractional share trading, and an operations console for compliance.</p>
-            <!-- CASE-METRICS: 120,000+ market-data messages/minute sustained in production; 50 TPS at 0% errors, 130ms avg; 100 TPS at <2% errors, 157ms avg -->
+            <p class="case-stat">120,000+ market-data messages/minute in production &middot; 100 TPS at &lt;2% errors, 157ms avg</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -635,26 +630,8 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     <div class="container">
       <div class="section-head-simple">
         <p class="eyebrow">04 &nbsp;/&nbsp; Engineering Notes</p>
-        <h2>The parts of this that usually go wrong</h2>
-        <p class="lede">Four failure modes we design around, and four we hit on our own builds. None of them are exotic, and each one is far cheaper to handle in the design than in production.</p>
-      </div>
-      <div class="wrong-grid">
-        <article class="card wrong-card">
-          <h3>A cancel and a fill cross on the wire</h3>
-          <p>The cancel goes out, the fill comes back first, and the reject follows. Systems that trust arrival order show the user a cancelled order that actually executed, and the position and cash stay wrong until the next reconciliation run catches them.</p>
-        </article>
-        <article class="card wrong-card">
-          <h3>Market-data entitlements arrive as a bill</h3>
-          <p>Per-user reporting to the exchange, redistribution licensing, and non-display fees are all contractual, and none of them appear in an API doc. Scoping market data as an integration task misses the commercial negotiation underneath it, which is usually where the cost sits.</p>
-        </article>
-        <article class="card wrong-card">
-          <h3>The affirmation cutoff on trade date</h3>
-          <p>US equities have settled T+1 since May 2024, and SEC rules expect allocations, confirmations, and affirmations completed as soon as technologically practicable on trade date. Missing that window alone doesn't fail a trade, but missing same-day affirmation compresses exception resolution and increases settlement-failure risk. It's a build requirement now, not a back-office SLA. The UK, EU and Switzerland reach the same point in October 2027.</p>
-        </article>
-        <article class="card wrong-card">
-          <h3>Average-price rounding breaks reconciliation</h3>
-          <p>Recomputing AvgPx client-side from individual fills, instead of using the value the counterparty sent, introduces rounding drift measured in fractions of a cent. Across a full day of fills, that's enough to break end-of-day reconciliation.</p>
-        </article>
+        <h2>What we've actually built and integrated</h2>
+        <p class="lede">Four incidents from our own builds, and the full list of brokers, data feeds, custody, and infrastructure providers we've shipped with. Nothing on this page is a capability we're claiming secondhand.</p>
       </div>
 
       <h3 class="notes-band-title">Four from our own builds</h3>
@@ -681,22 +658,39 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </article>
       </div>
 
+      <h3 class="notes-band-title">Every integration we've shipped</h3>
       <dl class="card ledger">
         <div class="ledger-row">
           <dt>Brokers and execution</dt>
-          <dd>Interactive Brokers (their API, then FIX via QuickFIX/n) &middot; Alpaca &middot; Blackwell Global</dd>
+          <dd>Interactive Brokers (their API, then FIX via QuickFIX/n) &middot; Alpaca &middot; Blackwell Global &middot; TD Ameritrade &middot; NYSE &middot; Saxo Bank &middot; FXCM</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Order matching</dt>
+          <dd>Exberry</dd>
         </div>
         <div class="ledger-row">
           <dt>Market data</dt>
-          <dd>Polygon.io &middot; Nasdaq Information Interface Service &middot; broker feeds</dd>
+          <dd>Polygon.io &middot; Nasdaq Information Interface Service &middot; Finage &middot; IEX &middot; Xignite &middot; CBonds &middot; Bloomberg &middot; Alpha Vantage &middot; Refinitiv / LSEG &middot; S&amp;P Global &middot; Backstop &middot; broker feeds</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Research and news feeds</dt>
+          <dd>Morningstar &middot; MT Newswires &middot; The Fly</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Treasury and settlement</dt>
+          <dd>FIS Global</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Crypto custody</dt>
+          <dd>Prime Trust &middot; Fireblocks</dd>
         </div>
         <div class="ledger-row">
           <dt>KYC, AML and custody</dt>
-          <dd>SumSub &middot; ZeroHash (OFAC and FinCEN screening)</dd>
+          <dd>SumSub &middot; ZeroHash (OFAC and FinCEN screening) &middot; EmpireFX</dd>
         </div>
         <div class="ledger-row">
           <dt>Payments and funding</dt>
-          <dd>Plaid &middot; M-Pesa &middot; Cashia &middot; PelicanPay</dd>
+          <dd>Plaid &middot; M-Pesa &middot; Cashia &middot; PelicanPay &middot; Airwallex &middot; Stripe &middot; Checkout.com</dd>
         </div>
         <div class="ledger-row">
           <dt>Identity and access</dt>
@@ -704,7 +698,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </div>
         <div class="ledger-row">
           <dt>Strategy and backtesting</dt>
-          <dd>QuantConnect / Lean</dd>
+          <dd>QuantConnect / Lean &middot; LuxAlgo / TradingView &middot; Raise Partner</dd>
+        </div>
+        <div class="ledger-row">
+          <dt>Analytics</dt>
+          <dd>Mixpanel</dd>
         </div>
         <div class="ledger-row">
           <dt>Transport</dt>
