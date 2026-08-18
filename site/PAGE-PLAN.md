@@ -144,6 +144,10 @@ Build (Variant B is buying capacity + a domain skill, and the integration surfac
 product is the entire risk). Consider promoting this section above the case studies so each buyer
 lands on the case study that matches him — worth testing, not asserting.
 
+> **Update:** the Build card copy did change after all — "with sanctions screening" was appended
+> when §7 (Security, compliance and ownership) was removed, as the one fact from that section with
+> no other home. See §7's update note.
+
 ### 5 — Capabilities
 **Goal:** priority #2, the vocabulary check — and it's the page's current strongest asset. He skims
 this for **absence**: two or three terms specific to his own project (options? FIX 4.4? margin?
@@ -213,15 +217,13 @@ can be written around.
 > to eventually have one.
 
 > **Update — section removed.** It shipped short, at four rows, and stayed short: the regime list
-> (**"the actual regime list"** asked for above) never arrived, and neither did data residency or
-> secure-SDLC detail, so three of its planned rows never existed and the fourth (standards worked
-> to) was never drafted either. What did ship mostly duplicated the rest of the page — paperwork,
-> PCI DSS/Coinstar, and source-code ownership all appear elsewhere verbatim or near-verbatim — so
-> the qualification-gate section this plan called for was never actually built; what shipped under
-> its name was closer to a recap. Removed rather than left as a recap. Source-code ownership moved
-> into §9/How We Work, where it now applies across all three engagement models instead of sitting
-> alone. This entry and the §7 spec in PAGE-COPY-V4.md stay as the brief for whoever eventually
-> gets the regime list.
+> (**"the actual regime list"** asked for above) never arrived, and neither did data residency,
+> secure-SDLC detail, or standards worked to. What did ship mostly duplicated the rest of the page
+> — see PAGE-COPY-V4.md §7 for the row-by-row audit. Net effect: the qualification-gate section
+> this plan called for was never actually built; what shipped under its name was closer to a recap.
+> Removed rather than left as a recap. Source-code ownership moved into §9/How We Work, where it
+> now applies across all three engagement models instead of sitting alone. This entry and the §7
+> spec in PAGE-COPY-V4.md stay as the brief for whoever eventually gets the regime list.
 
 ### 8 — The first step *(new)*
 **Goal:** the offer. Right now there is no single named thing to say yes to, and the ask ("get a
@@ -293,6 +295,11 @@ asset classes"* beats silence.
 > weekly cost/progress reporting) that the shorter card copy had dropped. See PAGE-COPY-V4.md §9 for
 > the full text and the one deliberate non-adoption: the source's stronger T&M billing claim ("only
 > efficient hours … are billed") was considered and left out again, per the earlier update above.
+
+> **Update:** added a line stating that ownership transfers to the client under any model, when §7
+> (Security, compliance and ownership) was removed — this section becomes its one fact's new home,
+> since ownership is a term of engagement shared across all three models. See PAGE-COPY-V4.md §9 for
+> the exact text.
 
 ### 10 — Testimonials and awards
 **Goal:** third-party validation.
