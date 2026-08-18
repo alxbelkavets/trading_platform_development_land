@@ -275,7 +275,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 .carousel-btn{width:52px;height:52px;border-radius:999px;border:1px solid rgba(0,0,0,.18);background:#fff;
   color:var(--color-ink);font-size:20px;line-height:1;cursor:pointer;transition:background .15s ease,border-color .15s ease}
 .carousel-btn:hover,.carousel-btn:focus-visible{border-color:var(--color-brand-green);background:var(--color-brand-green)}
-.testimonial-card{padding:44px 48px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start;min-height:280px}
+.testimonial-card{padding:44px 48px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:start}
 .testimonial-card img{opacity:.9}
 .testimonial-quote{font-size:23px;line-height:1.5;letter-spacing:-.01em;font-weight:500;max-width:64ch;text-wrap:pretty}
 .testimonial-meta{margin-top:26px;padding-top:20px;border-top:1px solid var(--color-border);
@@ -1039,31 +1039,43 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     });
   }
 
+  // ---------- shared: wire "click to select" for a set of tab-like buttons ----------
+  function bindTabClicks(tabEls, go) {
+    Array.prototype.forEach.call(tabEls, function (tab, i) {
+      tab.addEventListener("click", function () { go(i); tab.focus(); });
+    });
+  }
+
   // ---------- capabilities tabs ----------
   try {
     var capTabs = document.getElementById("cap-tabs");
     if (capTabs) {
-      var capItems = Array.prototype.map.call(capTabs.querySelectorAll(".cap-tab"), function (tab) {
-        return { tab: tab, panel: document.getElementById(tab.getAttribute("aria-controls")) };
+      var capItems = [];
+      capTabs.querySelectorAll(".cap-tab").forEach(function (tab) {
+        var panel = document.getElementById(tab.getAttribute("aria-controls"));
+        if (!panel) console.error("capabilities tab has no matching panel:", tab.id);
+        capItems.push({ tab: tab, panel: panel });
       });
-      var capCurrent = 0;
 
-      var setCapItem = function (item, on) {
+      var capCurrent = capItems.findIndex(function (item) {
+        return item.tab.getAttribute("aria-selected") === "true";
+      });
+      if (capCurrent === -1) capCurrent = 0;
+
+      function setCapItem(item, on) {
         item.tab.setAttribute("aria-selected", String(on));
         item.tab.setAttribute("tabindex", on ? "0" : "-1");
         if (item.panel) item.panel.hidden = !on;
-      };
+      }
 
-      var showCap = function (n) {
+      function showCap(n) {
         var next = (n + capItems.length) % capItems.length;
         setCapItem(capItems[capCurrent], false);
         setCapItem(capItems[next], true);
         capCurrent = next;
-      };
+      }
 
-      capItems.forEach(function (item, i) {
-        item.tab.addEventListener("click", function () { showCap(i); item.tab.focus(); });
-      });
+      bindTabClicks(capTabs.querySelectorAll(".cap-tab"), showCap);
 
       bindArrowKeyNav(capTabs, {
         length: function () { return capItems.length; },
@@ -1072,7 +1084,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         focusCurrent: function () { capItems[capCurrent].tab.focus(); }
       });
     }
-  } catch (e) { /* a capabilities-tabs failure should not break the rest of the page */ }
+  } catch (e) { console.error("capabilities tabs failed to initialize:", e); }
 
   // ---------- testimonials carousel ----------
   var quotes = [
@@ -1089,6 +1101,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
   var roleEl = document.getElementById("testimonial-role");
   var counterEl = document.getElementById("testimonial-counter");
   var dotsEl = document.getElementById("testimonial-dots");
+  var testimonialPanel = document.getElementById("testimonial-panel");
 
   quotes.forEach(function (_, i) {
     var btn = document.createElement("button");
@@ -1098,9 +1111,10 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     btn.setAttribute("aria-controls", "testimonial-panel");
     btn.setAttribute("tabindex", i === current ? "0" : "-1");
     btn.innerHTML = "<span></span>";
-    btn.addEventListener("click", function () { go(i); dotsEl.children[i].focus(); });
     dotsEl.appendChild(btn);
   });
+
+  bindTabClicks(dotsEl.children, go);
 
   bindArrowKeyNav(dotsEl, {
     length: function () { return quotes.length; },
@@ -1115,7 +1129,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     authorEl.textContent = t.a;
     roleEl.textContent = t.r;
     counterEl.textContent = (current + 1) + " / " + quotes.length;
-    Array.prototype.forEach.call(dotsEl.children, function (btn, i) {
+    dotsEl.querySelectorAll("button").forEach(function (btn, i) {
       btn.setAttribute("aria-selected", String(i === current));
       btn.setAttribute("tabindex", i === current ? "0" : "-1");
     });
@@ -1128,6 +1142,29 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 
   document.getElementById("testimonial-prev").addEventListener("click", function () { go(current - 1); });
   document.getElementById("testimonial-next").addEventListener("click", function () { go(current + 1); });
+
+  // measure the tallest quote off-screen once, so switching quotes never jumps the card height
+  var measureClone = testimonialPanel.cloneNode(true);
+  measureClone.removeAttribute("id");
+  measureClone.removeAttribute("aria-live");
+  measureClone.style.position = "absolute";
+  measureClone.style.visibility = "hidden";
+  measureClone.style.pointerEvents = "none";
+  measureClone.style.width = testimonialPanel.getBoundingClientRect().width + "px";
+  document.body.appendChild(measureClone);
+  var cloneQuote = measureClone.querySelector(".testimonial-quote");
+  var cloneAuthor = measureClone.querySelector(".author");
+  var cloneRole = measureClone.querySelector(".role");
+  var maxTestimonialHeight = 0;
+  quotes.forEach(function (t) {
+    cloneQuote.textContent = "“" + t.q + "”";
+    cloneAuthor.textContent = t.a;
+    cloneRole.textContent = t.r;
+    maxTestimonialHeight = Math.max(maxTestimonialHeight, measureClone.scrollHeight);
+  });
+  document.body.removeChild(measureClone);
+  testimonialPanel.style.minHeight = (maxTestimonialHeight + 12) + "px";
+
   render();
 
   // ---------- contact form ----------
