@@ -296,10 +296,10 @@ asset classes"* beats silence.
 > the full text and the one deliberate non-adoption: the source's stronger T&M billing claim ("only
 > efficient hours … are billed") was considered and left out again, per the earlier update above.
 
-> **Update:** added a line stating that ownership transfers to the client under any model, when §7
-> (Security, compliance and ownership) was removed — this section becomes its one fact's new home,
-> since ownership is a term of engagement shared across all three models. See PAGE-COPY-V4.md §9 for
-> the exact text.
+> **Update:** added a line stating that ownership is universal across all three models, when §7
+> (Security, compliance and ownership) was removed — this section becomes its one fact's new home.
+> Originally restated the full payment/deposit mechanics too, duplicating the FAQ's answer verbatim;
+> shortened to link to the FAQ for that detail instead. See PAGE-COPY-V4.md §9 for the exact text.
 
 ### 10 — Testimonials and awards
 **Goal:** third-party validation.
