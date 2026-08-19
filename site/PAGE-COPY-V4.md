@@ -838,10 +838,15 @@ interview them and decide who joins. They work on your tasks under your own mana
 development environment we set up to fit your infrastructure. Billed at a pre-agreed monthly rate
 per engineer, and you can scale up or down as the workload moves.
 
-**Cost line:** `[NEEDED: a decision, then a number. Something like "integration projects typically
-start at $X; full platforms run $Y to $Z depending on venues and asset classes." He has to open a
-board conversation with an order of magnitude. If we publish nothing, he anchors on whichever
-competitor did.]`
+**Cost line:** An MVP — client-facing app and admin panel, basic middleware, and a few integrations
+such as KYC, a broker, and banking — starts at around $100k. Past that, cost moves with the number
+of venues, asset classes, and regulatory regimes in scope.
+
+> **Update:** fills the `[NEEDED: a decision, then a number...]` marker that stood here. Same figure
+> and the same "starts at" framing as FAQ #1 — the two are the same claim in two places and have to
+> move together if the number ever changes. "Venues, asset classes, and regulatory regimes" is reused
+> verbatim from FAQ #2, deliberately: same vocabulary for the same source of variance, already
+> established on the page.
 
 > **Update:** *"Efficient Hours"* is our own coinage for what procurement knows as Time & Material —
 > a buyer comparing three vendors' engagement models shouldn't have to stop and decode ours, so the
@@ -870,6 +875,11 @@ competitor did.]`
 > The lede also changed from the earlier "no invented figures" framing (about our own copy process)
 > to one built from the source page's actual pitch — matching the model to requirements firmness and
 > desired involvement.
+
+> **Update:** "only" added, by request — "You pay for the actual work performed" is now "You pay
+> only for the actual work performed." Still inside the line the update above drew: it rules out a
+> padded or minimum rate, but doesn't reintroduce the estimate cap ("only efficient hours within the
+> agreed estimates are billed") that was deliberately rejected twice. That decision stands.
 
 > **Update:** the /how-we-work/ sync above introduced two instances of the same rhythmic pattern
 > flagged and fixed across §4, §5, and §6 — the Discovery card stacked two three-item lists back to
@@ -973,11 +983,21 @@ Software Developers · Top Rated Mobile App Companies · techreviewer.co
 > blog post. Three go in, covering what procurement actually asks.
 
 **1. How much does trading platform development cost?**
-It depends on the engagement model. Time & Material bills the actual work performed on your project.
-Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built
-into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or
-System Design phase is also available before committing to either. `[NEEDED: add the
-order-of-magnitude band here too, if §9 publishes one.]`
+It depends mostly on how much has to be built from scratch. Compliance and regulatory reporting can
+often be covered by integrating a provider that already handles them — where that works, you're
+paying to connect something rather than build it. Where nothing fits, we build it, and that's where
+the cost goes. For scale: a client-facing app and admin panel with basic middleware behind them, plus
+integrations for KYC, a broker, and banking, starts at around $100k. How you're billed for that is a
+separate question — see the Engagement Models section above.
+
+> **Update:** rewritten around cost drivers instead of engagement models. The original answered "how
+> do you bill" rather than "why does it cost what it costs," and closed on an unfilled
+> `[NEEDED: add the order-of-magnitude band here too, if §9 publishes one.]` marker rather than a
+> number — a buyer opening this accordion for an order of magnitude left without one. This resolves
+> that marker: the $100k figure is stated as a floor ("starts at"), by decision, not as an estimate
+> or a sufficiency claim, since it's the one price figure on the page and scope tends to grow past
+> the MVP it describes. Engagement models are demoted to a closing pointer rather than dropped — the
+> link survives, the answer just no longer leads with it.
 
 **2. How long does it take to build a trading platform?**
 An MVP typically takes three to four months, and the range widens quickly with the number of venues,
