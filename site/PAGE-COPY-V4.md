@@ -824,7 +824,7 @@ custom design, where the project calls for them, let you see the product before 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
 can change direction as you learn. A project manager holds scope, risk, and budget, and reports cost
-and progress every week. You pay for the actual work performed on your project.
+and progress every week. You pay only for the actual work performed on your project.
 
 **02 — Fixed Price**
 Requirements, price, and timeline are documented and signed before work starts, and you pay in
