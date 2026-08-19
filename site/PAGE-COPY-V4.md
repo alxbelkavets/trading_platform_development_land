@@ -405,8 +405,7 @@ aren't built to update all of those together.
 **H2:** What we've actually built and integrated
 
 **Lede:** Four lessons from our own builds, and a selection of the brokers, data feeds, custody,
-and infrastructure providers we've shipped with. Everything here comes out of projects we
-delivered ourselves.
+and infrastructure providers we've shipped with.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
@@ -449,6 +448,12 @@ delivered ourselves.
 > quantify over proper nouns, which is what the sentence was for. **Rule for this lede: any claim
 > written here covers the notes band as well as the ledger — scope it to the ledger only if it
 > moves down to the band heading at `dl.ledger`.**
+
+> **Update 3b:** the provenance sentence is cut entirely. "Everything here comes out of projects we
+> delivered ourselves" was the third wording of a sentence that had already been narrowed twice, and
+> the first clause of the lede ("from our own builds," "we've shipped with") already says where the
+> material comes from. Restating it as its own sentence added a claim to defend without adding
+> information. The rule in Update 3a still applies to anything written here later.
 
 ### Band 1 — four failure modes (cut — see Update 2 above; kept below for record only)
 
@@ -687,11 +692,9 @@ sign the NDA before it. There are no slides.
 **Then our engineers take it**
 We put a team on it: a solution architect, a fintech analyst, and a designer where design matters.
 Over one to two weeks of workshops they work through feasibility, review the integrations you'd need
-and which to start with, and sketch a high-level architecture as a few C4 diagrams. You get
+and which to start with, and sketch a high-level architecture. You get
 that back in writing with its assumptions stated, along with a cost range based on what we've
-gathered, and where it helps you decide, a clickable prototype of one or two main user flows. It's
-deliberately high level: enough to judge feasibility and take a number into a budget conversation,
-not the detail you'd build from.
+gathered, and where it helps you decide, a clickable prototype of one or two main user flows.
 
 **Why it's shaped this way**
 The first call is about your project. Once there's a fit, the people who'd actually
@@ -772,6 +775,18 @@ fixed-price Discovery or System Design phase.
 > blocks above it stopped being a clean pair. It now names what's free: the call and the written
 > outline.
 
+> **Update:** two cuts to "Then our engineers take it." "as a few C4 diagrams" is gone — the
+> deliverable is the architecture, and naming the notation was detail a buyer doesn't price against.
+> The depth table above still reads "a few C4 diagrams" as a record of how the free/paid line was
+> drawn; the free/paid split itself is unchanged, so the row stays as written.
+>
+> The closing sentence ("It's deliberately high level: enough to judge feasibility and take a number
+> into a budget conversation, not the detail you'd build from") is also cut. **Note what this costs:**
+> the update above called it the sentence that named the free step's ceiling and sold Discovery, and
+> §9's "covers the same ground... at the depth a build plan needs" was written to answer it. That
+> contrast now rests on §9 alone. If a buyer starts reading the free outline as a build-ready
+> deliverable, this is the sentence that was preventing it.
+
 ---
 
 ## 9 / How we work (`#engagement`)
@@ -782,21 +797,34 @@ fixed-price Discovery or System Design phase.
 
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
-scope has to be worked out before it can be priced. It covers the same ground as the free outline at
-the depth a build plan needs: requirements at the user-story level, an architecture worked through
-and validated rather than sketched, integrations checked against their actual APIs and contract
-terms, and a scope broken into a phased plan with an estimate against each phase. Where the project
-calls for it, the prototype extends across the product and comes with screen-by-screen UI design.
+scope has to be worked out before it can be priced. It takes the risks and unknowns down to the
+depth a build plan needs: requirements and specs, an architecture worked through and validated
+rather than sketched, integrations checked against their actual APIs and contract terms, and a
+scope broken into a phased plan with an estimate against each phase. An interactive prototype and
+custom design, where the project calls for them, let you see the product before it's built.
 
 > **Update:** rewritten as the deeper pass over the free outline's five deliverables rather than as
 > a separate activity list — see the depth table in the §8 update note for the full free/paid
 > boundary. "Covers the same ground... at the depth a build plan needs" is the load-bearing clause:
 > it tells a buyer who has already had the free outline exactly what the fee adds.
 
+> **Update:** rephrased. The opening now leads with what the buyer is paying to remove — "takes the
+> risks and unknowns down to the depth a build plan needs" — instead of positioning the phase
+> against the free outline. "Requirements at the user-story level" is shortened to "requirements and
+> specs," and the prototype line drops "extends across the product" and "screen-by-screen."
+>
+> **Note what this changes.** The clause the update above called load-bearing is gone, and so is the
+> word "free" — §9 no longer refers to the free outline at all. Combined with the §8 cut that
+> removed "deliberately high level... not the detail you'd build from," the page now states the
+> free/paid boundary in neither place. The depth table in the §8 note still records where the line
+> was drawn, but nothing on the page draws it for the buyer. The prototype line lost the other half
+> of that contrast too: §8 promises "one or two main user flows" free, and this line no longer says
+> the paid one covers more.
+
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
 can change direction as you learn. A project manager holds scope, risk, and budget, and reports cost
-and progress every week. You pay for the actual work performed on your project.
+and progress every week. You pay only for the actual work performed on your project.
 
 **02 — Fixed Price**
 Requirements, price, and timeline are documented and signed before work starts, and you pay in
@@ -810,10 +838,15 @@ interview them and decide who joins. They work on your tasks under your own mana
 development environment we set up to fit your infrastructure. Billed at a pre-agreed monthly rate
 per engineer, and you can scale up or down as the workload moves.
 
-**Cost line:** `[NEEDED: a decision, then a number. Something like "integration projects typically
-start at $X; full platforms run $Y to $Z depending on venues and asset classes." He has to open a
-board conversation with an order of magnitude. If we publish nothing, he anchors on whichever
-competitor did.]`
+**Cost line:** An MVP — client-facing app and admin panel, basic middleware, and a few integrations
+such as KYC, a broker, and banking — starts at around $100k. Past that, cost moves with the number
+of venues, asset classes, and regulatory regimes in scope.
+
+> **Update:** fills the `[NEEDED: a decision, then a number...]` marker that stood here. Same figure
+> and the same "starts at" framing as FAQ #1 — the two are the same claim in two places and have to
+> move together if the number ever changes. "Venues, asset classes, and regulatory regimes" is reused
+> verbatim from FAQ #2, deliberately: same vocabulary for the same source of variance, already
+> established on the page.
 
 > **Update:** *"Efficient Hours"* is our own coinage for what procurement knows as Time & Material —
 > a buyer comparing three vendors' engagement models shouldn't have to stop and decode ours, so the
@@ -842,6 +875,11 @@ competitor did.]`
 > The lede also changed from the earlier "no invented figures" framing (about our own copy process)
 > to one built from the source page's actual pitch — matching the model to requirements firmness and
 > desired involvement.
+
+> **Update:** "only" added, by request — "You pay for the actual work performed" is now "You pay
+> only for the actual work performed." Still inside the line the update above drew: it rules out a
+> padded or minimum rate, but doesn't reintroduce the estimate cap ("only efficient hours within the
+> agreed estimates are billed") that was deliberately rejected twice. That decision stands.
 
 > **Update:** the /how-we-work/ sync above introduced two instances of the same rhythmic pattern
 > flagged and fixed across §4, §5, and §6 — the Discovery card stacked two three-item lists back to
@@ -945,18 +983,28 @@ Software Developers · Top Rated Mobile App Companies · techreviewer.co
 > blog post. Three go in, covering what procurement actually asks.
 
 **1. How much does trading platform development cost?**
-It depends on the engagement model. Time & Material bills the actual work performed on your project.
-Fixed Price sets the whole cost upfront once requirements are documented, with a risk buffer built
-into the price. Outstaffing bills a pre-agreed monthly rate per engineer. A fixed-price Discovery or
-System Design phase is also available before committing to either. `[NEEDED: add the
-order-of-magnitude band here too, if §9 publishes one.]`
+It depends mostly on how much has to be built from scratch. Compliance and regulatory reporting can
+often be covered by integrating a provider that already handles them — where that works, you're
+paying to connect something rather than build it. Where nothing fits, we build it, and that's where
+the cost goes. For scale: a client-facing app and admin panel with basic middleware behind them, plus
+integrations for KYC, a broker, and banking, starts at around $100k. How you're billed for that is a
+separate question — see the Engagement Models section above.
+
+> **Update:** rewritten around cost drivers instead of engagement models. The original answered "how
+> do you bill" rather than "why does it cost what it costs," and closed on an unfilled
+> `[NEEDED: add the order-of-magnitude band here too, if §9 publishes one.]` marker rather than a
+> number — a buyer opening this accordion for an order of magnitude left without one. This resolves
+> that marker: the $100k figure is stated as a floor ("starts at"), by decision, not as an estimate
+> or a sufficiency claim, since it's the one price figure on the page and scope tends to grow past
+> the MVP it describes. Engagement models are demoted to a closing pointer rather than dropped — the
+> link survives, the answer just no longer leads with it.
 
 **2. How long does it take to build a trading platform?**
 An MVP typically takes three to four months, and the range widens quickly with the number of venues,
 asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a
 figure for your case rather than an average.
 
-**3. Which brokers have you integrated, and what went wrong?**
+**3. Which brokers have you integrated?**
 Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the
 market-data, KYC and payment providers listed in the engineering notes above. Each one has its own
 quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get
@@ -969,6 +1017,10 @@ build.
 > drafted IBKR gateway-restart/pacing-limit and Alpaca fractional-share examples from
 > `EXPERTISE-PROOF.md` weren't independently confirmed against a primary source this session, so
 > they're left out rather than asserted.
+
+> **Update:** "and what went wrong?" is cut from the question. The answer keeps the emulator story —
+> it's the one real gotcha with a source, and it still backs "Each one has its own quirks" — so the
+> content the old title promised is still delivered, just no longer promised by name.
 
 **4. Who owns the source code?**
 You own the IP and the source code. Ownership transfers on payment, or from day one when the
