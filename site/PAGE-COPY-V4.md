@@ -206,6 +206,14 @@ one sitting in the carousel.]`
 > (`hero-bg.webp`, `trading-app-main-image.webp`, `trading-cta-bg.webp`). The PNG source is removed;
 > `img/case5-retail-brokerage.webp` is now the only copy.
 
+> **Update:** the card's second stat now leads with the clean result instead of the error rate —
+> "50 TPS at 130ms avg, zero errors" replaces "100 TPS at <2% errors, 157ms avg." Same load test,
+> same source, and both figures are still quoted in §6; the objection was framing, not accuracy.
+> Putting `<2% errors` on the card made a failure number the focal point of the only performance
+> claim on the page, when the same run produced a zero-error result one step down the load curve.
+> The 100 TPS figure stays in §6's engineering note, where headroom testing reads as thoroughness
+> rather than as the headline.
+
 ---
 
 ## 4 / Where you're starting (`#where-to-start`)
@@ -396,9 +404,9 @@ aren't built to update all of those together.
 
 **H2:** What we've actually built and integrated
 
-**Lede:** Four incidents from our own builds, and the full list of brokers, data feeds, custody,
-and infrastructure providers we've shipped with. Nothing on this page is a capability we're
-claiming secondhand.
+**Lede:** Four lessons from our own builds, and a selection of the brokers, data feeds, custody,
+and infrastructure providers we've shipped with. Every name below is one we've integrated
+ourselves.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
@@ -421,6 +429,16 @@ claiming secondhand.
 > historical record of what shipped and why each line was worded that way — it is **not live** on
 > the page anymore. The `**Link:**` line's still-unresolved count question is moot until the
 > engineering-notes page exists, regardless of which cards are live.
+>
+> **Update 3:** two exhaustiveness claims narrowed. The lede's "the full list of" is now "a
+> selection of," "Nothing on this page is a capability we're claiming secondhand" is now "Every
+> name below is one we've integrated ourselves," and the band heading "Every integration we've
+> shipped" is now "Selected integrations we've shipped." Nobody has verified the ledger as
+> complete, and the ledger itself keeps growing (see the Update under the original spec table
+> below), so "every" was a promise the page couldn't keep. A buyer who knows of one integration
+> we've done and can't find it here turns a strong claim into a caught overstatement. The narrower
+> version claims first-hand integration of each name actually listed, which is checkable, and gives
+> up nothing the section was relying on.
 
 ### Band 1 — four failure modes (cut — see Update 2 above; kept below for record only)
 
@@ -536,7 +554,7 @@ before it carries real money.
 The retail brokerage sustains that in production while trading, portfolio, and notification flows
 stay responsive, with Kafka, Kafka Streams, Redis and WebFlux behind a WebSocket fan-out. Load tests
 held 50 transactions a second at 130ms average with no errors, and 100 a second at 157ms with under
-2%.
+2% errors.
 
 > Source: `itexus.com/portfolio/retail-brokerage-platform-with-mobile-trading-kyc-and-operations-
 > console/` — "handling more than 120,000 real-market data messages per minute," and "the platform
@@ -657,11 +675,13 @@ working under: venues, asset classes, regulatory regime, timeline, and the shape
 sign the NDA before it. There are no slides.
 
 **Then our engineers take it**
-We put a team on it: a solution architect, a fintech analyst, and a
-designer where design matters. Over one to two weeks of workshops they work through feasibility, the
-integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You
-get that back in writing with its assumptions stated, and where it would help you decide, an
-interactive prototype you can click through or look-and-feel screens of the real product.
+We put a team on it: a solution architect, a fintech analyst, and a designer where design matters.
+Over one to two weeks of workshops they work through feasibility, review the integrations you'd need
+and which to start with, and sketch a high-level architecture as a few C4 diagrams. You get
+that back in writing with its assumptions stated, along with a cost range based on what we've
+gathered, and where it helps you decide, a clickable prototype of one or two main user flows. It's
+deliberately high level: enough to judge feasibility and take a number into a budget conversation,
+not the detail you'd build from.
 
 **Why it's shaped this way**
 The first call is about your project. Once there's a fit, the people who'd actually
@@ -671,10 +691,10 @@ what matters most is giving you something solid to bring into that next conversa
 
 **Button:** Tell us what you're building
 
-**Risk-reversal line:** Both are free and carry no obligation. The write-up is yours to use whether
-or not you hire us.
+**Risk-reversal line:** The call and the written outline that follows it are free and carry no
+obligation. The write-up is yours to use whether or not you hire us.
 
-**Handoff line, into §9:** When guessing at scope is the expensive option, the next step is a
+**Handoff line, into §9:** When that outline isn't enough to commit against, the next step is a
 fixed-price Discovery or System Design phase.
 
 > **Update:** this section originally described the first call itself as the architect
@@ -715,6 +735,33 @@ fixed-price Discovery or System Design phase.
 > the trigger ("guessing at scope is the expensive option") and lets the Discovery card below it
 > carry the full reasoning.
 
+> **Update:** the free step and the §9 Discovery card were promising close to the same list —
+> workshops, architecture, an estimate, a prototype on both sides — so the page couldn't answer
+> what the paid phase buys. Both sides are now drawn by **depth**, which is where the real
+> difference sits, rather than by moving activities across the line:
+>
+> | | Free outline | Paid Discovery (§9) |
+> |---|---|---|
+> | Scoping | high level | requirements at the user-story level |
+> | Architecture | a few C4 diagrams | worked through and validated |
+> | Integrations | basic review, and which to start with | checked against actual APIs and contract terms |
+> | Prototype | one or two main user flows | across the product, plus screen-by-screen UI design |
+> | Cost | a range based on what was gathered | phased plan with an estimate against each phase |
+>
+> Nothing was moved behind the paywall. The one-to-two-week duration, the three-person team, and
+> the prototype are all real and all stay free — cutting them would understate what we do and
+> contradict `itexus.com/how-we-work`, which this section was synced from. What changed is that the
+> free step now names its own ceiling ("deliberately high level... not the detail you would build
+> from"), which is also the sentence that sells Discovery.
+>
+> The free step is offered **to qualified leads**, not to every inbound. The lede's "If there's a
+> fit" carries that gate, and contact step 3 in §12 now opens with the same clause so the condition
+> appears in both places the promise does.
+>
+> The risk-reversal line's "Both are free" left "both" pointing at nothing definite once the two
+> blocks above it stopped being a clean pair. It now names what's free: the call and the written
+> outline.
+
 ---
 
 ## 9 / How we work (`#engagement`)
@@ -725,9 +772,16 @@ fixed-price Discovery or System Design phase.
 
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
-scope has to be worked out before it can be priced. It ends in requirements at the user-story level,
-a worked-through architecture, and a scope broken into a phased plan. Where the project calls for
-it, that also produces a clickable prototype and screen-by-screen UI design.
+scope has to be worked out before it can be priced. It covers the same ground as the free outline at
+the depth a build plan needs: requirements at the user-story level, an architecture worked through
+and validated rather than sketched, integrations checked against their actual APIs and contract
+terms, and a scope broken into a phased plan with an estimate against each phase. Where the project
+calls for it, the prototype extends across the product and comes with screen-by-screen UI design.
+
+> **Update:** rewritten as the deeper pass over the free outline's five deliverables rather than as
+> a separate activity list — see the depth table in the §8 update note for the full free/paid
+> boundary. "Covers the same ground... at the depth a build plan needs" is the load-bearing clause:
+> it tells a buyer who has already had the free outline exactly what the fee adds.
 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
@@ -975,9 +1029,9 @@ reply.
 1. **You write.** We reply within 24 hours to sign the NDA and set up the call.
 2. **We talk it through:** a short call about what you're building — venues, asset classes,
    regulatory regime, timeline, and budget.
-3. **Our team designs it:** one to two weeks of workshops with a solution architect, a fintech
-   analyst, and a designer where it helps. You get an architecture and integration outline, and an
-   indicative range in writing.
+3. **Our team designs it:** if there's a fit, a solution architect, a fintech analyst, and a
+   designer where it helps spend one to two weeks on it. You get a high-level architecture, a first
+   pass at integrations, a prototype of one or two main flows, and a cost range in writing.
 4. **We start.** Once you've approved the budget, scope, and architecture, and the contract is
    signed, development starts. MVP in three to four months.
 
@@ -998,6 +1052,12 @@ reply.
 > with no record of why. Synced to match the shipped page. Step 4 was also missing a comma before
 > "and the contract," letting "architecture and the contract" briefly misread as one list item
 > before "is signed" forces a re-parse — added.
+>
+> **Update:** step 3 now opens with "if there's a fit" and bounds what comes back (high-level
+> architecture, a first pass at integrations, a prototype of one or two main flows, a cost range),
+> matching the §8 rewrite. The free step is for qualified leads and is high level throughout; this
+> step is the second place on the page that promises it, so it carries the same gate and the same
+> ceiling.
 
 > **Update:** step 3's new sentence had the same missing-comma problem step 4 was just fixed for —
 > "an architecture and integration outline and an indicative range" briefly misreads as a run-on
