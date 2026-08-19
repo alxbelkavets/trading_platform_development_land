@@ -405,8 +405,7 @@ aren't built to update all of those together.
 **H2:** What we've actually built and integrated
 
 **Lede:** Four lessons from our own builds, and a selection of the brokers, data feeds, custody,
-and infrastructure providers we've shipped with. Everything here comes out of projects we
-delivered ourselves.
+and infrastructure providers we've shipped with.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
@@ -449,6 +448,12 @@ delivered ourselves.
 > quantify over proper nouns, which is what the sentence was for. **Rule for this lede: any claim
 > written here covers the notes band as well as the ledger — scope it to the ledger only if it
 > moves down to the band heading at `dl.ledger`.**
+
+> **Update 3b:** the provenance sentence is cut entirely. "Everything here comes out of projects we
+> delivered ourselves" was the third wording of a sentence that had already been narrowed twice, and
+> the first clause of the lede ("from our own builds," "we've shipped with") already says where the
+> material comes from. Restating it as its own sentence added a claim to defend without adding
+> information. The rule in Update 3a still applies to anything written here later.
 
 ### Band 1 — four failure modes (cut — see Update 2 above; kept below for record only)
 
@@ -687,11 +692,9 @@ sign the NDA before it. There are no slides.
 **Then our engineers take it**
 We put a team on it: a solution architect, a fintech analyst, and a designer where design matters.
 Over one to two weeks of workshops they work through feasibility, review the integrations you'd need
-and which to start with, and sketch a high-level architecture as a few C4 diagrams. You get
+and which to start with, and sketch a high-level architecture. You get
 that back in writing with its assumptions stated, along with a cost range based on what we've
-gathered, and where it helps you decide, a clickable prototype of one or two main user flows. It's
-deliberately high level: enough to judge feasibility and take a number into a budget conversation,
-not the detail you'd build from.
+gathered, and where it helps you decide, a clickable prototype of one or two main user flows.
 
 **Why it's shaped this way**
 The first call is about your project. Once there's a fit, the people who'd actually
@@ -771,6 +774,18 @@ fixed-price Discovery or System Design phase.
 > The risk-reversal line's "Both are free" left "both" pointing at nothing definite once the two
 > blocks above it stopped being a clean pair. It now names what's free: the call and the written
 > outline.
+
+> **Update:** two cuts to "Then our engineers take it." "as a few C4 diagrams" is gone — the
+> deliverable is the architecture, and naming the notation was detail a buyer doesn't price against.
+> The depth table above still reads "a few C4 diagrams" as a record of how the free/paid line was
+> drawn; the free/paid split itself is unchanged, so the row stays as written.
+>
+> The closing sentence ("It's deliberately high level: enough to judge feasibility and take a number
+> into a budget conversation, not the detail you'd build from") is also cut. **Note what this costs:**
+> the update above called it the sentence that named the free step's ceiling and sold Discovery, and
+> §9's "covers the same ground... at the depth a build plan needs" was written to answer it. That
+> contrast now rests on §9 alone. If a buyer starts reading the free outline as a build-ready
+> deliverable, this is the sentence that was preventing it.
 
 ---
 
