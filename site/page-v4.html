@@ -564,7 +564,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
             <span class="badge-nda">Under NDA</span>
             <h3>Retail Brokerage Platform</h3>
             <p class="case-card-copy">A mobile brokerage for African markets with guided KYC, mobile-money funding, fractional share trading, and an operations console for compliance.</p>
-            <p class="case-stat">120,000+ market-data messages/minute in production &middot; 100 TPS at &lt;2% errors, 157ms avg</p>
+            <p class="case-stat">120,000+ market-data messages/minute in production &middot; 50 TPS at 130ms avg, zero errors</p>
             <div class="tag-row">
               <span class="tag-pill-light">Fintech</span>
               <span class="tag-pill-light">Trading</span>
@@ -712,7 +712,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       <div class="section-head-simple">
         <p class="eyebrow">04 &nbsp;/&nbsp; Engineering Notes</p>
         <h2>What we've actually built and integrated</h2>
-        <p class="lede">Four lessons from our own builds, and the full list of brokers, data feeds, custody, and infrastructure providers we've shipped with. Nothing on this page is a capability we're claiming secondhand.</p>
+        <p class="lede">Four lessons from our own builds, and a selection of the brokers, data feeds, custody, and infrastructure providers we've shipped with. Every name below is one we've integrated ourselves.</p>
       </div>
 
       <h3 class="notes-band-title">Four from our own builds</h3>
@@ -730,7 +730,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         <article class="notes-item">
           <p class="notes-source">Retail brokerage &middot; mobile, KYC, operations console</p>
           <h4>More than 120,000 market-data messages a minute</h4>
-          <p>The retail brokerage sustains that in production while trading, portfolio, and notification flows stay responsive, with Kafka, Kafka Streams, Redis and WebFlux behind a WebSocket fan-out. Load tests held 50 transactions a second at 130ms average with no errors, and 100 a second at 157ms with under 2%.</p>
+          <p>The retail brokerage sustains that in production while trading, portfolio, and notification flows stay responsive, with Kafka, Kafka Streams, Redis and WebFlux behind a WebSocket fan-out. Load tests held 50 transactions a second at 130ms average with no errors, and 100 a second at 157ms with under 2% errors.</p>
         </article>
         <article class="notes-item">
           <p class="notes-source">Coinstar wallet ecosystem</p>
@@ -739,7 +739,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </article>
       </div>
 
-      <h3 class="notes-band-title">Every integration we've shipped</h3>
+      <h3 class="notes-band-title">Selected integrations we've shipped</h3>
       <dl class="card ledger">
         <div class="ledger-row">
           <dt>Brokers and execution</dt>
@@ -808,7 +808,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
         </div>
         <div class="offer-block">
           <h3>Then our engineers take it</h3>
-          <p>We put a team on it: a solution architect, a fintech analyst, and a designer where design matters. Over one to two weeks of workshops they work through feasibility, the integrations you'd need, a high-level architecture and stack, and a workload and cost estimate. You get that back in writing with its assumptions stated, and where it would help you decide, an interactive prototype you can click through or look-and-feel screens of the real product.</p>
+          <p>We put a team on it: a solution architect, a fintech analyst, and a designer where design matters. Over one to two weeks of workshops they work through feasibility, review the integrations you'd need and which to start with, and sketch a high-level architecture as a few C4 diagrams. You get that back in writing with its assumptions stated, along with a cost range based on what we've gathered, and where it helps you decide, a clickable prototype of one or two main user flows. It's deliberately high level: enough to judge feasibility and take a number into a budget conversation, not the detail you'd build from.</p>
         </div>
         <div class="offer-block">
           <h3>Why it's shaped this way</h3>
@@ -818,9 +818,9 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
 
       <div class="offer-actions">
         <a href="#contact" class="btn btn-primary btn-lg">Tell us what you're building</a>
-        <p class="offer-risk">Both are free and carry no obligation. The write-up is yours to use whether or not you hire us.</p>
+        <p class="offer-risk">The call and the written outline that follows it are free and carry no obligation. The write-up is yours to use whether or not you hire us.</p>
       </div>
-      <p class="offer-handoff">When guessing at scope is the expensive option, the next step is a fixed-price Discovery or System Design phase.</p>
+      <p class="offer-handoff">When that outline isn't enough to commit against, the next step is a fixed-price Discovery or System Design phase.</p>
     </div>
   </section>
 
@@ -832,7 +832,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
       </div>
       <article class="card engagement-lead">
         <h3 class="engagement-lead-tag">Discovery / System Design <small>fixed price, before any of the models below</small></h3>
-        <p>We recommend this when the idea is still high level, or the project is complex enough that the scope has to be worked out before it can be priced. It ends in requirements at the user-story level, a worked-through architecture, and a scope broken into a phased plan. Where the project calls for it, that also produces a clickable prototype and screen-by-screen UI design.</p>
+        <p>We recommend this when the idea is still high level, or the project is complex enough that the scope has to be worked out before it can be priced. It covers the same ground as the free outline at the depth a build plan needs: requirements at the user-story level, an architecture worked through and validated rather than sketched, integrations checked against their actual APIs and contract terms, and a scope broken into a phased plan with an estimate against each phase. Where the project calls for it, the prototype extends across the product and comes with screen-by-screen UI design.</p>
       </article>
       <div class="engagement-grid">
         <article class="card engagement-card recommended">
@@ -963,7 +963,7 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
           </li>
           <li>
             <span class="step-num">3</span>
-            <div><p class="step-title">Our team designs it</p><p class="step-copy">One to two weeks of workshops with a solution architect, a fintech analyst, and a designer where it helps. You get an architecture and integration outline, and an indicative range in writing.</p></div>
+            <div><p class="step-title">Our team designs it</p><p class="step-copy">If there's a fit, a solution architect, a fintech analyst, and a designer where it helps spend one to two weeks on it. You get a high-level architecture, a first pass at integrations, a prototype of one or two main flows, and a cost range in writing.</p></div>
           </li>
           <li>
             <span class="step-num">4</span>
