@@ -405,8 +405,8 @@ aren't built to update all of those together.
 **H2:** What we've actually built and integrated
 
 **Lede:** Four lessons from our own builds, and a selection of the brokers, data feeds, custody,
-and infrastructure providers we've shipped with. Every name below is one we've integrated
-ourselves.
+and infrastructure providers we've shipped with. Everything here comes out of projects we
+delivered ourselves.
 
 > The buyer's fourth priority is whether we can name the hard parts before he does. This is the
 > section that answers it, and unlike everything in §3 it needs no client permission and no metrics.
@@ -431,14 +431,24 @@ ourselves.
 > engineering-notes page exists, regardless of which cards are live.
 >
 > **Update 3:** two exhaustiveness claims narrowed. The lede's "the full list of" is now "a
-> selection of," "Nothing on this page is a capability we're claiming secondhand" is now "Every
-> name below is one we've integrated ourselves," and the band heading "Every integration we've
-> shipped" is now "Selected integrations we've shipped." Nobody has verified the ledger as
-> complete, and the ledger itself keeps growing (see the Update under the original spec table
-> below), so "every" was a promise the page couldn't keep. A buyer who knows of one integration
-> we've done and can't find it here turns a strong claim into a caught overstatement. The narrower
-> version claims first-hand integration of each name actually listed, which is checkable, and gives
-> up nothing the section was relying on.
+> selection of," "Nothing on this page is a capability we're claiming secondhand" is now
+> "Everything here comes out of projects we delivered ourselves," and the band heading "Every
+> integration we've shipped" is now "Selected integrations we've shipped." Nobody has verified the
+> ledger as complete, and the ledger itself keeps growing (see the Update under the original spec
+> table below), so "every" was a promise the page couldn't keep. A buyer who knows of one
+> integration we've done and can't find it here turns a strong claim into a caught overstatement.
+> The narrower version vouches for provenance instead of completeness, which is checkable, and
+> gives up nothing the section was relying on.
+>
+> **Update 3a:** that pass first shipped the second sentence as "Every name below is one we've
+> integrated ourselves," which a post-merge review caught as a fresh overstatement of its own. The
+> lede sits above **both** bands, not just the ledger, so "every name below" also quantifies over
+> the notes cards — and those name Coinstar (a client), Kafka, Kafka Streams, Redis and WebFlux
+> (our own stack), and OFAC and FinCEN (screening regimes). None of those is an integration we
+> shipped, so the sentence was false as scoped. Rewritten to claim provenance rather than to
+> quantify over proper nouns, which is what the sentence was for. **Rule for this lede: any claim
+> written here covers the notes band as well as the ledger — scope it to the ledger only if it
+> moves down to the band heading at `dl.ledger`.**
 
 ### Band 1 — four failure modes (cut — see Update 2 above; kept below for record only)
 
