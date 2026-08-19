@@ -797,16 +797,29 @@ fixed-price Discovery or System Design phase.
 
 **Discovery / System Design** *(fixed price, before any of the models below)*
 We recommend this when the idea is still high level, or the project is complex enough that the
-scope has to be worked out before it can be priced. It covers the same ground as the free outline at
-the depth a build plan needs: requirements at the user-story level, an architecture worked through
-and validated rather than sketched, integrations checked against their actual APIs and contract
-terms, and a scope broken into a phased plan with an estimate against each phase. Where the project
-calls for it, the prototype extends across the product and comes with screen-by-screen UI design.
+scope has to be worked out before it can be priced. It takes the risks and unknowns down to the
+depth a build plan needs: requirements and specs, an architecture worked through and validated
+rather than sketched, integrations checked against their actual APIs and contract terms, and a
+scope broken into a phased plan with an estimate against each phase. An interactive prototype and
+custom design, where the project calls for them, let you see the product before it's built.
 
 > **Update:** rewritten as the deeper pass over the free outline's five deliverables rather than as
 > a separate activity list — see the depth table in the §8 update note for the full free/paid
 > boundary. "Covers the same ground... at the depth a build plan needs" is the load-bearing clause:
 > it tells a buyer who has already had the free outline exactly what the fee adds.
+
+> **Update:** rephrased. The opening now leads with what the buyer is paying to remove — "takes the
+> risks and unknowns down to the depth a build plan needs" — instead of positioning the phase
+> against the free outline. "Requirements at the user-story level" is shortened to "requirements and
+> specs," and the prototype line drops "extends across the product" and "screen-by-screen."
+>
+> **Note what this changes.** The clause the update above called load-bearing is gone, and so is the
+> word "free" — §9 no longer refers to the free outline at all. Combined with the §8 cut that
+> removed "deliberately high level... not the detail you'd build from," the page now states the
+> free/paid boundary in neither place. The depth table in the §8 note still records where the line
+> was drawn, but nothing on the page draws it for the buyer. The prototype line lost the other half
+> of that contrast too: §8 promises "one or two main user flows" free, and this line no longer says
+> the paid one covers more.
 
 **01 — Time & Material (Efficient Hours)** *(badge: Recommended)*
 *Agile with budget control.* Delivered in two-week sprints with a demo at the end of each one, so you
