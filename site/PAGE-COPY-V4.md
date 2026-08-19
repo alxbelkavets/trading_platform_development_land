@@ -984,7 +984,7 @@ An MVP typically takes three to four months, and the range widens quickly with t
 asset classes, and regulatory regimes in scope. Tell us what you're building and we'll give you a
 figure for your case rather than an average.
 
-**3. Which brokers have you integrated, and what went wrong?**
+**3. Which brokers have you integrated?**
 Interactive Brokers, first over their API and later over FIX, Alpaca, and Blackwell Global, plus the
 market-data, KYC and payment providers listed in the engineering notes above. Each one has its own
 quirks — Interactive Brokers' paper account allows one test a day, so we built an emulator to get
@@ -997,6 +997,10 @@ build.
 > drafted IBKR gateway-restart/pacing-limit and Alpaca fractional-share examples from
 > `EXPERTISE-PROOF.md` weren't independently confirmed against a primary source this session, so
 > they're left out rather than asserted.
+
+> **Update:** "and what went wrong?" is cut from the question. The answer keeps the emulator story —
+> it's the one real gotcha with a source, and it still backs "Each one has its own quirks" — so the
+> content the old title promised is still delivered, just no longer promised by name.
 
 **4. Who owns the source code?**
 You own the IP and the source code. Ownership transfers on payment, or from day one when the
