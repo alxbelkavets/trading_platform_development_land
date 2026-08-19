@@ -1180,9 +1180,11 @@ h2{font-size:36px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
     }
   }
 
+  // measure before the first render so the card never flashes at a shorter
+  // height and then grows once the real min-height is applied
+  measureTestimonialHeight();
   render();
 
-  requestAnimationFrame(measureTestimonialHeight);
   var testimonialResizeTimer;
   window.addEventListener("resize", function () {
     clearTimeout(testimonialResizeTimer);
